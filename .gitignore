@@ -1,0 +1,36 @@
+# Dependencies
+node_modules/
+web/node_modules/
+
+# Next.js build / export
+web/.next/
+web/out/
+web/next-env.d.ts
+
+# Env & secrets (MAI committare credenziali)
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# WordPress local (wp-env) e core non versionato
+cms/wordpress/
+cms/vendor/
+web/vendor/
+
+# Test / coverage
+coverage/
+playwright-report/
+test-results/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Logs
+*.log
+npm-debug.log*
