@@ -1,0 +1,501 @@
+{
+  "Nav": {
+    "ariaLabel": "Navigazione principale",
+    "auto": "Auto",
+    "commerciali": "Commerciali",
+    "usato": "Usato",
+    "noleggio": "Noleggio",
+    "assistenza": "Assistenza",
+    "chiSiamo": "Chi Siamo",
+    "contatti": "Contatti",
+    "openMenu": "Apri menù",
+    "closeMenu": "Chiudi menù",
+    "menu": "Menù",
+    "autoNuove": "Auto nuove",
+    "autoUsate": "Auto usate",
+    "km0": "Km 0",
+    "offerte": "Offerte del mese",
+    "commercialiNuovi": "Nuovi commerciali",
+    "commercialiUsati": "Usati commerciali",
+    "allestimenti": "Allestimenti",
+    "tuttoUsato": "Tutto l'usato",
+    "usatoGarantito": "Usato garantito",
+    "permuta": "Valuta la permuta",
+    "noleggioLungo": "Noleggio lungo termine",
+    "noleggioPrivati": "Per privati",
+    "noleggioAziende": "Per aziende e P.IVA",
+    "officina": "Officina autorizzata",
+    "prenotaIntervento": "Prenota intervento",
+    "ricambi": "Ricambi originali",
+    "carrozzeria": "Carrozzeria",
+    "storia": "La nostra storia",
+    "doveSiamo": "Dove siamo",
+    "orariContatti": "Orari e contatti",
+    "lavoraConNoi": "Lavora con noi"
+  },
+  "Topbar": {
+    "phoneLabel": "Telefono",
+    "whatsapp": "WhatsApp"
+  },
+  "Actions": {
+    "contattaci": "Contattaci",
+    "sfogliaCatalogo": "Sfoglia il catalogo",
+    "cerca": "Cerca",
+    "ricercaAvanzata": "Ricerca avanzata con tutti i filtri",
+    "vediTutteOfferte": "Vedi tutte le offerte",
+    "vediScheda": "Vedi scheda",
+    "prenotaIntervento": "Prenota intervento",
+    "invia": "Invia richiesta"
+  },
+  "Theme": {
+    "toggle": "Cambia tema chiaro/scuro",
+    "toLight": "Attiva tema chiaro",
+    "toDark": "Attiva tema scuro"
+  },
+  "LangSwitch": {
+    "label": "Cambia lingua",
+    "it": "IT",
+    "en": "EN"
+  },
+  "Common": {
+    "skipToContent": "Salta al contenuto",
+    "home": "Home",
+    "from": "da",
+    "loading": "Caricamento…",
+    "empty": "Nessun veicolo disponibile.",
+    "error": "Si è verificato un errore."
+  },
+  "QuickSearch": {
+    "title": "Trova la tua auto",
+    "category": "Categoria",
+    "type": "Tipo",
+    "brand": "Marca",
+    "maxPrice": "Prezzo max",
+    "allCategories": "Tutte le categorie",
+    "allTypes": "Tutti",
+    "allBrands": "Tutte",
+    "noLimit": "Nessun limite"
+  },
+  "Offers": {
+    "eyebrow": "In evidenza",
+    "title": "Auto in offerta",
+    "subtitle": "Le nostre promozioni del mese, selezionate dal team Mariani."
+  },
+  "Hero": {
+    "pause": "Metti in pausa l'animazione",
+    "play": "Riprendi l'animazione"
+  },
+  "Slider": {
+    "region": "Carosello auto in offerta",
+    "prev": "Vai all'offerta precedente",
+    "next": "Vai all'offerta successiva",
+    "pause": "Metti in pausa lo scorrimento automatico",
+    "play": "Riprendi lo scorrimento automatico",
+    "goToSlide": "Vai all'offerta {index}",
+    "slide": "Offerta {index} di {total}",
+    "dotsLabel": "Scegli l'offerta da mostrare"
+  },
+  "Spec": {
+    "fuel": {
+      "benzina": "Benzina",
+      "diesel": "Diesel",
+      "ibrido": "Ibrido",
+      "elettrico": "Elettrico",
+      "gpl": "GPL",
+      "metano": "Metano"
+    },
+    "transmission": {
+      "manuale": "Manuale",
+      "automatico": "Automatico"
+    },
+    "color": {
+      "bianco": "Bianco",
+      "nero": "Nero",
+      "grigio": "Grigio",
+      "argento": "Argento",
+      "blu": "Blu",
+      "rosso": "Rosso",
+      "verde": "Verde"
+    }
+  },
+  "Catalog": {
+    "crumb": {
+      "aria": "Percorso di navigazione",
+      "home": "Home",
+      "auto": "Auto",
+      "commerciali": "Veicoli commerciali"
+    },
+    "intro": {
+      "eyebrow": "Catalogo veicoli",
+      "auto": {
+        "title": "Catalogo auto",
+        "description": "Sfoglia tutte le auto disponibili presso la nostra sede: nuove, usate garantite e Km 0. Usa i filtri per trovare l'auto giusta per te."
+      },
+      "nuove": {
+        "title": "Auto nuove",
+        "description": "Le nostre auto nuove pronte alla consegna, con le promozioni del mese e i finanziamenti dedicati."
+      },
+      "usate": {
+        "title": "Auto usate garantite",
+        "description": "Auto usate selezionate e garantite, controllate nei nostri centri e pronte da provare."
+      },
+      "km0": {
+        "title": "Auto Km 0",
+        "description": "Vetture immatricolate a chilometri zero: risparmio immediato con la freschezza del nuovo."
+      },
+      "comm-nuovi": {
+        "title": "Veicoli commerciali nuovi",
+        "description": "Furgoni e allestimenti nuovi per il tuo lavoro, con soluzioni su misura e assistenza dedicata."
+      },
+      "comm-usati": {
+        "title": "Veicoli commerciali usati",
+        "description": "Veicoli commerciali usati controllati e garantiti, pronti a mettersi in strada."
+      }
+    },
+    "tabs": {
+      "aria": "Categoria veicoli",
+      "tutte": "Tutte",
+      "nuove": "Nuove",
+      "usate": "Usate",
+      "km0": "Km 0"
+    },
+    "filters": {
+      "aria": "Filtra i risultati",
+      "title": "Filtri",
+      "open": "Filtri",
+      "close": "Chiudi filtri",
+      "apply": "Applica filtri",
+      "reset": "Azzera"
+    },
+    "groups": {
+      "marca": "Marca",
+      "modello": "Modello",
+      "alimentazione": "Alimentazione",
+      "carrozzeria": "Carrozzeria",
+      "prezzo": "Prezzo",
+      "anno": "Anno",
+      "km": "Chilometri",
+      "potenza": "Potenza (CV)",
+      "cambio": "Cambio",
+      "trazione": "Trazione",
+      "colore": "Colore",
+      "opzioni": "Opzioni rapide"
+    },
+    "notes": {
+      "modello": "Dipende dalla marca selezionata",
+      "modelloEmpty": "Nessun modello per la selezione attuale",
+      "km": "Solo veicoli usati e Km 0"
+    },
+    "range": {
+      "from": "da",
+      "to": "a"
+    },
+    "unit": {
+      "km": "km",
+      "cv": "CV"
+    },
+    "drive": {
+      "anteriore": "Anteriore",
+      "posteriore": "Posteriore",
+      "integrale": "Integrale"
+    },
+    "toggles": {
+      "promo": "Solo in promozione",
+      "pronta": "Pronta consegna",
+      "neopatentati": "Neopatentati"
+    },
+    "sort": {
+      "label": "Ordina per",
+      "options": {
+        "recenti": "Più recenti",
+        "prezzo-asc": "Prezzo crescente",
+        "prezzo-desc": "Prezzo decrescente",
+        "km-asc": "Chilometri crescenti"
+      }
+    },
+    "results": {
+      "aria": "Risultati catalogo",
+      "count": "{count, plural, =0 {Nessun veicolo trovato} one {# veicolo trovato} other {# veicoli trovati}}",
+      "emptyTitle": "Nessun veicolo trovato",
+      "emptyHint": "Prova ad allargare i criteri di ricerca o azzera i filtri."
+    },
+    "pager": {
+      "aria": "Paginazione risultati",
+      "prev": "Pagina precedente",
+      "next": "Pagina successiva",
+      "page": "Pagina {page}"
+    }
+  },
+  "CarCard": {
+    "km": "km",
+    "new": "Nuova",
+    "used": "Usata",
+    "promo": "In promozione",
+    "ready": "Pronta consegna",
+    "hybrid": "Ibrido",
+    "electric": "Elettrico",
+    "km0": "Km 0",
+    "beginners": "Neopatentati"
+  },
+  "Footer": {
+    "catalogo": "Catalogo",
+    "azienda": "Azienda",
+    "legali": "Informazioni legali",
+    "privacy": "Privacy policy",
+    "cookie": "Cookie policy",
+    "termini": "Termini e condizioni",
+    "trasparenza": "Trasparenza",
+    "cookiePrefs": "Preferenze cookie"
+  },
+  "Form": {
+    "name": "Nome e cognome",
+    "email": "Email",
+    "phone": "Telefono",
+    "message": "Messaggio",
+    "privacy": "Ho letto e accetto l'informativa sulla privacy",
+    "required": "Campo obbligatorio",
+    "invalidEmail": "Email non valida",
+    "sending": "Invio in corso…",
+    "success": "Richiesta inviata. Ti ricontatteremo a breve.",
+    "failure": "Invio non riuscito. Riprova più tardi."
+  },
+  "Scheda": {
+    "crumb": {
+      "aria": "Percorso di navigazione",
+      "home": "Home",
+      "catalogo": "Catalogo"
+    },
+    "gallery": {
+      "thumbs": "Miniature della galleria",
+      "showPhoto": "Mostra foto {index}",
+      "counter": "Foto {index} di {total}",
+      "zoom": "Clic per ingrandire",
+      "openLightbox": "Apri la galleria a schermo intero",
+      "lightbox": "Galleria a schermo intero",
+      "close": "Chiudi galleria",
+      "prev": "Foto precedente",
+      "next": "Foto successiva"
+    },
+    "price": {
+      "listino": "Prezzo di listino",
+      "sconto": "Sconto",
+      "finale": "Prezzo finale",
+      "offerEndsIn": "Offerta valida ancora",
+      "offerUntil": "Offerta valida fino al {date}",
+      "offerExpired": "Offerta scaduta",
+      "unitDays": "g",
+      "unitHours": "h",
+      "unitMinutes": "m"
+    },
+    "cta": {
+      "quote": "Richiedi preventivo",
+      "call": "Chiama ora",
+      "whatsapp": "WhatsApp"
+    },
+    "quick": {
+      "anno": "Anno",
+      "km": "Km",
+      "alimentazione": "Alimentazione",
+      "cambio": "Cambio",
+      "potenza": "Potenza",
+      "disponibilita": "Carrozzeria"
+    },
+    "specs": {
+      "aria": "Specifiche tecniche del veicolo",
+      "dati": "Dati principali",
+      "tecniche": "Specifiche tecniche",
+      "consumi": "Consumi WLTP",
+      "dotazioni": "Dotazioni di serie",
+      "optional": "Optional",
+      "optionalNote": "Gli optional indicati sono inclusi nel prezzo. Disponibilità verificabile in sede.",
+      "fields": {
+        "tipo": "Tipo",
+        "categoria": "Categoria",
+        "marca": "Marca",
+        "modello": "Modello",
+        "versione": "Versione / Allestimento",
+        "anno": "Anno immatricolazione",
+        "km": "Chilometri",
+        "carrozzeria": "Carrozzeria",
+        "colore": "Colore esterno",
+        "potenza": "Potenza",
+        "alimentazione": "Alimentazione",
+        "cambio": "Cambio",
+        "trazione": "Trazione"
+      },
+      "tipo": {
+        "nuova": "Nuova",
+        "usata": "Usata",
+        "km0": "Km 0"
+      },
+      "categoria": {
+        "auto": "Autovettura",
+        "commerciale": "Veicolo commerciale"
+      }
+    },
+    "contact": {
+      "eyebrow": "Parla con Mariani",
+      "title": "Richiedi informazioni su {vehicle}",
+      "subtitle": "Scegli come procedere: preventivo, finanziamento, test drive o valutazione del tuo usato in permuta.",
+      "aria": "Tipo di richiesta",
+      "tabs": {
+        "preventivo": "Preventivo",
+        "finanziamento": "Finanziamento",
+        "testdrive": "Test drive",
+        "permuta": "Permuta usato"
+      }
+    },
+    "form": {
+      "nome": "Nome",
+      "cognome": "Cognome",
+      "email": "Email",
+      "telefono": "Telefono",
+      "messaggio": "Messaggio",
+      "messaggioPlaceholder": "Scrivi qui eventuali dettagli o domande…",
+      "note": "Note",
+      "anticipo": "Anticipo €",
+      "durata": "Durata (mesi)",
+      "rata": "Rata mensile desiderata €",
+      "data": "Data preferita",
+      "fascia": "Fascia oraria",
+      "fasciaMattino": "Mattino (9–13)",
+      "fasciaPomeriggio": "Pomeriggio (14–18)",
+      "permutaLegend": "La tua vettura da permutare",
+      "permutaMarca": "Marca",
+      "permutaModello": "Modello",
+      "permutaAnno": "Anno",
+      "permutaKm": "Km",
+      "privacy": "Ho letto e accetto l'<a>informativa sulla privacy</a> e acconsento al trattamento dei dati.",
+      "required": "Campo obbligatorio",
+      "invalidEmail": "Inserisci un'email valida",
+      "consentRequired": "Devi accettare l'informativa per procedere",
+      "submitPreventivo": "Invia richiesta",
+      "submitFinanziamento": "Invia richiesta",
+      "submitTestdrive": "Prenota test drive",
+      "submitPermuta": "Richiedi valutazione",
+      "sending": "Invio in corso…",
+      "success": "Richiesta inviata. Ti ricontatteremo a breve.",
+      "failure": "Invio non riuscito. Riprova o contattaci per telefono.",
+      "quotePrefill": "Vorrei ricevere un preventivo per la {vehicle} rif. {slug}.",
+      "msgFinanziamento": "Richiesta finanziamento per {vehicle} (rif. {slug}). Anticipo: {anticipo}. Durata: {durata} mesi. Rata desiderata: {rata}. Note: {note}",
+      "msgTestdrive": "Richiesta test drive per {vehicle} (rif. {slug}). Data preferita: {data}. Fascia: {fascia}. Note: {note}",
+      "msgPermuta": "Richiesta permuta per {vehicle} (rif. {slug}). Vettura da permutare: {marca} {modello}, anno {anno}, {km} km."
+    },
+    "float": {
+      "region": "Scrivici sui social",
+      "whatsapp": "Scrivici su WhatsApp",
+      "messenger": "Scrivici su Messenger",
+      "prefill": "Ciao! Sono interessato a questa auto: "
+    },
+    "similar": {
+      "eyebrow": "Potrebbero interessarti",
+      "title": "Auto simili"
+    }
+  },
+  "Pages": {
+    "noleggio": {
+      "discover": "Scopri come funziona",
+      "vantaggiEyebrow": "Perché conviene",
+      "vantaggiTitle": "Tutto incluso in un'unica rata",
+      "stepsEyebrow": "Come funziona",
+      "stepsTitle": "Dalla scelta alla consegna",
+      "durata": "Durata flessibile da {min} a {max} mesi.",
+      "serviziEyebrow": "Tutto compreso",
+      "serviziTitle": "Servizi inclusi nel canone",
+      "formEyebrow": "Preventivo gratuito",
+      "formTitle": "Richiedi informazioni"
+    },
+    "officina": {
+      "call": "Chiama assistenza",
+      "serviziEyebrow": "Cosa facciamo",
+      "serviziTitle": "I nostri servizi di officina",
+      "bookEyebrow": "Prenota online",
+      "bookTitle": "Prenota il tuo intervento",
+      "assistTitle": "Assistenza diretta",
+      "hoursTitle": "Orari officina"
+    },
+    "chiSiamo": {
+      "storiaEyebrow": "La nostra storia",
+      "doveEyebrow": "Dove siamo",
+      "doveTitle": "Vieni a trovarci in concessionaria",
+      "infoTitle": "I nostri contatti",
+      "orariEyebrow": "Orari di apertura",
+      "orariTitle": "Quando siamo aperti",
+      "vendita": "Vendita / Showroom",
+      "officina": "Officina / Assistenza",
+      "visitTitle": "Vieni a trovarci",
+      "visitText": "Ti aspettiamo in concessionaria per scoprire la tua prossima Ford o prenotare una prova su strada, senza impegno.",
+      "visitCta": "Contattaci",
+      "visitCatalog": "Sfoglia il catalogo"
+    },
+    "contatti": {
+      "formEyebrow": "Scrivici",
+      "formTitle": "Inviaci un messaggio",
+      "infoTitle": "I nostri contatti"
+    },
+    "map": {
+      "open": "Apri in mappe",
+      "openAria": "Apri in una nuova scheda la mappa della sede: {label}",
+      "aria": "Mappa della sede Mariani: {label}"
+    },
+    "hours": {
+      "giorni": "Giorni",
+      "orario": "Orario",
+      "closed": "Chiuso"
+    },
+    "contact": {
+      "indirizzo": "Indirizzo",
+      "telefono": "Telefono",
+      "email": "Email"
+    },
+    "legal": {
+      "intro": "Informativa ai sensi del Regolamento UE 2016/679 (GDPR).",
+      "updated": "Ultimo aggiornamento: {date}"
+    },
+    "form": {
+      "nome": "Nome",
+      "cognome": "Cognome",
+      "email": "Email",
+      "telefono": "Telefono",
+      "messaggio": "Messaggio",
+      "messaggioPlaceholder": "Scrivi qui eventuali richieste o domande…",
+      "oggetto": "Oggetto",
+      "oggettoVendita": "Vendita",
+      "oggettoAssistenza": "Assistenza",
+      "oggettoNoleggio": "Noleggio",
+      "oggettoAltro": "Altro",
+      "tipo": "Sei un",
+      "tipoPrivato": "Privato",
+      "tipoAzienda": "Azienda",
+      "tipoPiva": "P.IVA",
+      "veicolo": "Veicolo di interesse",
+      "durata": "Durata",
+      "durataMonths": "{count} mesi",
+      "km": "Km annui",
+      "targa": "Targa",
+      "select": "Seleziona…",
+      "privacy": "Ho letto e accetto l'<a>informativa privacy</a> e acconsento al trattamento dei dati.",
+      "marketing": "Acconsento a ricevere comunicazioni commerciali e promozionali (facoltativo).",
+      "required": "Campo obbligatorio",
+      "invalidEmail": "Inserisci un'email valida",
+      "consentRequired": "Devi accettare l'informativa per procedere",
+      "submitNoleggio": "Invia richiesta",
+      "submitOfficina": "Prenota intervento",
+      "submitContatti": "Invia messaggio",
+      "sending": "Invio in corso…",
+      "success": "Richiesta inviata. Ti ricontatteremo a breve.",
+      "failure": "Invio non riuscito. Riprova o contattaci per telefono.",
+      "responseNote": "Ti rispondiamo entro 1 giorno lavorativo.",
+      "legalNote": "I tuoi dati saranno trattati nel rispetto del Regolamento UE 2016/679 (GDPR).",
+      "msgNoleggio": "Richiesta noleggio a lungo termine. Profilo: {tipo}. Veicolo: {veicolo}. Durata: {durata}. Km/anno: {km}. Note: {messaggio}",
+      "msgOfficina": "Richiesta intervento officina. Targa: {targa}. Note: {messaggio}",
+      "msgContatti": "Oggetto: {oggetto}. Messaggio: {messaggio}"
+    }
+  },
+  "SEO": {
+    "siteName": "Mariani Concessionaria Ford",
+    "homeHeading": "Auto nuove, usate e Km0 a Piombino",
+    "homeDescription": "Concessionaria Ford Mariani a Piombino: auto nuove, usate e Km0, veicoli commerciali, noleggio a lungo termine e officina autorizzata.",
+    "defaultDescription": "Concessionaria Ford Mariani a Piombino: vendita auto nuove, usate e Km0, veicoli commerciali, noleggio a lungo termine e assistenza."
+  }
+}

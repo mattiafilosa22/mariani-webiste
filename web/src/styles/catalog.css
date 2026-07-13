@@ -1,0 +1,594 @@
+/* ============================================================
+   MARIANI · CATALOGO AUTO
+   Stili dedicati (dopo tokens/base/components). Non ridefiniscono i token.
+   ============================================================ */
+
+/* ---------- Breadcrumb ---------- */
+.breadcrumb {
+  background: var(--bg-sunken);
+  border-bottom: 1px solid var(--line);
+}
+.breadcrumb ol {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2);
+  padding-block: var(--sp-3);
+  font-size: var(--fs-sm);
+  color: var(--text-2);
+  font-family: var(--f-mono);
+}
+.breadcrumb li {
+  display: inline-flex;
+  align-items: center;
+}
+.breadcrumb a:hover {
+  color: var(--brand);
+}
+.breadcrumb [aria-current="page"] {
+  color: var(--text);
+  font-weight: 600;
+}
+.breadcrumb svg {
+  opacity: 0.5;
+}
+
+/* ---------- Intestazione pagina ---------- */
+.catalog-intro {
+  padding-block: var(--sp-7) var(--sp-5);
+}
+.catalog-intro h1 {
+  font-size: var(--fs-h1);
+  color: var(--ink);
+  margin-top: var(--sp-2);
+}
+.catalog-intro p {
+  font-size: var(--fs-lg);
+  color: var(--ink-2);
+  margin-top: var(--sp-3);
+  max-width: 640px;
+}
+
+/* ---------- Tab di categoria (link a route reali) ---------- */
+.catalog-tabs {
+  margin-bottom: var(--sp-5);
+}
+.catalog-tabs .tabs__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.catalog-tabs .tabs__btn {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+/* ---------- Layout 2 colonne ---------- */
+.catalog-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: var(--sp-6);
+  align-items: start;
+  padding-bottom: var(--sp-9);
+}
+/* Guscio statico (fallback pre-hydration / no-JS): risultati a piena larghezza. */
+.catalog-layout--static {
+  grid-template-columns: 1fr;
+}
+
+/* ============================================================
+   PANNELLO FILTRI (sticky a sinistra)
+   ============================================================ */
+.filters {
+  position: sticky;
+  top: calc(var(--header-h) + var(--sp-4));
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  max-height: calc(100vh - var(--header-h) - var(--sp-7));
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.filters__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  padding: var(--sp-4) var(--sp-5);
+  border-bottom: 1px solid var(--line);
+}
+.filters__head h2 {
+  font-size: var(--fs-h4);
+  color: var(--ink);
+}
+.filters__close {
+  display: none;
+}
+.filters__scroll {
+  overflow-y: auto;
+  flex: 1;
+  padding-bottom: var(--sp-2);
+}
+.filters__foot {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  padding: var(--sp-4) var(--sp-5);
+  border-top: 1px solid var(--line);
+  background: var(--bg-section);
+}
+
+/* ---------- Gruppo accordion ---------- */
+.fgroup {
+  border-bottom: 1px solid var(--line);
+}
+.fgroup__btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  min-height: var(--touch);
+  padding: var(--sp-4) var(--sp-5);
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: var(--fs-base);
+  color: var(--ink);
+  text-align: left;
+  background: none;
+  border: 0;
+}
+.fgroup__btn:hover {
+  background: var(--bg-section);
+}
+.fgroup__btn .chev {
+  flex: none;
+  transition: transform 0.15s ease;
+  color: var(--ink-2);
+}
+.fgroup__btn[aria-expanded="true"] .chev {
+  transform: rotate(180deg);
+}
+.fgroup__panel {
+  padding: 0 var(--sp-5) var(--sp-5);
+}
+.fgroup__panel[hidden] {
+  display: none;
+}
+.fgroup__note {
+  font-family: var(--f-mono);
+  font-size: var(--fs-xs);
+  color: var(--ink-2);
+  background: var(--bg-section);
+  border: 1px dashed var(--line-strong);
+  border-radius: 6px;
+  padding: 6px 10px;
+  margin-bottom: var(--sp-3);
+}
+.fgroup__empty {
+  font-size: var(--fs-sm);
+  color: var(--text-2);
+}
+
+/* lista checkbox compatta */
+.fcheck {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.fcheck .check {
+  padding: 6px 0;
+  min-height: var(--touch);
+  align-items: center;
+}
+.fcheck .check input {
+  margin-top: 0;
+}
+.fcheck .check label {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  font-size: var(--fs-base);
+  color: var(--ink);
+  font-weight: 400;
+}
+.fcheck .count {
+  margin-left: auto;
+  font-family: var(--f-mono);
+  font-size: var(--fs-xs);
+  color: var(--ink-2);
+}
+
+/* ---------- Range slider prezzo / km ---------- */
+.frange {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+.frange__values {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  font-family: var(--f-mono);
+  font-size: var(--fs-sm);
+  color: var(--ink);
+}
+.frange__values b {
+  font-weight: 600;
+}
+.frange__inputs {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+.frange__inputs label {
+  font-size: var(--fs-sm);
+  color: var(--ink-2);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+.frange__inputs label span {
+  width: 28px;
+  flex: none;
+  font-weight: 600;
+}
+.frange input[type="range"] {
+  flex: 1;
+  height: var(--touch);
+  accent-color: var(--brand);
+  cursor: pointer;
+}
+.frange input[type="range"]:focus-visible {
+  outline: 3px solid var(--brand);
+  outline-offset: 2px;
+}
+
+/* ---------- Colore (pallini) ---------- */
+.fcolors {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+}
+.fcolor {
+  position: relative;
+  width: var(--touch);
+  height: var(--touch);
+  min-width: var(--touch);
+  border-radius: 50%;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  border: 2px solid var(--line-strong);
+  background: var(--bg-elev);
+  cursor: pointer;
+}
+.fcolor .swatch {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  display: block;
+}
+.fcolor:hover {
+  border-color: var(--brand);
+}
+.fcolor[aria-pressed="true"] {
+  border-color: var(--brand);
+  box-shadow: 0 0 0 3px var(--brand-tint);
+}
+.fcolor[aria-pressed="true"]::after {
+  content: "";
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--blue-600)
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6L9 17l-5-5'/%3E%3C/svg%3E")
+    center / 12px no-repeat;
+}
+
+/* ---------- Toggle (interruttori) ---------- */
+.ftoggles {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+.ftoggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  min-height: var(--touch);
+  cursor: pointer;
+}
+.ftoggle > span:first-child {
+  font-size: var(--fs-base);
+  color: var(--ink);
+}
+.ftoggle input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+.ftoggle .switch {
+  flex: none;
+  position: relative;
+  width: 56px;
+  height: 32px;
+  background: var(--line-strong);
+  border-radius: 999px;
+  transition: background 0.15s ease;
+}
+.ftoggle .switch::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--bg-elev);
+  border: 1px solid var(--line-strong);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.15s ease;
+}
+.ftoggle input:checked + .switch {
+  background: var(--blue-600);
+}
+.ftoggle input:checked + .switch::after {
+  transform: translateX(24px);
+}
+.ftoggle input:focus-visible + .switch {
+  outline: 3px solid var(--brand);
+  outline-offset: 2px;
+}
+
+/* ============================================================
+   AREA RISULTATI
+   ============================================================ */
+.results {
+  min-width: 0;
+}
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  flex-wrap: wrap;
+  margin-bottom: var(--sp-5);
+}
+.toolbar__count {
+  font-size: var(--fs-lg);
+  font-family: var(--f-mono);
+  font-weight: 600;
+  color: var(--ink);
+}
+.toolbar__right {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+.toolbar__sort {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+.toolbar__sort label {
+  font-size: var(--fs-sm);
+  color: var(--ink-2);
+  white-space: nowrap;
+}
+.toolbar__sort .select {
+  min-width: 220px;
+}
+.btn-filters {
+  display: none;
+}
+.btn-filters__count {
+  display: inline-grid;
+  place-items: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: var(--radius-pill);
+  background: var(--blue-600);
+  color: #fff;
+  font-family: var(--f-mono);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+}
+
+/* griglia risultati: 3 colonne */
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-5);
+}
+
+/* stato "nessun risultato" */
+.results-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-3);
+  text-align: center;
+  padding: var(--sp-8) var(--sp-5);
+  background: var(--bg-elev);
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--radius-lg);
+}
+.results-empty h2 {
+  font-size: var(--fs-h4);
+  color: var(--ink);
+}
+.results-empty p {
+  color: var(--ink-2);
+  max-width: 420px;
+}
+
+/* ============================================================
+   PAGINAZIONE
+   ============================================================ */
+.pager {
+  margin-top: var(--sp-8);
+}
+.pager ul {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.pager button,
+.pager span.ellipsis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--touch);
+  min-height: var(--touch);
+  padding: 0 12px;
+  border-radius: var(--radius-sm);
+  border: 2px solid var(--line-strong);
+  font-family: var(--f-mono);
+  font-weight: 600;
+  font-size: var(--fs-base);
+  color: var(--text);
+  background: var(--bg-elev);
+  cursor: pointer;
+}
+.pager button:hover:not(:disabled) {
+  background: var(--brand-tint);
+  border-color: var(--brand);
+  color: var(--brand);
+}
+.pager button[aria-current="page"] {
+  background: var(--blue-600);
+  border-color: transparent;
+  color: #fff;
+}
+.pager button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.pager span.ellipsis {
+  border-color: transparent;
+  background: transparent;
+  color: var(--text-2);
+  cursor: default;
+}
+.pager .pager__arrow svg {
+  display: block;
+}
+
+/* ============================================================
+   RESPONSIVE — filtri in drawer su mobile
+   ============================================================ */
+@media (max-width: 1080px) {
+  .catalog-layout {
+    grid-template-columns: 240px 1fr;
+  }
+  .toolbar__sort .select {
+    min-width: 180px;
+  }
+}
+
+@media (max-width: 860px) {
+  .catalog-layout {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .filters {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 200;
+    width: min(90vw, 380px);
+    max-height: none;
+    border-radius: 0;
+    border: 0;
+    box-shadow: var(--shadow-lg);
+    transform: translateX(-100%);
+    transition: transform 0.2s ease;
+  }
+  body.filters-open .filters {
+    transform: translateX(0);
+  }
+  .filters__close {
+    display: inline-grid;
+    place-items: center;
+    min-width: var(--touch);
+    min-height: var(--touch);
+    border: 2px solid var(--line-strong);
+    border-radius: var(--radius-sm);
+    font-size: 1.5rem;
+    color: var(--text);
+    background: var(--bg-elev);
+    cursor: pointer;
+  }
+
+  .filters-backdrop {
+    display: none;
+  }
+  body.filters-open .filters-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(5, 8, 16, 0.6);
+    backdrop-filter: blur(2px);
+    z-index: 150;
+  }
+
+  .btn-filters {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: var(--touch);
+    padding: 10px 16px;
+    border: 2px solid var(--brand);
+    border-radius: var(--radius-pill);
+    font-weight: 600;
+    color: var(--brand);
+    background: var(--bg-elev);
+    cursor: pointer;
+  }
+  .btn-filters:hover {
+    background: var(--brand-tint);
+  }
+
+  .results-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .results-grid {
+    grid-template-columns: 1fr;
+  }
+  .toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .toolbar__right {
+    justify-content: space-between;
+  }
+  .toolbar__sort {
+    flex: 1;
+  }
+  .toolbar__sort .select {
+    min-width: 0;
+    flex: 1;
+  }
+}

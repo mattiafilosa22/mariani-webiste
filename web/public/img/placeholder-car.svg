@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360" role="img" aria-label="Foto veicolo non disponibile">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#161d2d"/>
+      <stop offset="1" stop-color="#0c1018"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="360" fill="url(#g)"/>
+  <g fill="none" stroke="#3f5a99" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" transform="translate(230 150) scale(7)">
+    <rect x="2" y="7" width="20" height="13" rx="2"/>
+    <path d="M2 13h20M7 7l2-3h6l2 3"/>
+  </g>
+</svg>

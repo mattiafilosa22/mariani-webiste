@@ -1,0 +1,140 @@
+/* ============================================================
+   DESIGN TOKENS — Mariani Concessionaria Ford Blubay
+   Fonte di verità: wireframes/assets/css/base.css
+   Dark-first + toggle light/dark · WCAG 2.1 AA · angoli squadrati
+   I font sono caricati con next/font e esposti come:
+   --font-archivo / --font-inter / --font-montserrat
+   ============================================================ */
+
+/* ---------- Costanti brand (uguali nei due temi) ---------- */
+:root {
+  --ford-navy: #003399; /* fill brand pieni con testo bianco (logo, hero) */
+  --blue-600: #1e50c8; /* fill interattivo (bottoni) — bianco 4.9:1 */
+  --blue-500: #3b6bf0;
+  --electric: #6e9bff; /* accento/glow/link su dark */
+  --green-fill: #13692f; /* bottone verde — bianco 5.6:1 (ok in light+dark) */
+  --green-fill-h: #0f5527;
+  --wa: #25d366;
+
+  /* badge a tinta piena con testo bianco (costanti) */
+  --bdg-promo: #c8102e;
+  --bdg-pronta: #15803d;
+  --bdg-ibrido: #0e7c7c;
+  --bdg-elett: #1e50c8;
+  --bdg-km0: #b45309;
+
+  /* Tipo — font caricati via next/font (variabili CSS) con fallback */
+  --f-display: var(--font-archivo), system-ui, sans-serif;
+  --f-body: var(--font-inter), system-ui, sans-serif;
+  --f-mono: var(--font-montserrat), system-ui, sans-serif;
+
+  --fs-xs: 0.875rem;
+  --fs-sm: 1rem;
+  --fs-base: 1.125rem;
+  --fs-lg: 1.375rem;
+  --fs-h4: 1.5rem;
+  --fs-h3: 2.125rem;
+  --fs-h2: 3.25rem;
+  --fs-h1: 4.25rem;
+  --fs-hero: 5.5rem;
+
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+  --sp-7: 48px;
+  --sp-8: 64px;
+  --sp-9: 104px;
+
+  /* angoli squadrati + hairline, look editoriale */
+  --radius: 0px;
+  --radius-sm: 0px;
+  --radius-lg: 0px;
+  --radius-pill: 0px;
+  --maxw: 1320px;
+  --header-h: 128px;
+  --touch: 44px;
+}
+
+/* ---------- TEMA CHIARO (default) ---------- */
+:root,
+:root[data-theme="light"] {
+  --bg: #ffffff;
+  --bg-sunken: #f4f6fb;
+  --bg-elev: #ffffff;
+  --bg-raised: #ffffff;
+  --glass: rgba(255, 255, 255, 0.78);
+  --glass-border: rgba(12, 18, 32, 0.08);
+
+  --line: #e5e9f1;
+  --line-strong: #cbd4e2;
+
+  --text: #0c1220;
+  --text-2: #51607a; /* su bianco 7.0:1 */
+  --text-faint: #647082; /* su bianco 5.0:1 · su grigio #f4f6fb 4.6:1 (WCAG AA) */
+
+  --brand: #1e50c8; /* accento testo/bordi/link — su bianco 6.0:1 */
+  --brand-dk: #163f9e;
+  --brand-tint: rgba(30, 80, 200, 0.1);
+  --link: #1e50c8;
+  --price: #c8102e;
+  --ok: #15803d;
+
+  --shadow-sm: 0 1px 2px rgba(12, 18, 32, 0.08);
+  --shadow: 0 8px 24px rgba(12, 18, 32, 0.1);
+  --shadow-lg: 0 24px 60px rgba(12, 18, 32, 0.16);
+  --glow: none;
+  --grid-ink: rgba(30, 80, 200, 0.07);
+
+  color-scheme: light;
+}
+
+/* ---------- TEMA SCURO ---------- */
+:root[data-theme="dark"] {
+  --bg: #0a0d14; /* near-black OLED */
+  --bg-sunken: #0c1018;
+  --bg-elev: #121826;
+  --bg-raised: #161d2d;
+  --glass: rgba(13, 17, 26, 0.66);
+  --glass-border: rgba(255, 255, 255, 0.1);
+
+  --line: rgba(255, 255, 255, 0.1);
+  --line-strong: rgba(255, 255, 255, 0.2);
+
+  --text: #eef2f8;
+  --text-2: #a4b0c4; /* su #0A0D14 8.9:1 · su #121826 7.4:1 */
+  --text-faint: #818da3;
+
+  --brand: #6e9bff; /* su #0A0D14 6.3:1 */
+  --brand-dk: #8fb0ff;
+  --brand-tint: rgba(110, 155, 255, 0.14);
+  --link: #6e9bff;
+  --price: #ff6b82; /* su #121826 5.0:1 */
+  --ok: #34d399;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 26px 64px rgba(0, 0, 0, 0.62);
+  --glow: 0 0 40px rgba(110, 155, 255, 0.18);
+  --grid-ink: rgba(110, 155, 255, 0.1);
+
+  color-scheme: dark;
+}
+
+/* ---------- Alias retro-compat ---------- */
+:root {
+  --ford-blue: var(--brand);
+  --ford-blue-dk: var(--brand-dk);
+  --ford-blue-12: var(--brand-tint);
+  --ink: var(--text);
+  --ink-2: var(--text-2);
+  --white: var(--bg-elev);
+  --bg-section: var(--bg-sunken);
+  --bg-section-2: var(--bg-raised);
+  --green: var(--ok);
+  --green-dk: var(--green-fill-h);
+  --promo: var(--price);
+  --amber: #b45309;
+}

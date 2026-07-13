@@ -1,0 +1,501 @@
+{
+  "Nav": {
+    "ariaLabel": "Main navigation",
+    "auto": "Cars",
+    "commerciali": "Commercial",
+    "usato": "Used",
+    "noleggio": "Rental",
+    "assistenza": "Service",
+    "chiSiamo": "About Us",
+    "contatti": "Contact",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "menu": "Menu",
+    "autoNuove": "New cars",
+    "autoUsate": "Used cars",
+    "km0": "Zero km",
+    "offerte": "Deals of the month",
+    "commercialiNuovi": "New commercial",
+    "commercialiUsati": "Used commercial",
+    "allestimenti": "Conversions",
+    "tuttoUsato": "All used",
+    "usatoGarantito": "Certified used",
+    "permuta": "Value your trade-in",
+    "noleggioLungo": "Long-term rental",
+    "noleggioPrivati": "For individuals",
+    "noleggioAziende": "For businesses and VAT",
+    "officina": "Authorised workshop",
+    "prenotaIntervento": "Book a service",
+    "ricambi": "Genuine parts",
+    "carrozzeria": "Body shop",
+    "storia": "Our story",
+    "doveSiamo": "Where we are",
+    "orariContatti": "Hours and contacts",
+    "lavoraConNoi": "Work with us"
+  },
+  "Topbar": {
+    "phoneLabel": "Phone",
+    "whatsapp": "WhatsApp"
+  },
+  "Actions": {
+    "contattaci": "Contact us",
+    "sfogliaCatalogo": "Browse the catalogue",
+    "cerca": "Search",
+    "ricercaAvanzata": "Advanced search with all filters",
+    "vediTutteOfferte": "See all deals",
+    "vediScheda": "View details",
+    "prenotaIntervento": "Book a service",
+    "invia": "Send request"
+  },
+  "Theme": {
+    "toggle": "Switch light/dark theme",
+    "toLight": "Activate light theme",
+    "toDark": "Activate dark theme"
+  },
+  "LangSwitch": {
+    "label": "Change language",
+    "it": "IT",
+    "en": "EN"
+  },
+  "Common": {
+    "skipToContent": "Skip to content",
+    "home": "Home",
+    "from": "from",
+    "loading": "Loading…",
+    "empty": "No vehicles available.",
+    "error": "Something went wrong."
+  },
+  "QuickSearch": {
+    "title": "Find your car",
+    "category": "Category",
+    "type": "Type",
+    "brand": "Brand",
+    "maxPrice": "Max price",
+    "allCategories": "All categories",
+    "allTypes": "All",
+    "allBrands": "All",
+    "noLimit": "No limit"
+  },
+  "Offers": {
+    "eyebrow": "Featured",
+    "title": "Cars on offer",
+    "subtitle": "Our deals of the month, hand-picked by the Mariani team."
+  },
+  "Hero": {
+    "pause": "Pause the animation",
+    "play": "Resume the animation"
+  },
+  "Slider": {
+    "region": "Cars on offer carousel",
+    "prev": "Go to previous offer",
+    "next": "Go to next offer",
+    "pause": "Pause automatic scrolling",
+    "play": "Resume automatic scrolling",
+    "goToSlide": "Go to offer {index}",
+    "slide": "Offer {index} of {total}",
+    "dotsLabel": "Choose the offer to show"
+  },
+  "Spec": {
+    "fuel": {
+      "benzina": "Petrol",
+      "diesel": "Diesel",
+      "ibrido": "Hybrid",
+      "elettrico": "Electric",
+      "gpl": "LPG",
+      "metano": "CNG"
+    },
+    "transmission": {
+      "manuale": "Manual",
+      "automatico": "Automatic"
+    },
+    "color": {
+      "bianco": "White",
+      "nero": "Black",
+      "grigio": "Grey",
+      "argento": "Silver",
+      "blu": "Blue",
+      "rosso": "Red",
+      "verde": "Green"
+    }
+  },
+  "Catalog": {
+    "crumb": {
+      "aria": "Breadcrumb",
+      "home": "Home",
+      "auto": "Cars",
+      "commerciali": "Commercial vehicles"
+    },
+    "intro": {
+      "eyebrow": "Vehicle catalogue",
+      "auto": {
+        "title": "Car catalogue",
+        "description": "Browse every car available at our dealership: new, certified used and zero-km. Use the filters to find the right car for you."
+      },
+      "nuove": {
+        "title": "New cars",
+        "description": "Our new cars ready for delivery, with the deals of the month and dedicated financing."
+      },
+      "usate": {
+        "title": "Certified used cars",
+        "description": "Hand-picked, certified used cars, inspected at our centres and ready for a test drive."
+      },
+      "km0": {
+        "title": "Zero-km cars",
+        "description": "Zero-km registered vehicles: immediate savings with the feel of a brand-new car."
+      },
+      "comm-nuovi": {
+        "title": "New commercial vehicles",
+        "description": "New vans and conversions for your business, with tailored solutions and dedicated support."
+      },
+      "comm-usati": {
+        "title": "Used commercial vehicles",
+        "description": "Inspected and certified used commercial vehicles, ready to hit the road."
+      }
+    },
+    "tabs": {
+      "aria": "Vehicle category",
+      "tutte": "All",
+      "nuove": "New",
+      "usate": "Used",
+      "km0": "Zero km"
+    },
+    "filters": {
+      "aria": "Filter the results",
+      "title": "Filters",
+      "open": "Filters",
+      "close": "Close filters",
+      "apply": "Apply filters",
+      "reset": "Reset"
+    },
+    "groups": {
+      "marca": "Make",
+      "modello": "Model",
+      "alimentazione": "Fuel",
+      "carrozzeria": "Body",
+      "prezzo": "Price",
+      "anno": "Year",
+      "km": "Mileage",
+      "potenza": "Power (hp)",
+      "cambio": "Transmission",
+      "trazione": "Drive",
+      "colore": "Colour",
+      "opzioni": "Quick options"
+    },
+    "notes": {
+      "modello": "Depends on the selected make",
+      "modelloEmpty": "No models for the current selection",
+      "km": "Used and zero-km only"
+    },
+    "range": {
+      "from": "from",
+      "to": "to"
+    },
+    "unit": {
+      "km": "km",
+      "cv": "hp"
+    },
+    "drive": {
+      "anteriore": "Front",
+      "posteriore": "Rear",
+      "integrale": "All-wheel"
+    },
+    "toggles": {
+      "promo": "On offer only",
+      "pronta": "Ready to drive",
+      "neopatentati": "New drivers"
+    },
+    "sort": {
+      "label": "Sort by",
+      "options": {
+        "recenti": "Most recent",
+        "prezzo-asc": "Price low to high",
+        "prezzo-desc": "Price high to low",
+        "km-asc": "Mileage low to high"
+      }
+    },
+    "results": {
+      "aria": "Catalogue results",
+      "count": "{count, plural, =0 {No vehicles found} one {# vehicle found} other {# vehicles found}}",
+      "emptyTitle": "No vehicles found",
+      "emptyHint": "Try widening your search criteria or reset the filters."
+    },
+    "pager": {
+      "aria": "Results pagination",
+      "prev": "Previous page",
+      "next": "Next page",
+      "page": "Page {page}"
+    }
+  },
+  "CarCard": {
+    "km": "km",
+    "new": "New",
+    "used": "Used",
+    "promo": "On offer",
+    "ready": "Ready to drive",
+    "hybrid": "Hybrid",
+    "electric": "Electric",
+    "km0": "Zero km",
+    "beginners": "New drivers"
+  },
+  "Footer": {
+    "catalogo": "Catalogue",
+    "azienda": "Company",
+    "legali": "Legal information",
+    "privacy": "Privacy policy",
+    "cookie": "Cookie policy",
+    "termini": "Terms and conditions",
+    "trasparenza": "Transparency",
+    "cookiePrefs": "Cookie preferences"
+  },
+  "Form": {
+    "name": "Full name",
+    "email": "Email",
+    "phone": "Phone",
+    "message": "Message",
+    "privacy": "I have read and accept the privacy policy",
+    "required": "Required field",
+    "invalidEmail": "Invalid email",
+    "sending": "Sending…",
+    "success": "Request sent. We'll get back to you soon.",
+    "failure": "Sending failed. Please try again later."
+  },
+  "Scheda": {
+    "crumb": {
+      "aria": "Breadcrumb",
+      "home": "Home",
+      "catalogo": "Catalogue"
+    },
+    "gallery": {
+      "thumbs": "Gallery thumbnails",
+      "showPhoto": "Show photo {index}",
+      "counter": "Photo {index} of {total}",
+      "zoom": "Click to enlarge",
+      "openLightbox": "Open full-screen gallery",
+      "lightbox": "Full-screen gallery",
+      "close": "Close gallery",
+      "prev": "Previous photo",
+      "next": "Next photo"
+    },
+    "price": {
+      "listino": "List price",
+      "sconto": "Discount",
+      "finale": "Final price",
+      "offerEndsIn": "Offer valid for",
+      "offerUntil": "Offer valid until {date}",
+      "offerExpired": "Offer expired",
+      "unitDays": "d",
+      "unitHours": "h",
+      "unitMinutes": "m"
+    },
+    "cta": {
+      "quote": "Request a quote",
+      "call": "Call now",
+      "whatsapp": "WhatsApp"
+    },
+    "quick": {
+      "anno": "Year",
+      "km": "Mileage",
+      "alimentazione": "Fuel",
+      "cambio": "Transmission",
+      "potenza": "Power",
+      "disponibilita": "Body"
+    },
+    "specs": {
+      "aria": "Vehicle technical specifications",
+      "dati": "Key facts",
+      "tecniche": "Technical specs",
+      "consumi": "WLTP consumption",
+      "dotazioni": "Standard equipment",
+      "optional": "Optional",
+      "optionalNote": "The optional features listed are included in the price. Availability can be checked in store.",
+      "fields": {
+        "tipo": "Type",
+        "categoria": "Category",
+        "marca": "Make",
+        "modello": "Model",
+        "versione": "Version / Trim",
+        "anno": "Registration year",
+        "km": "Mileage",
+        "carrozzeria": "Body",
+        "colore": "Exterior colour",
+        "potenza": "Power",
+        "alimentazione": "Fuel",
+        "cambio": "Transmission",
+        "trazione": "Drive"
+      },
+      "tipo": {
+        "nuova": "New",
+        "usata": "Used",
+        "km0": "Zero km"
+      },
+      "categoria": {
+        "auto": "Car",
+        "commerciale": "Commercial vehicle"
+      }
+    },
+    "contact": {
+      "eyebrow": "Talk to Mariani",
+      "title": "Request information about the {vehicle}",
+      "subtitle": "Choose how to proceed: quote, financing, test drive or a valuation of your trade-in.",
+      "aria": "Request type",
+      "tabs": {
+        "preventivo": "Quote",
+        "finanziamento": "Financing",
+        "testdrive": "Test drive",
+        "permuta": "Trade-in"
+      }
+    },
+    "form": {
+      "nome": "First name",
+      "cognome": "Last name",
+      "email": "Email",
+      "telefono": "Phone",
+      "messaggio": "Message",
+      "messaggioPlaceholder": "Write any details or questions here…",
+      "note": "Notes",
+      "anticipo": "Down payment €",
+      "durata": "Term (months)",
+      "rata": "Desired monthly payment €",
+      "data": "Preferred date",
+      "fascia": "Time slot",
+      "fasciaMattino": "Morning (9am–1pm)",
+      "fasciaPomeriggio": "Afternoon (2pm–6pm)",
+      "permutaLegend": "Your trade-in vehicle",
+      "permutaMarca": "Make",
+      "permutaModello": "Model",
+      "permutaAnno": "Year",
+      "permutaKm": "Mileage",
+      "privacy": "I have read and accept the <a>privacy policy</a> and consent to the processing of my data.",
+      "required": "Required field",
+      "invalidEmail": "Enter a valid email",
+      "consentRequired": "You must accept the policy to continue",
+      "submitPreventivo": "Send request",
+      "submitFinanziamento": "Send request",
+      "submitTestdrive": "Book a test drive",
+      "submitPermuta": "Request a valuation",
+      "sending": "Sending…",
+      "success": "Request sent. We'll get back to you soon.",
+      "failure": "Sending failed. Please try again or call us.",
+      "quotePrefill": "I would like a quote for the {vehicle} ref. {slug}.",
+      "msgFinanziamento": "Financing request for {vehicle} (ref. {slug}). Down payment: {anticipo}. Term: {durata} months. Desired payment: {rata}. Notes: {note}",
+      "msgTestdrive": "Test drive request for {vehicle} (ref. {slug}). Preferred date: {data}. Slot: {fascia}. Notes: {note}",
+      "msgPermuta": "Trade-in request for {vehicle} (ref. {slug}). Trade-in vehicle: {marca} {modello}, year {anno}, {km} km."
+    },
+    "float": {
+      "region": "Message us on social",
+      "whatsapp": "Message us on WhatsApp",
+      "messenger": "Message us on Messenger",
+      "prefill": "Hi! I'm interested in this car: "
+    },
+    "similar": {
+      "eyebrow": "You might also like",
+      "title": "Similar cars"
+    }
+  },
+  "Pages": {
+    "noleggio": {
+      "discover": "See how it works",
+      "vantaggiEyebrow": "Why it's worth it",
+      "vantaggiTitle": "Everything included in one fee",
+      "stepsEyebrow": "How it works",
+      "stepsTitle": "From choice to handover",
+      "durata": "Flexible duration from {min} to {max} months.",
+      "serviziEyebrow": "All-inclusive",
+      "serviziTitle": "Services included in the fee",
+      "formEyebrow": "Free quote",
+      "formTitle": "Request information"
+    },
+    "officina": {
+      "call": "Call assistance",
+      "serviziEyebrow": "What we do",
+      "serviziTitle": "Our workshop services",
+      "bookEyebrow": "Book online",
+      "bookTitle": "Book your service",
+      "assistTitle": "Direct assistance",
+      "hoursTitle": "Workshop hours"
+    },
+    "chiSiamo": {
+      "storiaEyebrow": "Our story",
+      "doveEyebrow": "Where we are",
+      "doveTitle": "Come and visit our dealership",
+      "infoTitle": "Our contacts",
+      "orariEyebrow": "Opening hours",
+      "orariTitle": "When we are open",
+      "vendita": "Sales / Showroom",
+      "officina": "Workshop / Service",
+      "visitTitle": "Come and visit us",
+      "visitText": "We look forward to welcoming you at the dealership to discover your next Ford or to book a test drive, with no obligation.",
+      "visitCta": "Contact us",
+      "visitCatalog": "Browse the catalogue"
+    },
+    "contatti": {
+      "formEyebrow": "Write to us",
+      "formTitle": "Send us a message",
+      "infoTitle": "Our contacts"
+    },
+    "map": {
+      "open": "Open in maps",
+      "openAria": "Open the dealership map in a new tab: {label}",
+      "aria": "Map of the Mariani dealership: {label}"
+    },
+    "hours": {
+      "giorni": "Days",
+      "orario": "Hours",
+      "closed": "Closed"
+    },
+    "contact": {
+      "indirizzo": "Address",
+      "telefono": "Phone",
+      "email": "Email"
+    },
+    "legal": {
+      "intro": "Notice pursuant to EU Regulation 2016/679 (GDPR).",
+      "updated": "Last updated: {date}"
+    },
+    "form": {
+      "nome": "First name",
+      "cognome": "Last name",
+      "email": "Email",
+      "telefono": "Phone",
+      "messaggio": "Message",
+      "messaggioPlaceholder": "Write any requests or questions here…",
+      "oggetto": "Subject",
+      "oggettoVendita": "Sales",
+      "oggettoAssistenza": "Service",
+      "oggettoNoleggio": "Rental",
+      "oggettoAltro": "Other",
+      "tipo": "You are a",
+      "tipoPrivato": "Private customer",
+      "tipoAzienda": "Company",
+      "tipoPiva": "VAT holder",
+      "veicolo": "Vehicle of interest",
+      "durata": "Duration",
+      "durataMonths": "{count} months",
+      "km": "Annual mileage",
+      "targa": "Number plate",
+      "select": "Select…",
+      "privacy": "I have read and accept the <a>privacy policy</a> and consent to the processing of my data.",
+      "marketing": "I agree to receive commercial and promotional communications (optional).",
+      "required": "Required field",
+      "invalidEmail": "Enter a valid email",
+      "consentRequired": "You must accept the notice to proceed",
+      "submitNoleggio": "Send request",
+      "submitOfficina": "Book service",
+      "submitContatti": "Send message",
+      "sending": "Sending…",
+      "success": "Request sent. We'll get back to you shortly.",
+      "failure": "Sending failed. Try again or contact us by phone.",
+      "responseNote": "We reply within 1 working day.",
+      "legalNote": "Your data will be processed in accordance with EU Regulation 2016/679 (GDPR).",
+      "msgNoleggio": "Long-term rental request. Profile: {tipo}. Vehicle: {veicolo}. Duration: {durata}. Mileage/year: {km}. Notes: {messaggio}",
+      "msgOfficina": "Workshop service request. Plate: {targa}. Notes: {messaggio}",
+      "msgContatti": "Subject: {oggetto}. Message: {messaggio}"
+    }
+  },
+  "SEO": {
+    "siteName": "Mariani Ford Dealership",
+    "homeHeading": "New, used and Km0 cars in Piombino",
+    "homeDescription": "Mariani Ford dealership in Piombino: new, used and Km0 cars, commercial vehicles, long-term rental and authorised workshop.",
+    "defaultDescription": "Mariani Ford dealership in Piombino: new, used and Km0 cars, commercial vehicles, long-term rental and service."
+  }
+}

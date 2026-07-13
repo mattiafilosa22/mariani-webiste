@@ -1,0 +1,29 @@
+# Mariani Concessionaria Ford
+
+> Concessionaria Ford Mariani (Ford Blubay) a Piombino (LI), Italia. Vendita di
+> auto nuove, usate e Km0, veicoli commerciali, noleggio a lungo termine e
+> officina autorizzata Ford. Sito bilingue italiano/inglese.
+
+Sede: Via Adige 3, 57025 Piombino (LI). Telefono: 0565 276520.
+Le pagine esistono nelle versioni italiana (`/it/...`) e inglese (`/en/...`).
+
+## Cataloghi
+- [Tutte le auto](https://www.marianiford.it/it/auto/): catalogo completo con filtri.
+- [Auto nuove](https://www.marianiford.it/it/auto/nuove/)
+- [Auto usate](https://www.marianiford.it/it/auto/usate/)
+- [Auto Km0](https://www.marianiford.it/it/auto/km0/)
+- [Veicoli commerciali nuovi](https://www.marianiford.it/it/veicoli-commerciali/nuovi/)
+- [Veicoli commerciali usati](https://www.marianiford.it/it/veicoli-commerciali/usati/)
+
+## Servizi
+- [Noleggio a lungo termine](https://www.marianiford.it/it/noleggio/)
+- [Officina e assistenza](https://www.marianiford.it/it/officina/)
+
+## Azienda
+- [Chi siamo e dove siamo](https://www.marianiford.it/it/chi-siamo/)
+- [Contatti](https://www.marianiford.it/it/contatti/)
+
+## Riferimenti
+- [Sitemap](https://www.marianiford.it/sitemap.xml)
+- [Privacy policy](https://www.marianiford.it/it/privacy-policy/)
+- [Cookie policy](https://www.marianiford.it/it/cookie-policy/)

@@ -1,0 +1,57 @@
+# Mariani Concessionaria Ford — descrizione estesa
+
+> Concessionaria Ford Mariani (Ford Blubay) a Piombino (LI), Italia.
+> Sito vetrina bilingue (italiano/inglese) in static export, con catalogo auto
+> alimentato da un backend WordPress headless. Ogni contenuto è disponibile in
+> due lingue sotto i prefissi di percorso `/it/` e `/en/`.
+
+## Chi è Mariani
+Mariani è una concessionaria ufficiale Ford con showroom e officina autorizzata
+a Piombino, in provincia di Livorno (Toscana). Offre vendita di veicoli nuovi,
+usati e a chilometri zero, veicoli commerciali, formule di noleggio a lungo
+termine e servizi di assistenza/manutenzione con ricambi originali Ford.
+
+Sede: Via Adige 3, 57025 Piombino (LI).
+Telefono: 0565 276520.
+Area servita: Piombino e Val di Cornia (provincia di Livorno).
+
+## Struttura del sito
+Il sito è organizzato in tre aree principali: cataloghi veicoli, servizi e
+informazioni aziendali. Le schede dei singoli veicoli vivono sotto
+`/{lingua}/auto/{slug}/` e riportano marca, modello, versione, anno,
+chilometraggio, alimentazione, cambio, prezzo e galleria fotografica.
+
+### Cataloghi
+- Tutte le auto: https://www.marianiford.it/it/auto/
+- Auto nuove: https://www.marianiford.it/it/auto/nuove/
+- Auto usate: https://www.marianiford.it/it/auto/usate/
+- Auto Km0: https://www.marianiford.it/it/auto/km0/
+- Veicoli commerciali nuovi: https://www.marianiford.it/it/veicoli-commerciali/nuovi/
+- Veicoli commerciali usati: https://www.marianiford.it/it/veicoli-commerciali/usati/
+
+Ogni catalogo offre filtri per marca, modello, alimentazione, carrozzeria,
+cambio, trazione, colore, prezzo, anno, chilometri e potenza, oltre a
+ordinamento e paginazione. Le schede includono dati strutturati schema.org
+di tipo `Car` con `offers` in euro.
+
+### Servizi
+- Noleggio a lungo termine: https://www.marianiford.it/it/noleggio/
+  Canone mensile fisso con manutenzione, assicurazione e assistenza incluse.
+- Officina e assistenza: https://www.marianiford.it/it/officina/
+  Tagliandi, revisioni, diagnosi e riparazioni con tecnici certificati Ford.
+
+### Azienda e contatti
+- Chi siamo / dove siamo: https://www.marianiford.it/it/chi-siamo/
+  Storia dell'attività, mappa della sede e orari di apertura.
+- Contatti: https://www.marianiford.it/it/contatti/
+  Modulo richiesta, recapiti telefonici e indicazioni stradali.
+
+## Versioni linguistiche
+Le stesse pagine in inglese sono raggiungibili sostituendo `/it/` con `/en/`,
+ad esempio https://www.marianiford.it/en/auto/. I collegamenti reciproci sono
+dichiarati via hreflang in ogni pagina e nella sitemap.
+
+## Riferimenti tecnici
+- Sitemap XML: https://www.marianiford.it/sitemap.xml
+- Privacy policy: https://www.marianiford.it/it/privacy-policy/
+- Cookie policy: https://www.marianiford.it/it/cookie-policy/
