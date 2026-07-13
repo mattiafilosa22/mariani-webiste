@@ -1,0 +1,75 @@
+name: Build & Deploy (static export → VHosting)
+
+# Trigger:
+#  - push su main (deploy del codice)
+#  - repository_dispatch inviato dal webhook WordPress su publish/aggiornamento contenuti
+on:
+  push:
+    branches: [main]
+  repository_dispatch:
+    types: [wp-content-updated]
+  workflow_dispatch: {}
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: true
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - name: Install dependencies
+        working-directory: web
+        run: npm ci
+
+      - name: Build static export
+        working-directory: web
+        env:
+          # URL dell'API WordPress headless usato a BUILD TIME (fetch dei contenuti)
+          WP_API_URL: ${{ secrets.WP_API_URL }}
+          # Stesso URL ma esposto al BROWSER: serve al form contatti per il POST /lead
+          # a runtime (in export statico l'URL va "cotto" nel bundle). Senza, il form
+          # posterebbe sul dominio principale e non raggiungerebbe cms.<dominio>.
+          NEXT_PUBLIC_WP_API_URL: ${{ secrets.WP_API_URL }}
+          # URL pubblico del sito (per canonical, sitemap, hreflang, OG)
+          NEXT_PUBLIC_SITE_URL: ${{ secrets.SITE_URL }}
+        run: npm run build
+
+      - name: Verify export output
+        working-directory: web
+        run: test -f out/it/index.html && test -f out/en/index.html
+
+      - name: Deploy via rsync over SSH
+        uses: burnett01/rsync-deployments@7.0.2
+        with:
+          switches: -az --delete --exclude='.well-known'
+          path: web/out/
+          remote_path: ${{ secrets.VHOSTING_REMOTE_PATH }} # es. /home/utente/public_html/
+          remote_host: ${{ secrets.VHOSTING_SSH_HOST }}
+          remote_port: ${{ secrets.VHOSTING_SSH_PORT }}     # tipicamente 22
+          remote_user: ${{ secrets.VHOSTING_SSH_USER }}
+          remote_key: ${{ secrets.VHOSTING_SSH_KEY }}       # chiave privata SSH (solo in Secrets)
+
+      # Opzionale: purge cache Cloudflare dopo il deploy.
+      # I secret passano da env (mai interpolati direttamente nel comando run:).
+      - name: Purge Cloudflare cache
+        if: ${{ secrets.CLOUDFLARE_ZONE_ID != '' }}
+        env:
+          CF_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
+          CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          curl -sS -X POST \
+            "https://api.cloudflare.com/client/v4/zones/${CF_ZONE_ID}/purge_cache" \
+            -H "Authorization: Bearer ${CF_API_TOKEN}" \
+            -H "Content-Type: application/json" \
+            --data '{"purge_everything":true}'
