@@ -55,7 +55,7 @@ jobs:
           Host *.drush.in
             IdentityFile ~/.ssh/pantheon
             IdentitiesOnly yes
-            StrictHostKeyChecking no
+            StrictHostKeyChecking accept-new
             Port 2222
           CFG
 

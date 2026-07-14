@@ -34,3 +34,6 @@ Thumbs.db
 # Logs
 *.log
 npm-debug.log*
+
+# Config locale deploy Pantheon (segreti, non tracciare)
+scripts/.pantheon.env
