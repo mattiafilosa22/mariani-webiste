@@ -33,7 +33,7 @@ final class Catalog {
 	 *
 	 * @var string
 	 */
-	private const LNG = '10.5236';
+	private const LNG = '10.5210';
 
 	/**
 	 * Termini tassonomici da garantire (slug => nome).
@@ -47,59 +47,39 @@ final class Catalog {
 					'slug' => 'ford',
 					'name' => 'Ford',
 				),
-				array(
-					'slug' => 'volkswagen',
-					'name' => 'Volkswagen',
-				),
-				array(
-					'slug' => 'toyota',
-					'name' => 'Toyota',
-				),
 			),
 			'modello'       => array(
+				array(
+					'slug' => 'explorer',
+					'name' => 'Explorer',
+				),
+				array(
+					'slug' => 'mustang-mach-e',
+					'name' => 'Mustang Mach-E',
+				),
 				array(
 					'slug' => 'puma',
 					'name' => 'Puma',
 				),
 				array(
-					'slug' => 'puma-st',
-					'name' => 'Puma ST',
-				),
-				array(
-					'slug' => 'kuga',
-					'name' => 'Kuga',
+					'slug' => 'puma-gen-e',
+					'name' => 'Puma Gen-E',
 				),
 				array(
 					'slug' => 'focus',
 					'name' => 'Focus',
 				),
 				array(
-					'slug' => 'fiesta',
-					'name' => 'Fiesta',
-				),
-				array(
-					'slug' => 'explorer',
-					'name' => 'Explorer',
-				),
-				array(
-					'slug' => 'explorer-ev',
-					'name' => 'Explorer EV',
-				),
-				array(
-					'slug' => 'transit',
-					'name' => 'Transit',
-				),
-				array(
-					'slug' => 'transit-custom',
-					'name' => 'Transit Custom',
+					'slug' => 'kuga',
+					'name' => 'Kuga',
 				),
 				array(
 					'slug' => 'tourneo',
 					'name' => 'Tourneo',
 				),
 				array(
-					'slug' => 'golf',
-					'name' => 'Golf',
+					'slug' => 'tourneo-custom',
+					'name' => 'Tourneo Custom',
 				),
 			),
 			'carrozzeria'   => array(
@@ -158,22 +138,27 @@ final class Catalog {
 	}
 
 	/**
-	 * Elenco delle auto di demo (10 veicoli, 4 in evidenza, 2 commerciali).
+	 * Elenco delle 11 auto reali del concessionario (5 in evidenza, 2 commerciali).
+	 *
+	 * I dati numerici (km, anno, prezzi, potenza) sono a 0/placeholder in attesa
+	 * di conferma dal concessionario: il front-end li rende come "n.d." o
+	 * "Prezzo su richiesta". Le foto reali sono importate da cms/seed/media/cars.
 	 *
 	 * @return array<int,array<string,mixed>>
 	 */
 	public static function autos(): array {
 		return array(
-			self::puma_hybrid(),
-			self::explorer_ev(),
-			self::kuga_full_hybrid(),
-			self::focus_active(),
-			self::fiesta_connect(),
-			self::puma_st(),
-			self::transit_custom(),
-			self::kuga_phev(),
-			self::transit_van(),
-			self::golf_tdi(),
+			self::car( 'ford-explorer', 'Explorer', 'explorer', '', 'nuova', 'auto', 'elettrico', 'suv', 'automatico', 'Blu', '#1f3a5f', true ),
+			self::car( 'ford-mustang-mach-e', 'Mustang Mach-E', 'mustang-mach-e', '', 'nuova', 'auto', 'elettrico', 'suv', 'automatico', 'Nero', '#111114', true ),
+			self::car( 'ford-puma-st-line-x', 'Puma', 'puma', 'ST-Line X', 'nuova', 'auto', 'benzina', 'suv-compatto', 'manuale', 'Grigio', '#6b7280', true ),
+			self::car( 'ford-puma-e', 'Puma Gen-E', 'puma-gen-e', '', 'nuova', 'auto', 'elettrico', 'suv-compatto', 'automatico', 'Nero', '#111114', true ),
+			self::car( 'ford-focus-grigia-chiaro', 'Focus', 'focus', '', 'usata', 'auto', 'benzina', 'berlina', 'manuale', 'Grigio', '#9ca3af', false ),
+			self::car( 'ford-focus-grigia-scuro', 'Focus', 'focus', '', 'usata', 'auto', 'benzina', 'berlina', 'manuale', 'Grigio', '#4b5563', false ),
+			self::car( 'ford-focus-rossa', 'Focus', 'focus', '', 'usata', 'auto', 'benzina', 'berlina', 'manuale', 'Rosso', '#8f1d21', false ),
+			self::car( 'ford-kuga-phev', 'Kuga', 'kuga', 'PHEV', 'usata', 'auto', 'ibrido', 'suv', 'automatico', 'Nero', '#111114', true ),
+			self::car( 'ford-puma-bianca-km0', 'Puma', 'puma', '', 'km0', 'auto', 'benzina', 'suv-compatto', 'manuale', 'Bianco', '#e5e7eb', false ),
+			self::car( 'ford-tourneo', 'Tourneo', 'tourneo', '', 'nuova', 'commerciale', 'diesel', 'monovolume', 'manuale', 'Bianco', '#f3f4f6', false ),
+			self::car( 'ford-tourneo-custom', 'Tourneo Custom', 'tourneo-custom', '', 'nuova', 'commerciale', 'diesel', 'furgone', 'manuale', 'Nero', '#111114', false ),
 		);
 	}
 
@@ -209,12 +194,15 @@ final class Catalog {
 				'mariani_set_copyright'       => '© Mariani S.r.l. — Tutti i diritti riservati',
 				'mariani_set_privacy_url'     => '/privacy-policy',
 				'mariani_set_cookie_url'      => '/cookie-policy',
+				'mariani_set_hero_image'      => new MediaRef( 'hero-mache' ),
+				'mariani_set_foto_credit'     => 'Foto reali dei veicoli in vendita presso la nostra sede di Piombino — scatti di nostra proprietà.',
 			),
 			'meta_en'  => array(
 				'mariani_set_orari_vendita'  => "Monday–Friday: 8:30–12:30 am / 2:30–6:30 pm\nSaturday–Sunday: closed",
 				'mariani_set_orari_officina' => "Monday–Friday: 8:00–12:30 am / 2:00–6:00 pm\nSaturday–Sunday: closed",
 				'mariani_set_slogan'         => 'Your trusted Ford dealership in Piombino',
 				'mariani_set_copyright'      => '© Mariani S.r.l. — All rights reserved',
+				'mariani_set_foto_credit'    => 'Real photos of vehicles for sale at our Piombino dealership — shot by us.',
 			),
 		);
 	}
@@ -237,566 +225,91 @@ final class Catalog {
 	}
 
 	/**
-	 * Ford Puma 1.0 EcoBoost Hybrid Titanium (in evidenza).
+	 * Costruisce il record di un veicolo reale con i dati minimi confermati.
 	 *
+	 * I campi numerici non ancora forniti dal concessionario restano a 0 (km,
+	 * anno, prezzi, potenza) oppure a null (cilindrata, CO2, consumi...), cosi il
+	 * presenter li omette e il front-end mostra "n.d." / "Prezzo su richiesta".
+	 *
+	 * @param string $ref            Slug canonico (coincide con la cartella foto).
+	 * @param string $modello_nome   Nome del modello (per il titolo/alt).
+	 * @param string $modello_slug   Slug del termine modello.
+	 * @param string $versione       Versione/allestimento (puo essere vuota).
+	 * @param string $tipo           Tipo veicolo (nuova|usata|km0).
+	 * @param string $categoria      Categoria (auto|commerciale).
+	 * @param string $alimentazione  Slug alimentazione.
+	 * @param string $carrozzeria    Slug carrozzeria.
+	 * @param string $cambio         Cambio (manuale|automatico).
+	 * @param string $colore_label   Etichetta colore (IT, normalizzata dal presenter).
+	 * @param string $colore_hex     Colore esterno in esadecimale (swatch UI).
+	 * @param bool   $in_evidenza    Se mostrarla tra i veicoli in evidenza.
 	 * @return array<string,mixed>
 	 */
-	private static function puma_hybrid(): array {
-		return array(
-			'ref'           => 'ford-puma-ecoboost-hybrid-titanium',
-			'title'         => 'Ford Puma 1.0 EcoBoost Hybrid Titanium',
-			'content'       => 'Ford Puma in allestimento Titanium con motore mild hybrid EcoBoost: brillante, efficiente e ricca di dotazioni, pronta alla consegna.',
-			'tipo'          => 'nuova',
-			'categoria'     => 'auto',
-			'marca'         => 'ford',
-			'modello'       => 'puma',
-			'alimentazione' => 'ibrido',
-			'carrozzeria'   => 'suv-compatto',
-			'versione'      => '1.0 EcoBoost Hybrid Titanium',
-			'anno'          => '2024-03-01',
-			'km'            => 0,
-			'cambio'        => 'automatico',
-			'trazione'      => 'anteriore',
-			'listino'       => 28500,
-			'sconto'        => 3600,
-			'promo'         => 24900,
-			'scadenza'      => '2026-08-31',
-			'in_evidenza'   => true,
-			'pronta'        => true,
-			'neopatentati'  => false,
-			'garanzia'      => '24 mesi',
-			'cilindrata'    => 999,
-			'potenza_cv'    => 125,
-			'co2'           => 112,
-			'consumo_wltp'  => 5.0,
-			'autonomia'     => null,
-			'classe'        => 'euro6d',
-			'posti'         => 5,
-			'porte'         => 5,
-			'colore_est'    => 'Blu Chrome',
-			'colore_hex'    => '#1f3a5f',
-			'colore_int'    => 'Nero',
-			'dotazioni'     => array( 'Climatizzatore automatico', 'Cerchi in lega 17"', 'Sensori di parcheggio' ),
-			'optional'      => array( 'Tetto panoramico', 'Pacchetto Winter' ),
-			'media'         => array( 'esterno-fronte', 'esterno-lato', 'abitacolo' ),
-			'commerciale'   => null,
-			'en'            => array(
-				'content'    => 'Ford Puma in Titanium trim with the EcoBoost mild-hybrid engine: lively, efficient and generously equipped, ready for delivery.',
-				'dotazioni'  => array( 'Automatic climate control', '17" alloy wheels', 'Parking sensors' ),
-				'optional'   => array( 'Panoramic roof', 'Winter pack' ),
-				'garanzia'   => '24 months',
-				'colore_est' => 'Chrome Blue',
-				'colore_int' => 'Black',
-			),
-		);
-	}
+	private static function car(
+		string $ref,
+		string $modello_nome,
+		string $modello_slug,
+		string $versione,
+		string $tipo,
+		string $categoria,
+		string $alimentazione,
+		string $carrozzeria,
+		string $cambio,
+		string $colore_label,
+		string $colore_hex,
+		bool $in_evidenza
+	): array {
+		$title = trim( 'Ford ' . $modello_nome . ' ' . $versione );
 
-	/**
-	 * Ford Explorer EV Standard Range RWD (in evidenza, elettrica).
-	 *
-	 * @return array<string,mixed>
-	 */
-	private static function explorer_ev(): array {
 		return array(
-			'ref'           => 'ford-explorer-ev-standard-range-rwd',
-			'title'         => 'Ford Explorer EV Standard Range RWD',
-			'content'       => 'Il nuovo SUV elettrico Ford Explorer: 374 km di autonomia WLTP, ricarica rapida e abitacolo tecnologico. Zero emissioni allo scarico.',
-			'tipo'          => 'nuova',
-			'categoria'     => 'auto',
+			'ref'           => $ref,
+			'title'         => $title,
+			'content'       => sprintf(
+				'%s disponibile presso Mariani Concessionaria a Piombino. Contattaci per informazioni su prezzo, disponibilità ed eventuale prova su strada.',
+				$title
+			),
+			'tipo'          => $tipo,
+			'categoria'     => $categoria,
 			'marca'         => 'ford',
-			'modello'       => 'explorer-ev',
-			'alimentazione' => 'elettrico',
-			'carrozzeria'   => 'suv',
-			'versione'      => 'Standard Range RWD',
-			'anno'          => '2025-01-01',
+			'modello'       => $modello_slug,
+			'alimentazione' => $alimentazione,
+			'carrozzeria'   => $carrozzeria,
+			'versione'      => $versione,
+			'anno'          => '',
 			'km'            => 0,
-			'cambio'        => 'automatico',
-			'trazione'      => 'posteriore',
-			'listino'       => 45900,
-			'sconto'        => 4400,
-			'promo'         => 41500,
-			'scadenza'      => '2026-09-30',
-			'in_evidenza'   => true,
+			'cambio'        => $cambio,
+			'trazione'      => 'anteriore',
+			'listino'       => 0,
+			'sconto'        => 0,
+			'promo'         => null,
+			'scadenza'      => '',
+			'in_evidenza'   => $in_evidenza,
 			'pronta'        => false,
 			'neopatentati'  => false,
-			'garanzia'      => '24 mesi',
+			'garanzia'      => '',
 			'cilindrata'    => null,
-			'potenza_cv'    => 170,
-			'co2'           => 0,
+			'potenza_cv'    => 0,
+			'co2'           => null,
 			'consumo_wltp'  => null,
-			'autonomia'     => 374,
+			'autonomia'     => null,
 			'classe'        => '',
-			'posti'         => 5,
-			'porte'         => 5,
-			'colore_est'    => 'Grigio Artico',
-			'colore_hex'    => '#37414f',
-			'colore_int'    => 'Grigio',
-			'dotazioni'     => array( 'Pompa di calore', 'Ricarica rapida 100 kW', 'Navigatore connesso' ),
-			'optional'      => array( 'Vernice metallizzata' ),
-			'media'         => array( 'esterno-fronte', 'esterno-lato', 'abitacolo' ),
-			'commerciale'   => null,
-			'en'            => array(
-				'content'    => 'The new all-electric Ford Explorer SUV: 374 km WLTP range, fast charging and a tech-rich cabin. Zero tailpipe emissions.',
-				'dotazioni'  => array( 'Heat pump', '100 kW fast charging', 'Connected navigation' ),
-				'optional'   => array( 'Metallic paint' ),
-				'garanzia'   => '24 months',
-				'colore_est' => 'Arctic Grey',
-				'colore_int' => 'Grey',
-			),
-		);
-	}
-
-	/**
-	 * Ford Kuga 2.5 Full Hybrid ST-Line (in evidenza, Km 0).
-	 *
-	 * @return array<string,mixed>
-	 */
-	private static function kuga_full_hybrid(): array {
-		return array(
-			'ref'           => 'ford-kuga-full-hybrid-st-line',
-			'title'         => 'Ford Kuga 2.5 Full Hybrid ST-Line',
-			'content'       => 'Ford Kuga Full Hybrid in allestimento sportivo ST-Line, Km 0 immatricolata e mai utilizzata. Comfort e bassi consumi in città.',
-			'tipo'          => 'km0',
-			'categoria'     => 'auto',
-			'marca'         => 'ford',
-			'modello'       => 'kuga',
-			'alimentazione' => 'ibrido',
-			'carrozzeria'   => 'suv',
-			'versione'      => '2.5 Full Hybrid ST-Line',
-			'anno'          => '2024-06-01',
-			'km'            => 15,
-			'cambio'        => 'automatico',
-			'trazione'      => 'anteriore',
-			'listino'       => 38200,
-			'sconto'        => 4500,
-			'promo'         => 33700,
-			'scadenza'      => '',
-			'in_evidenza'   => true,
-			'pronta'        => true,
-			'neopatentati'  => false,
-			'garanzia'      => '24 mesi',
-			'cilindrata'    => 2488,
-			'potenza_cv'    => 190,
-			'co2'           => 124,
-			'consumo_wltp'  => 5.6,
-			'autonomia'     => null,
-			'classe'        => 'euro6d',
-			'posti'         => 5,
-			'porte'         => 5,
-			'colore_est'    => 'Rosso Fantastic',
-			'colore_hex'    => '#8f1d21',
-			'colore_int'    => 'Nero',
-			'dotazioni'     => array( 'Assetto ST-Line', 'Fari LED Matrix', 'Portellone elettrico' ),
-			'optional'      => array( 'Head-up display' ),
-			'media'         => array( 'esterno-fronte', 'esterno-lato' ),
-			'commerciale'   => null,
-			'en'            => array(
-				'content'    => 'Ford Kuga Full Hybrid in the sporty ST-Line trim, zero-km registered and never used. City comfort with low fuel consumption.',
-				'dotazioni'  => array( 'ST-Line sport suspension', 'LED Matrix headlights', 'Power tailgate' ),
-				'optional'   => array( 'Head-up display' ),
-				'garanzia'   => '24 months',
-				'colore_est' => 'Fantastic Red',
-				'colore_int' => 'Black',
-			),
-		);
-	}
-
-	/**
-	 * Ford Focus 1.0 EcoBoost Active (in evidenza, usata).
-	 *
-	 * @return array<string,mixed>
-	 */
-	private static function focus_active(): array {
-		return array(
-			'ref'           => 'ford-focus-ecoboost-active',
-			'title'         => 'Ford Focus 1.0 EcoBoost Active',
-			'content'       => 'Ford Focus Active usata garantita, unico proprietario e chilometraggio certificato. Assetto rialzato e dotazioni complete.',
-			'tipo'          => 'usata',
-			'categoria'     => 'auto',
-			'marca'         => 'ford',
-			'modello'       => 'focus',
-			'alimentazione' => 'benzina',
-			'carrozzeria'   => 'berlina',
-			'versione'      => '1.0 EcoBoost Active',
-			'anno'          => '2023-04-01',
-			'km'            => 12400,
-			'cambio'        => 'manuale',
-			'trazione'      => 'anteriore',
-			'listino'       => 19900,
-			'sconto'        => 0,
-			'promo'         => null,
-			'scadenza'      => '',
-			'in_evidenza'   => true,
-			'pronta'        => true,
-			'neopatentati'  => false,
-			'garanzia'      => '24 mesi',
-			'cilindrata'    => 999,
-			'potenza_cv'    => 125,
-			'co2'           => 128,
-			'consumo_wltp'  => 5.7,
-			'autonomia'     => null,
-			'classe'        => 'euro6d',
-			'posti'         => 5,
-			'porte'         => 5,
-			'colore_est'    => 'Grigio Magnetic',
-			'colore_hex'    => '#6b7280',
-			'colore_int'    => 'Nero',
-			'dotazioni'     => array( 'Cruise control adattivo', 'Apple CarPlay', 'Cerchi in lega 18"' ),
+			'posti'         => null,
+			'porte'         => null,
+			'colore_est'    => $colore_label,
+			'colore_hex'    => $colore_hex,
+			'colore_int'    => '',
+			'dotazioni'     => array(),
 			'optional'      => array(),
-			'media'         => array( 'esterno-fronte', 'esterno-lato' ),
 			'commerciale'   => null,
 			'en'            => array(
-				'content'    => 'Certified used Ford Focus Active, single owner with verified mileage. Raised stance and full equipment.',
-				'dotazioni'  => array( 'Adaptive cruise control', 'Apple CarPlay', '18" alloy wheels' ),
-				'optional'   => array(),
-				'garanzia'   => '24 months',
-				'colore_est' => 'Magnetic Grey',
-				'colore_int' => 'Black',
+				'content' => sprintf(
+					'%s available at Mariani Concessionaria in Piombino. Contact us for details on price, availability and a possible test drive.',
+					$title
+				),
 			),
 		);
 	}
 
-	/**
-	 * Ford Fiesta 1.1 Connect (usata, neopatentati).
-	 *
-	 * @return array<string,mixed>
-	 */
-	private static function fiesta_connect(): array {
-		return array(
-			'ref'           => 'ford-fiesta-ecoboost-connect',
-			'title'         => 'Ford Fiesta 1.1 Connect',
-			'content'       => 'Ford Fiesta usata ideale per neopatentati: maneggevole, economica e con dotazioni di sicurezza complete.',
-			'tipo'          => 'usata',
-			'categoria'     => 'auto',
-			'marca'         => 'ford',
-			'modello'       => 'fiesta',
-			'alimentazione' => 'benzina',
-			'carrozzeria'   => 'utilitaria',
-			'versione'      => '1.1 Connect',
-			'anno'          => '2022-05-01',
-			'km'            => 28900,
-			'cambio'        => 'manuale',
-			'trazione'      => 'anteriore',
-			'listino'       => 14200,
-			'sconto'        => 700,
-			'promo'         => 13500,
-			'scadenza'      => '',
-			'in_evidenza'   => false,
-			'pronta'        => true,
-			'neopatentati'  => true,
-			'garanzia'      => '12 mesi',
-			'cilindrata'    => 1084,
-			'potenza_cv'    => 75,
-			'co2'           => 118,
-			'consumo_wltp'  => 5.2,
-			'autonomia'     => null,
-			'classe'        => 'euro6d',
-			'posti'         => 5,
-			'porte'         => 5,
-			'colore_est'    => 'Bianco Frozen',
-			'colore_hex'    => '#e5e7eb',
-			'colore_int'    => 'Nero',
-			'dotazioni'     => array( 'Sensori posteriori', 'Bluetooth', 'Climatizzatore' ),
-			'optional'      => array(),
-			'media'         => array( 'esterno-fronte', 'esterno-lato' ),
-			'commerciale'   => null,
-			'en'            => array(
-				'content'    => 'Used Ford Fiesta, ideal for new drivers: nimble, economical and with a full safety kit.',
-				'dotazioni'  => array( 'Rear parking sensors', 'Bluetooth', 'Air conditioning' ),
-				'optional'   => array(),
-				'garanzia'   => '12 months',
-				'colore_est' => 'Frozen White',
-				'colore_int' => 'Black',
-			),
-		);
-	}
-
-	/**
-	 * Ford Puma ST 1.5 EcoBoost ST-X (nuova sportiva).
-	 *
-	 * @return array<string,mixed>
-	 */
-	private static function puma_st(): array {
-		return array(
-			'ref'           => 'ford-puma-st-x',
-			'title'         => 'Ford Puma ST 1.5 EcoBoost ST-X',
-			'content'       => 'Ford Puma ST, la versione più sportiva: 200 CV, assetto dedicato e sedili Recaro. Divertimento allo stato puro.',
-			'tipo'          => 'nuova',
-			'categoria'     => 'auto',
-			'marca'         => 'ford',
-			'modello'       => 'puma-st',
-			'alimentazione' => 'benzina',
-			'carrozzeria'   => 'suv-compatto',
-			'versione'      => '1.5 EcoBoost ST-X',
-			'anno'          => '2025-02-01',
-			'km'            => 0,
-			'cambio'        => 'manuale',
-			'trazione'      => 'anteriore',
-			'listino'       => 34500,
-			'sconto'        => 0,
-			'promo'         => null,
-			'scadenza'      => '',
-			'in_evidenza'   => false,
-			'pronta'        => true,
-			'neopatentati'  => false,
-			'garanzia'      => '24 mesi',
-			'cilindrata'    => 1497,
-			'potenza_cv'    => 200,
-			'co2'           => 155,
-			'consumo_wltp'  => 6.8,
-			'autonomia'     => null,
-			'classe'        => 'euro6e',
-			'posti'         => 5,
-			'porte'         => 5,
-			'colore_est'    => 'Verde Mean Green',
-			'colore_hex'    => '#3f7a3f',
-			'colore_int'    => 'Nero/Rosso',
-			'dotazioni'     => array( 'Assetto sportivo', 'Sedili Recaro', 'Launch control' ),
-			'optional'      => array( 'Vernice Mean Green' ),
-			'media'         => array( 'esterno-fronte', 'esterno-lato', 'abitacolo' ),
-			'commerciale'   => null,
-			'en'            => array(
-				'content'    => 'Ford Puma ST, the sportiest version: 200 hp, dedicated suspension and Recaro seats. Pure driving fun.',
-				'dotazioni'  => array( 'Sport suspension', 'Recaro seats', 'Launch control' ),
-				'optional'   => array( 'Mean Green paint' ),
-				'garanzia'   => '24 months',
-				'colore_est' => 'Mean Green',
-				'colore_int' => 'Black/Red',
-			),
-		);
-	}
-
-	/**
-	 * Ford Transit Custom 2.0 EcoBlue Trend (commerciale).
-	 *
-	 * @return array<string,mixed>
-	 */
-	private static function transit_custom(): array {
-		return array(
-			'ref'           => 'ford-transit-custom-trend',
-			'title'         => 'Ford Transit Custom 2.0 EcoBlue Trend',
-			'content'       => 'Ford Transit Custom Trend, il furgone di riferimento per il lavoro: capiente, robusto e con dotazioni complete. Pronta consegna.',
-			'tipo'          => 'nuova',
-			'categoria'     => 'commerciale',
-			'marca'         => 'ford',
-			'modello'       => 'transit-custom',
-			'alimentazione' => 'diesel',
-			'carrozzeria'   => 'furgone',
-			'versione'      => '2.0 EcoBlue Trend',
-			'anno'          => '2024-02-01',
-			'km'            => 0,
-			'cambio'        => 'manuale',
-			'trazione'      => 'anteriore',
-			'listino'       => 33900,
-			'sconto'        => 2400,
-			'promo'         => 31500,
-			'scadenza'      => '2026-08-15',
-			'in_evidenza'   => false,
-			'pronta'        => true,
-			'neopatentati'  => false,
-			'garanzia'      => '24 mesi',
-			'cilindrata'    => 1995,
-			'potenza_cv'    => 136,
-			'co2'           => 181,
-			'consumo_wltp'  => 6.9,
-			'autonomia'     => null,
-			'classe'        => 'euro6d',
-			'posti'         => 3,
-			'porte'         => 4,
-			'colore_est'    => 'Bianco Frozen',
-			'colore_hex'    => '#f3f4f6',
-			'colore_int'    => 'Grigio',
-			'dotazioni'     => array( 'Paratia divisoria', '3 posti', 'Gancio traino' ),
-			'optional'      => array( 'Navigatore', 'Telecamera posteriore' ),
-			'media'         => array( 'esterno-fronte', 'esterno-lato' ),
-			'commerciale'   => array(
-				'tipo_carrozzeria_comm' => 'furgone',
-				'dimensione'            => 'L2H2',
-				'portata_kg'            => 1100,
-				'volume_carico_m3'      => 6.8,
-				'posti_cabina'          => 3,
-			),
-			'en'            => array(
-				'content'    => 'Ford Transit Custom Trend, the benchmark work van: roomy, tough and fully equipped. Ready for delivery.',
-				'dotazioni'  => array( 'Load-through bulkhead', '3 seats', 'Tow bar' ),
-				'optional'   => array( 'Navigation', 'Rear-view camera' ),
-				'garanzia'   => '24 months',
-				'colore_est' => 'Frozen White',
-				'colore_int' => 'Grey',
-			),
-		);
-	}
-
-	/**
-	 * Ford Kuga 2.5 Plug-in Hybrid Titanium (usata).
-	 *
-	 * @return array<string,mixed>
-	 */
-	private static function kuga_phev(): array {
-		return array(
-			'ref'           => 'ford-kuga-plug-in-hybrid-titanium',
-			'title'         => 'Ford Kuga 2.5 Plug-in Hybrid Titanium',
-			'content'       => 'Ford Kuga Plug-in Hybrid usata garantita: fino a 56 km in elettrico, ideale per il tragitto casa-lavoro senza emissioni.',
-			'tipo'          => 'usata',
-			'categoria'     => 'auto',
-			'marca'         => 'ford',
-			'modello'       => 'kuga',
-			'alimentazione' => 'ibrido',
-			'carrozzeria'   => 'suv',
-			'versione'      => '2.5 Plug-in Hybrid Titanium',
-			'anno'          => '2023-03-01',
-			'km'            => 34200,
-			'cambio'        => 'automatico',
-			'trazione'      => 'anteriore',
-			'listino'       => 31900,
-			'sconto'        => 1900,
-			'promo'         => 30000,
-			'scadenza'      => '',
-			'in_evidenza'   => false,
-			'pronta'        => true,
-			'neopatentati'  => false,
-			'garanzia'      => '24 mesi',
-			'cilindrata'    => 2488,
-			'potenza_cv'    => 225,
-			'co2'           => 32,
-			'consumo_wltp'  => 1.4,
-			'autonomia'     => 56,
-			'classe'        => 'euro6d',
-			'posti'         => 5,
-			'porte'         => 5,
-			'colore_est'    => 'Blu Blazer',
-			'colore_hex'    => '#274060',
-			'colore_int'    => 'Nero',
-			'dotazioni'     => array( 'Ricarica domestica', 'Sedili riscaldati', 'Accesso Keyless' ),
-			'optional'      => array(),
-			'media'         => array( 'esterno-fronte', 'esterno-lato' ),
-			'commerciale'   => null,
-			'en'            => array(
-				'content'    => 'Certified used Ford Kuga Plug-in Hybrid: up to 56 km in electric mode, perfect for an emissions-free commute.',
-				'dotazioni'  => array( 'Home charging cable', 'Heated seats', 'Keyless entry' ),
-				'optional'   => array(),
-				'garanzia'   => '24 months',
-				'colore_est' => 'Blazer Blue',
-				'colore_int' => 'Black',
-			),
-		);
-	}
-
-	/**
-	 * Ford Transit 2.0 EcoBlue 130 CV (secondo veicolo commerciale).
-	 *
-	 * @return array<string,mixed>
-	 */
-	private static function transit_van(): array {
-		return array(
-			'ref'           => 'ford-transit-ecoblue-130',
-			'title'         => 'Ford Transit 2.0 EcoBlue 130 CV L3H2',
-			'content'       => 'Ford Transit L3H2 a passo lungo e tetto alto: massimo volume di carico per il trasporto professionale. In promozione.',
-			'tipo'          => 'nuova',
-			'categoria'     => 'commerciale',
-			'marca'         => 'ford',
-			'modello'       => 'transit',
-			'alimentazione' => 'diesel',
-			'carrozzeria'   => 'furgone',
-			'versione'      => '2.0 EcoBlue 130 CV Trend',
-			'anno'          => '2024-05-01',
-			'km'            => 0,
-			'cambio'        => 'manuale',
-			'trazione'      => 'posteriore',
-			'listino'       => 36900,
-			'sconto'        => 2900,
-			'promo'         => 34000,
-			'scadenza'      => '2026-09-15',
-			'in_evidenza'   => false,
-			'pronta'        => true,
-			'neopatentati'  => false,
-			'garanzia'      => '24 mesi',
-			'cilindrata'    => 1995,
-			'potenza_cv'    => 130,
-			'co2'           => 199,
-			'consumo_wltp'  => 7.6,
-			'autonomia'     => null,
-			'classe'        => 'euro6d',
-			'posti'         => 3,
-			'porte'         => 4,
-			'colore_est'    => 'Bianco Frozen',
-			'colore_hex'    => '#f3f4f6',
-			'colore_int'    => 'Grigio',
-			'dotazioni'     => array( 'Sensori posteriori', 'Cruise control', 'Bluetooth' ),
-			'optional'      => array( 'Climatizzatore', 'Navigatore' ),
-			'media'         => array( 'esterno-fronte', 'esterno-lato' ),
-			'commerciale'   => array(
-				'tipo_carrozzeria_comm' => 'furgone',
-				'dimensione'            => 'L3H2',
-				'portata_kg'            => 1450,
-				'volume_carico_m3'      => 11.5,
-				'posti_cabina'          => 3,
-			),
-			'en'            => array(
-				'content'    => 'Long-wheelbase, high-roof Ford Transit L3H2: maximum cargo volume for professional transport. On offer.',
-				'dotazioni'  => array( 'Rear parking sensors', 'Cruise control', 'Bluetooth' ),
-				'optional'   => array( 'Air conditioning', 'Navigation' ),
-				'garanzia'   => '24 months',
-				'colore_est' => 'Frozen White',
-				'colore_int' => 'Grey',
-			),
-		);
-	}
-
-	/**
-	 * Volkswagen Golf 2.0 TDI Life (usata, marca diversa da Ford).
-	 *
-	 * @return array<string,mixed>
-	 */
-	private static function golf_tdi(): array {
-		return array(
-			'ref'           => 'volkswagen-golf-tdi-life',
-			'title'         => 'Volkswagen Golf 2.0 TDI Life',
-			'content'       => 'Volkswagen Golf TDI usata garantita, ripresa in permuta e tagliandata. Consumi contenuti e comfort di categoria superiore.',
-			'tipo'          => 'usata',
-			'categoria'     => 'auto',
-			'marca'         => 'volkswagen',
-			'modello'       => 'golf',
-			'alimentazione' => 'diesel',
-			'carrozzeria'   => 'berlina',
-			'versione'      => '2.0 TDI Life',
-			'anno'          => '2022-09-01',
-			'km'            => 41000,
-			'cambio'        => 'manuale',
-			'trazione'      => 'anteriore',
-			'listino'       => 22900,
-			'sconto'        => 1400,
-			'promo'         => 21500,
-			'scadenza'      => '',
-			'in_evidenza'   => false,
-			'pronta'        => true,
-			'neopatentati'  => false,
-			'garanzia'      => '12 mesi',
-			'cilindrata'    => 1968,
-			'potenza_cv'    => 115,
-			'co2'           => 120,
-			'consumo_wltp'  => 4.6,
-			'autonomia'     => null,
-			'classe'        => 'euro6d',
-			'posti'         => 5,
-			'porte'         => 5,
-			'colore_est'    => 'Grigio Urano',
-			'colore_hex'    => '#5b5f66',
-			'colore_int'    => 'Nero',
-			'dotazioni'     => array( 'Navigatore', 'Cerchi in lega 16"', 'Fari LED' ),
-			'optional'      => array(),
-			'media'         => array( 'esterno-fronte', 'esterno-lato' ),
-			'commerciale'   => null,
-			'en'            => array(
-				'content'    => 'Certified used Volkswagen Golf TDI, taken in part-exchange and fully serviced. Low running costs and premium comfort.',
-				'dotazioni'  => array( 'Navigation', '16" alloy wheels', 'LED headlights' ),
-				'optional'   => array(),
-				'garanzia'   => '12 months',
-				'colore_est' => 'Uranus Grey',
-				'colore_int' => 'Black',
-			),
-		);
-	}
 
 	/**
 	 * Pagina Homepage (contenuti allineati al contratto PageContent).

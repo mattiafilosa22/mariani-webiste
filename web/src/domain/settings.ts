@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { autoImageSchema } from "./auto";
 
 /**
  * Impostazioni del sito editabili in WordPress
@@ -39,5 +40,9 @@ export const siteSettingsSchema = z.object({
   orari: z.array(orarioSchema).default([]),
   orariOfficina: z.array(orarioSchema).default([]),
   social: socialSchema.default({}),
+  /** Immagine hero della home (stessa forma di AutoImage); null/assente ⇒ fallback all'asset locale. */
+  heroImage: autoImageSchema.nullish(),
+  /** Credito foto mostrato in hero e footer; assente ⇒ fallback alla label i18n. */
+  fotoCredit: z.string().optional(),
 });
 export type SiteSettings = z.infer<typeof siteSettingsSchema>;

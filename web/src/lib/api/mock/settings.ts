@@ -30,4 +30,12 @@ export const mockSettings: SiteSettings = {
     instagram: "#",
     whatsapp: "https://wa.me/390565276520",
   },
+  heroImage: {
+    src: "/hero/hero-mache.jpg",
+    width: 1500,
+    height: 2000,
+    alt: "Ford Mustang Mach-E — showroom Mariani, Piombino",
+  },
+  fotoCredit:
+    "Foto reali dei veicoli in vendita presso la nostra sede di Piombino — scatti di nostra proprietà.",
 };

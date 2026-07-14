@@ -15,9 +15,11 @@ type FooterProps = {
 export async function Footer({ locale, settings }: FooterProps) {
   const t = await getTranslations("Footer");
   const tNav = await getTranslations("Nav");
+  const tHero = await getTranslations("Hero");
   const base = `/${locale}`;
   const phoneHref = `tel:${settings.telefono.replace(/\s/g, "")}`;
   const year = new Date().getFullYear();
+  const fotoCredit = settings.fotoCredit ?? tHero("photoCredit");
 
   const catalogo = [
     { label: tNav("autoNuove"), href: `${base}/auto/nuove` },
@@ -126,6 +128,8 @@ export async function Footer({ locale, settings }: FooterProps) {
           <Link href={`${base}/cookie-policy`}>{t("cookiePrefs")}</Link>
         </div>
       </div>
+
+      <p className="container footer-credit">{fotoCredit}</p>
     </footer>
   );
 }

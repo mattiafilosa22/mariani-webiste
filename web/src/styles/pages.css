@@ -305,6 +305,18 @@
   gap: var(--sp-6);
   align-items: start;
 }
+/* Evita che i figli (form / mappa) sfondino la griglia su viewport strette. */
+.location-grid > * {
+  min-width: 0;
+}
+/* Colonna contatti: NON è un box (niente doppio riquadro). I suoi figli —
+   riquadro contatti e mappa — sono già card a sé stanti. */
+.contact-aside {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-6);
+  min-width: 0;
+}
 .contact-box {
   background: var(--bg-elev);
   border: 1px solid var(--line);
@@ -358,19 +370,30 @@
   display: flex;
   flex-direction: column;
   gap: var(--sp-3);
+  /* Non deve mai sfondare lateralmente il proprio contenitore (mobile). */
+  min-width: 0;
+  max-width: 100%;
 }
 .map__canvas {
   width: 100%;
+  max-width: 100%;
   aspect-ratio: 16 / 9;
   min-height: 320px;
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
   overflow: hidden;
   background: var(--bg-raised);
+  /* Nuovo contesto di impilamento a z-index 0: i pane e i controlli interni di
+     Leaflet (fino a ~1000) restano confinati QUI e non si sovrappongono mai
+     all'header sticky quando si scorre la pagina. */
+  position: relative;
+  z-index: 0;
+  isolation: isolate;
 }
 .map__canvas .leaflet-container {
   height: 100%;
   width: 100%;
+  max-width: 100%;
   background: var(--bg-raised);
   font-family: var(--f-body);
 }

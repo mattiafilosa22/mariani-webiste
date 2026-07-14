@@ -54,11 +54,16 @@ export async function CarCard({ vm, locale }: CarCardProps) {
         <span className="car-card__brand">{vm.brand}</span>
         <h3 className="car-card__title">
           {vm.model}
-          {vm.version ? <small>{vm.version}</small> : null}
+          {/* Riga versione sempre presente (nbsp se assente): riserva lo spazio
+              così tutte le card hanno la stessa altezza, senza effetto scaletta. */}
+          <small>{vm.version || " "}</small>
         </h3>
         <div className="specline">
           {vm.specs.map((spec, index) => (
-            <span key={spec}>
+            // La chiave include l'indice: più spec possono avere lo stesso testo
+            // (es. anno e km valgono entrambi il placeholder "n.d." quando ≤ 0),
+            // quindi il solo valore non è univoco.
+            <span key={`${index}-${spec}`}>
               {index > 0 ? <span className="sep">/</span> : null}
               <span>{spec}</span>
             </span>
@@ -70,9 +75,13 @@ export async function CarCard({ vm, locale }: CarCardProps) {
               <span className="price__old">{vm.price.old}</span>
             ) : null}
             <span
-              className={
-                vm.price.isPromo ? "price__now" : "price__now price__now--plain"
-              }
+              className={[
+                "price__now",
+                vm.price.isPromo ? "" : "price__now--plain",
+                vm.price.onRequest ? "price__now--request" : "",
+              ]
+                .filter(Boolean)
+                .join(" ")}
             >
               {vm.price.now}
             </span>

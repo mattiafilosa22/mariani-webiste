@@ -13,6 +13,7 @@ declare( strict_types=1 );
 namespace Mariani\Core\Seed;
 
 use Mariani\Core\Seed\Data\Catalog;
+use Mariani\Core\Seed\Support\MediaLibrary;
 use Mariani\Core\Seed\Support\MediaRef;
 use Mariani\Core\Seed\Support\SeedMeta;
 
@@ -42,10 +43,10 @@ final class PageSeeder {
 	/**
 	 * Seeda impostazioni e pagine editoriali.
 	 *
-	 * @param array<string,int> $media_library Libreria immagini seedata.
+	 * @param MediaLibrary $media_library Libreria immagini seedata.
 	 * @return int Numero di pagine (record base) processate.
 	 */
-	public function seed( array $media_library ): int {
+	public function seed( MediaLibrary $media_library ): int {
 		$count = 0;
 
 		$settings = Catalog::settings();
@@ -85,9 +86,9 @@ final class PageSeeder {
 	 * @param string              $title_en      Titolo EN.
 	 * @param array<string,mixed> $meta_it       Meta IT.
 	 * @param array<string,mixed> $meta_en       Override meta EN.
-	 * @param array<string,int>   $media_library Libreria immagini.
+	 * @param MediaLibrary        $media_library Libreria immagini.
 	 */
-	private function seed_entry( string $slug, string $ref_prefix, string $title_it, string $title_en, array $meta_it, array $meta_en, array $media_library ): void {
+	private function seed_entry( string $slug, string $ref_prefix, string $title_it, string $title_en, array $meta_it, array $meta_en, MediaLibrary $media_library ): void {
 		$default = $this->language->default_language();
 
 		$translations = array(
@@ -113,10 +114,10 @@ final class PageSeeder {
 	 * @param string              $title         Titolo.
 	 * @param array<string,mixed> $meta          Meta da scrivere.
 	 * @param string              $lang          Slug lingua.
-	 * @param array<string,int>   $media_library Libreria immagini.
+	 * @param MediaLibrary        $media_library Libreria immagini.
 	 * @return int ID della pagina.
 	 */
-	private function upsert( string $slug, string $ref, string $title, array $meta, string $lang, array $media_library ): int {
+	private function upsert( string $slug, string $ref, string $title, array $meta, string $lang, MediaLibrary $media_library ): int {
 		$post_id = $this->locate( $ref, $slug, $lang );
 
 		$postarr = array(
@@ -192,9 +193,9 @@ final class PageSeeder {
 	 *
 	 * @param int                 $post_id       ID della pagina.
 	 * @param array<string,mixed> $meta          Meta da scrivere.
-	 * @param array<string,int>   $media_library Libreria immagini.
+	 * @param MediaLibrary        $media_library Libreria immagini.
 	 */
-	private function write_meta( int $post_id, array $meta, array $media_library ): void {
+	private function write_meta( int $post_id, array $meta, MediaLibrary $media_library ): void {
 		foreach ( $meta as $key => $value ) {
 			if ( $value instanceof MediaRef ) {
 				$this->write_image( $post_id, (string) $key, $value, $media_library );
@@ -209,14 +210,16 @@ final class PageSeeder {
 	/**
 	 * Scrive una meta immagine singola risolvendo il segnaposto.
 	 *
-	 * @param int               $post_id       ID della pagina.
-	 * @param string            $key           Meta key.
-	 * @param MediaRef          $ref           Riferimento immagine.
-	 * @param array<string,int> $media_library Libreria immagini.
+	 * @param int          $post_id       ID della pagina.
+	 * @param string       $key           Meta key.
+	 * @param MediaRef     $ref           Riferimento immagine.
+	 * @param MediaLibrary $media_library Libreria immagini.
 	 */
-	private function write_image( int $post_id, string $key, MediaRef $ref, array $media_library ): void {
-		if ( isset( $media_library[ $ref->key() ] ) ) {
-			update_post_meta( $post_id, $key, (int) $media_library[ $ref->key() ] );
+	private function write_image( int $post_id, string $key, MediaRef $ref, MediaLibrary $media_library ): void {
+		$attachment_id = $media_library->placeholder( $ref->key() );
+
+		if ( null !== $attachment_id ) {
+			update_post_meta( $post_id, $key, $attachment_id );
 
 			return;
 		}

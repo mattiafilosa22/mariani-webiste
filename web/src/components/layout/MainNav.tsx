@@ -109,6 +109,16 @@ export function MainNav() {
 
   const close = useCallback(() => setOpen(false), []);
 
+  // Chiude sia il drawer mobile sia il dropdown desktop: oltre a resettare lo
+  // stato, toglie il focus dall'elemento cliccato così `:focus-within` non tiene
+  // più aperto il menu a tendina dopo la selezione di una voce.
+  const dismiss = useCallback(() => {
+    close();
+    if (typeof document !== "undefined") {
+      (document.activeElement as HTMLElement | null)?.blur();
+    }
+  }, [close]);
+
   useEffect(() => {
     document.body.classList.toggle("nav-open", open);
     return () => document.body.classList.remove("nav-open");
@@ -180,14 +190,14 @@ export function MainNav() {
         </button>
         {groups.map((group) => (
           <div className="nav__item" key={group.label}>
-            <Link className="nav__link" href={group.href} onClick={close}>
+            <Link className="nav__link" href={group.href} onClick={dismiss}>
               {group.label}
               {group.children ? chevron : null}
             </Link>
             {group.children ? (
               <div className="nav__menu">
                 {group.children.map((child) => (
-                  <Link key={child.label} href={child.href} onClick={close}>
+                  <Link key={child.label} href={child.href} onClick={dismiss}>
                     {child.label}
                   </Link>
                 ))}
@@ -224,8 +234,8 @@ export function MainNav() {
           onClick={() => setOpen((value) => !value)}
         >
           <svg
-            width="22"
-            height="22"
+            width="24"
+            height="24"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -235,7 +245,6 @@ export function MainNav() {
           >
             <path d="M3 6h18M3 12h18M3 18h18" />
           </svg>
-          {t("menu")}
         </button>
       </div>
 

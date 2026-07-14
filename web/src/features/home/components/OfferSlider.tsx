@@ -6,6 +6,7 @@ import {
   useRef,
   useState,
   type KeyboardEvent,
+  type PointerEvent,
   type ReactNode,
 } from "react";
 import { useTranslations } from "next-intl";
@@ -111,6 +112,49 @@ export function OfferSlider({ slides, heading }: OfferSliderProps) {
     }
   }
 
+  // Drag-to-scroll con il puntatore (mouse/penna): si scorre "spostando" le
+  // card. Il touch usa lo scroll nativo. La classe `is-dragging` disattiva lo
+  // snap durante il trascinamento e blocca i click involontari su link/immagini.
+  const drag = useRef({ active: false, startX: 0, startLeft: 0, moved: false });
+
+  const onPointerDown = useCallback((event: PointerEvent<HTMLDivElement>) => {
+    if (event.pointerType === "touch") return;
+    const track = trackRef.current;
+    if (!track) return;
+    drag.current = {
+      active: true,
+      startX: event.clientX,
+      startLeft: track.scrollLeft,
+      moved: false,
+    };
+  }, []);
+
+  const onPointerMove = useCallback((event: PointerEvent<HTMLDivElement>) => {
+    const track = trackRef.current;
+    if (!track || !drag.current.active) return;
+    const delta = event.clientX - drag.current.startX;
+    if (!drag.current.moved && Math.abs(delta) < 6) return;
+    if (!drag.current.moved) {
+      drag.current.moved = true;
+      track.classList.add("is-dragging");
+      track.setPointerCapture(event.pointerId);
+    }
+    track.scrollLeft = drag.current.startLeft - delta;
+  }, []);
+
+  const endDrag = useCallback((event: PointerEvent<HTMLDivElement>) => {
+    const track = trackRef.current;
+    if (!track || !drag.current.active) return;
+    drag.current.active = false;
+    if (drag.current.moved) {
+      track.classList.remove("is-dragging");
+      if (track.hasPointerCapture(event.pointerId)) {
+        track.releasePointerCapture(event.pointerId);
+      }
+      goTo(activeRef.current, false);
+    }
+  }, [goTo]);
+
   const autoplayOn = !reduceMotion && !userPaused && total > 1;
 
   return (
@@ -205,7 +249,15 @@ export function OfferSlider({ slides, heading }: OfferSliderProps) {
         {/* Div (non ul/li) perché ogni slide usa role="group": la semantica di
             lista e quella di carosello confliggono (violazioni axe list /
             aria-allowed-role). Il pattern APG carousel usa gruppi, non liste. */}
-        <div className="slider__track" ref={trackRef}>
+        <div
+          className="slider__track"
+          ref={trackRef}
+          onPointerDown={onPointerDown}
+          onPointerMove={onPointerMove}
+          onPointerUp={endDrag}
+          onPointerCancel={endDrag}
+          onPointerLeave={endDrag}
+        >
           {slides.map((slide, index) => (
             <div
               key={index}

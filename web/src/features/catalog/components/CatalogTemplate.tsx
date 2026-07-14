@@ -104,6 +104,8 @@ export async function CatalogTemplate({ params, scope }: CatalogTemplateProps) {
       km: tCard("CarCard.km"),
       alimentazione: tCard(`Spec.fuel.${summary.alimentazione}`),
       cambio: tCard(`Spec.transmission.${summary.cambio}`),
+      priceOnRequest: tCard("Catalog.unit.priceOnRequest"),
+      nd: tCard("Catalog.unit.nd"),
     });
     cards[summary.slug] = <CarCard vm={vm} locale={locale} />;
   }

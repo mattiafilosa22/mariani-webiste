@@ -26,7 +26,13 @@ const baseSummary: AutoSummary = {
   copertina: { src: "/img/p.svg", width: 640, height: 360, alt: "Ford Puma" },
 };
 
-const labels = { km: "km", alimentazione: "Ibrido", cambio: "Automatico" };
+const labels = {
+  km: "km",
+  alimentazione: "Ibrido",
+  cambio: "Automatico",
+  priceOnRequest: "Prezzo su richiesta",
+  nd: "n.d.",
+};
 
 describe("formatPrice", () => {
   it("formats euros without decimals (it-IT)", () => {
@@ -64,6 +70,24 @@ describe("toCarCardVm", () => {
     expect(vm.price.isPromo).toBe(false);
     expect(vm.price.old).toBeNull();
     expect(vm.badges).toHaveLength(0);
+  });
+
+  it("renders graceful placeholders when km/anno/prezzo are undefined (0)", () => {
+    const undefinedData: AutoSummary = {
+      ...baseSummary,
+      anno: 0,
+      km: 0,
+      prezzoListino: 0,
+      sconto: undefined,
+      prezzoFinale: 0,
+      badge: [],
+    };
+    const vm = toCarCardVm(undefinedData, "it", labels);
+    expect(vm.specs[0]).toBe("n.d.");
+    expect(vm.specs[1]).toBe("n.d.");
+    expect(vm.price.now).toBe("Prezzo su richiesta");
+    expect(vm.price.old).toBeNull();
+    expect(vm.price.isPromo).toBe(false);
   });
 });
 

@@ -18,7 +18,27 @@
   position: absolute;
   inset: 0;
   z-index: 0;
+  /* fallback dietro la foto, mentre carica */
   background: radial-gradient(120% 120% at 72% 18%, #0c1838 0%, #080c18 55%, #05070e 100%);
+}
+/* Foto reale dello showroom a tutto campo, con leggero zoom "cinematografico". */
+.hero__photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 58%;
+  will-change: transform;
+  animation: hero-zoom 24s ease-in-out infinite alternate;
+}
+@keyframes hero-zoom {
+  from {
+    transform: scale(1.02);
+  }
+  to {
+    transform: scale(1.1);
+  }
 }
 .hero::before {
   content: "";
@@ -32,12 +52,22 @@
   position: absolute;
   inset: 0;
   z-index: 1;
+  /* Velo multi-strato: (1) scrim scuro sx→dx per il contrasto AA del testo,
+     (2) glow blu Ford in alto a destra per l'accento "figo",
+     (3) leggera vignettatura in basso per la riga di credito. */
   background: linear-gradient(
-    90deg,
-    rgba(6, 8, 15, 0.94) 0%,
-    rgba(6, 8, 15, 0.72) 45%,
-    rgba(6, 8, 15, 0.3) 100%
-  );
+      90deg,
+      rgba(6, 8, 15, 0.95) 0%,
+      rgba(6, 8, 15, 0.8) 40%,
+      rgba(6, 8, 15, 0.4) 74%,
+      rgba(6, 8, 15, 0.18) 100%
+    ),
+    radial-gradient(
+      90% 75% at 80% 22%,
+      rgba(30, 80, 200, 0.3),
+      transparent 62%
+    ),
+    linear-gradient(0deg, rgba(6, 8, 15, 0.6) 0%, transparent 32%);
 }
 .hero__content {
   position: relative;
@@ -61,6 +91,16 @@
 }
 .hero__title .accent {
   color: var(--electric);
+}
+/* Credito foto: riga discreta (auto reali disponibili, foto di proprietà). */
+.hero__credit {
+  margin-top: var(--sp-6);
+  font-family: var(--f-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.03em;
+  line-height: 1.5;
+  color: rgba(238, 242, 248, 0.62);
+  max-width: 52ch;
 }
 .hero__sub {
   font-size: var(--fs-lg);
@@ -249,8 +289,10 @@
   .hero__car,
   .wheel-spin,
   .hero__streak,
-  .hero__sweep {
+  .hero__sweep,
+  .hero__photo {
     animation: none !important;
+    transform: none !important;
   }
   .hero__car {
     opacity: 1;
@@ -361,13 +403,36 @@
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   padding-bottom: var(--sp-3);
-  scrollbar-width: thin;
+  /* Nessuna scrollbar grigia: si scorre trascinando le card (grab) o con
+     frecce/dot. */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
   list-style: none;
   margin: 0;
+  cursor: grab;
+}
+.slider__track::-webkit-scrollbar {
+  display: none;
+}
+.slider__track.is-dragging {
+  cursor: grabbing;
+  scroll-snap-type: none;
+  scroll-behavior: auto;
+  user-select: none;
 }
 .slider__track > *:not(script):not(template) {
   flex: 0 0 350px;
   scroll-snap-align: start;
+  /* Le slide si allungano all'altezza della più alta: card tutte uguali. */
+  display: flex;
+}
+.slider__track > *:not(script):not(template) > * {
+  flex: 1;
+  min-width: 0;
+}
+.slider__track.is-dragging a,
+.slider__track.is-dragging img {
+  pointer-events: none;
 }
 .slider-dots {
   display: flex;

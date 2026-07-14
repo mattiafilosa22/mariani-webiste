@@ -406,11 +406,17 @@
   font-weight: 700;
 }
 
-/* griglia risultati: 3 colonne */
+/* griglia risultati: colonne adattive allo spazio reale (con sidebar filtri).
+   auto-fill + minmax evita l'overflow della 3ª colonna quando lo spazio non basta:
+   il numero di colonne = quante ne stanno davvero (3 desktop largo, 2 tablet, 1 mobile).
+   min(300px,100%) impedisce lo sfondamento sui contenitori stretti. */
 .results-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
   gap: var(--sp-5);
+}
+.results-grid > * {
+  min-width: 0;
 }
 
 /* stato "nessun risultato" */
@@ -514,7 +520,8 @@
     top: 0;
     left: 0;
     bottom: 0;
-    z-index: 200;
+    /* Sopra l'header sticky (z-index 1000) quando il drawer è aperto. */
+    z-index: 1200;
     width: min(90vw, 380px);
     max-height: none;
     border-radius: 0;
@@ -548,7 +555,7 @@
     inset: 0;
     background: rgba(5, 8, 16, 0.6);
     backdrop-filter: blur(2px);
-    z-index: 150;
+    z-index: 1100;
   }
 
   .btn-filters {
@@ -567,15 +574,15 @@
   .btn-filters:hover {
     background: var(--brand-tint);
   }
-
-  .results-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  /* .results-grid: colonne gestite da auto-fill minmax (vedi regola base) */
 }
 
 @media (max-width: 560px) {
-  .results-grid {
-    grid-template-columns: 1fr;
+  /* .results-grid: 1 colonna automatica via auto-fill min(300px,100%) */
+  /* Su smartphone i filtri si aprono a tutto schermo (non più sidebar). */
+  .filters {
+    width: 100vw;
+    max-width: none;
   }
   .toolbar {
     flex-direction: column;

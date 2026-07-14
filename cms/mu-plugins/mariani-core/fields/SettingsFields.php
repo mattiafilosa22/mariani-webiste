@@ -62,6 +62,10 @@ final class SettingsFields {
 					$this->url( 'mariani_set_instagram', __( 'Instagram (URL)', 'mariani-core' ) ),
 					$this->url( 'mariani_set_messenger', __( 'Facebook Messenger (m.me URL)', 'mariani-core' ) ),
 
+					$this->heading( __( 'Hero e credito foto', 'mariani-core' ) ),
+					$this->image( 'mariani_set_hero_image', __( 'Immagine hero (home)', 'mariani-core' ) ),
+					$this->textarea( 'mariani_set_foto_credit', __( 'Credito foto (hero e footer)', 'mariani-core' ) ),
+
 					$this->heading( __( 'Footer e testi legali', 'mariani-core' ) ),
 					$this->text( 'mariani_set_slogan', __( 'Slogan', 'mariani-core' ) ),
 					$this->text( 'mariani_set_copyright', __( 'Testo copyright', 'mariani-core' ) ),
@@ -112,6 +116,22 @@ final class SettingsFields {
 			'id'   => $id,
 			'name' => $name,
 			'type' => 'textarea',
+		);
+	}
+
+	/**
+	 * Campo immagine singola (attachment ID).
+	 *
+	 * @param string $id   Meta key.
+	 * @param string $name Etichetta.
+	 * @return array<string,mixed>
+	 */
+	private function image( string $id, string $name ): array {
+		return array(
+			'id'               => $id,
+			'name'             => $name,
+			'type'             => 'single_image',
+			'max_file_uploads' => 1,
 		);
 	}
 

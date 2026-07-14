@@ -61,7 +61,7 @@ export default async function ContattiPage({ params }: PageProps) {
           </div>
           <div className="location-grid">
             <RequestForm variant="contatti" privacyHref={`${base}/privacy-policy`} />
-            <aside className="booking__aside">
+            <aside className="contact-aside">
               <ContactInfo settings={settings} title={t("infoTitle")} />
               {settings.mappa ? (
                 <SiteMap

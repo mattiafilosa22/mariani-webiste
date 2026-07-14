@@ -84,7 +84,7 @@ const autoBaseSchema = z.object({
   cambio: cambioSchema,
   trazione: trazioneSchema,
   carrozzeria: z.string().min(1),
-  potenzaCv: z.number().int().positive(),
+  potenzaCv: z.number().int().nonnegative(),
   colore: coloreSchema,
   badge: z.array(badgeSchema).default([]),
   inEvidenza: z.boolean().default(false),

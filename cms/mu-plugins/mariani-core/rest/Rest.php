@@ -66,7 +66,7 @@ final class Rest implements Module {
 			),
 			new SettingsController(
 				new SettingsRepository(),
-				new SettingsPresenter()
+				new SettingsPresenter( $images )
 			),
 			new LeadController(
 				new LeadRepository()

@@ -83,7 +83,8 @@
   },
   "Hero": {
     "pause": "Pause the animation",
-    "play": "Resume the animation"
+    "play": "Resume the animation",
+    "photoCredit": "Real photos of vehicles for sale at our Piombino dealership — shot by us."
   },
   "Slider": {
     "region": "Cars on offer carousel",
@@ -192,7 +193,9 @@
     },
     "unit": {
       "km": "km",
-      "cv": "hp"
+      "cv": "hp",
+      "priceOnRequest": "Price on request",
+      "nd": "n/a"
     },
     "drive": {
       "anteriore": "Front",
@@ -485,7 +488,7 @@
       "sending": "Sending…",
       "success": "Request sent. We'll get back to you shortly.",
       "failure": "Sending failed. Try again or contact us by phone.",
-      "responseNote": "We reply within 1 working day.",
+      "responseNote": "We reply within one working day.",
       "legalNote": "Your data will be processed in accordance with EU Regulation 2016/679 (GDPR).",
       "msgNoleggio": "Long-term rental request. Profile: {tipo}. Vehicle: {veicolo}. Duration: {durata}. Mileage/year: {km}. Notes: {messaggio}",
       "msgOfficina": "Workshop service request. Plate: {targa}. Notes: {messaggio}",

@@ -181,7 +181,23 @@ export function RequestForm({
         <button className="btn btn--primary btn--lg" type="submit" disabled={status === "sending"}>
           {status === "sending" ? t("sending") : t(SUBMIT_KEY[variant])}
         </button>
-        <span className="req-note">{t("responseNote")}</span>
+        <span className="req-note">
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <circle cx="12" cy="12" r="9" />
+            <path d="M12 7v5l3 2" />
+          </svg>
+          {t("responseNote")}
+        </span>
       </div>
 
       <p className={`form-status form-status--${status}`} role="status" aria-live="polite">

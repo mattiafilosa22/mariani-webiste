@@ -51,6 +51,8 @@ export default async function HomePage({ params }: PageProps) {
       km: t("CarCard.km"),
       alimentazione: t(`Spec.fuel.${summary.alimentazione}`),
       cambio: t(`Spec.transmission.${summary.cambio}`),
+      priceOnRequest: t("Catalog.unit.priceOnRequest"),
+      nd: t("Catalog.unit.nd"),
     })
   );
 
@@ -63,7 +65,14 @@ export default async function HomePage({ params }: PageProps) {
   return (
     <>
       <JsonLd data={dealerJsonLd} />
-      {page?.hero ? <Hero hero={page.hero} locale={locale} /> : null}
+      {page?.hero ? (
+        <Hero
+          hero={page.hero}
+          locale={locale}
+          heroImage={settings.heroImage}
+          fotoCredit={settings.fotoCredit}
+        />
+      ) : null}
       <QuickSearch locale={locale} />
       <Offers locale={locale} cards={cards} />
       {page?.bento ? <Bento bento={page.bento} locale={locale} /> : null}

@@ -89,7 +89,7 @@ h4 {
   color: #fff;
   padding: 12px 20px;
   border-radius: var(--radius-sm);
-  z-index: 999;
+  z-index: 1100;
   font-weight: 600;
   transition: top 0.15s ease;
 }

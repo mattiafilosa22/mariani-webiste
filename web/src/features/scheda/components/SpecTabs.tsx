@@ -1,7 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import type { Auto } from "@/domain";
 import type { Locale } from "@/i18n/routing";
-import { formatKm } from "@/lib/mappers/auto";
+import { formatKmLabel, formatPower, formatYear } from "@/lib/mappers/auto";
 import { buildSpecTabs, type SpecRow, type SpecTab } from "../lib/specTabs";
 import { Tabs, type TabItem } from "./Tabs";
 
@@ -27,11 +27,11 @@ export async function SpecTabs({ auto, locale }: SpecTabsProps) {
     { label: t("fields.marca"), value: auto.marca },
     { label: t("fields.modello"), value: auto.modello },
     { label: t("fields.versione"), value: auto.versione },
-    { label: t("fields.anno"), value: String(auto.anno) },
-    { label: t("fields.km"), value: `${formatKm(auto.km, locale)} ${tUnit("km")}` },
+    { label: t("fields.anno"), value: formatYear(auto.anno, tUnit("nd")) },
+    { label: t("fields.km"), value: formatKmLabel(auto.km, locale, tUnit("km"), tUnit("nd")) },
     { label: t("fields.carrozzeria"), value: auto.carrozzeria },
     { label: t("fields.colore"), value: tSpec(`color.${auto.colore}`) },
-    { label: t("fields.potenza"), value: `${auto.potenzaCv} ${tUnit("cv")}` },
+    { label: t("fields.potenza"), value: formatPower(auto.potenzaCv, tUnit("cv"), tUnit("nd")) },
     { label: t("fields.alimentazione"), value: tSpec(`fuel.${auto.alimentazione}`) },
     { label: t("fields.cambio"), value: tSpec(`transmission.${auto.cambio}`) },
     { label: t("fields.trazione"), value: tDrive(auto.trazione) },

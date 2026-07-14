@@ -190,6 +190,13 @@
 .price__now--plain {
   color: var(--text);
 }
+/* "Prezzo su richiesta": è testo, non un numero → font ridotto e a capo
+   consentito, così non sfonda sul pulsante freccia nel piede della card. */
+.price__now--request {
+  font-size: var(--fs-base);
+  line-height: 1.15;
+  white-space: normal;
+}
 .price__note {
   font-size: var(--fs-xs);
   color: var(--text-2);
@@ -205,6 +212,9 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  /* Riempie sempre la cella/slide: nelle griglie e nello slider tutte le card
+     assumono la stessa altezza (niente effetto scaletta). */
+  height: 100%;
   box-shadow: var(--shadow-sm);
   transition: box-shadow 0.18s, border-color 0.18s, transform 0.18s;
 }
@@ -215,13 +225,17 @@
 }
 .car-card__media {
   position: relative;
-  aspect-ratio: 16 / 9;
+  /* Altezza immagine fissa e limitata: card più compatte e perfettamente
+     allineate tra loro (min = max height). */
+  height: clamp(200px, 18vw, 250px);
+  flex: none;
   background: var(--bg-raised);
 }
 .car-card__media img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
 }
 .car-card__badges {
   position: absolute;
@@ -342,18 +356,21 @@
   opacity: 0.4;
 }
 
-/* ---------- HEADER (glass, sticky) ---------- */
+/* ---------- HEADER (solido, sticky) ---------- */
 .site-header {
   position: sticky;
   top: 0;
-  z-index: 100;
-  background: var(--glass);
-  backdrop-filter: blur(16px) saturate(140%);
-  -webkit-backdrop-filter: blur(16px) saturate(140%);
-  border-bottom: 1px solid var(--glass-border);
+  /* Sopra Leaflet (i cui controlli arrivano a z-index ~1000): la mappa non deve
+     mai sovrapporsi all'header quando si scorre. */
+  z-index: 1000;
+  /* Sfondo pieno (niente effetto vetro trasparente): il contenuto sottostante
+     non traspare più attraverso l'header né i menu a tendina. */
+  background: var(--bg-elev);
+  border-bottom: 1px solid var(--line);
+  box-shadow: var(--shadow-sm);
 }
 .topbar {
-  border-bottom: 1px solid var(--glass-border);
+  border-bottom: 1px solid var(--line);
   font-size: var(--fs-sm);
 }
 .topbar__inner {
@@ -475,7 +492,7 @@
 }
 .nav__menu {
   position: absolute;
-  top: calc(100% + 8px);
+  top: calc(100% + 6px);
   left: 0;
   min-width: 256px;
   background: var(--bg-elev);
@@ -483,12 +500,24 @@
   border-radius: var(--radius);
   box-shadow: var(--shadow-lg);
   padding: var(--sp-2);
-  display: none;
   z-index: 120;
+  /* Animazione fluida in entrata/uscita: opacità + micro-traslazione. Usiamo
+     visibility (non display) così la transizione può avvenire; il ritardo su
+     visibility la mantiene finché l'opacità non è tornata a 0. */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  pointer-events: none;
+  transition: opacity 0.16s ease, transform 0.16s ease,
+    visibility 0s linear 0.16s;
 }
 .nav__item:hover .nav__menu,
 .nav__item:focus-within .nav__menu {
-  display: block;
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+  transition: opacity 0.16s ease, transform 0.16s ease, visibility 0s;
 }
 .nav__menu a {
   display: block;
@@ -497,10 +526,12 @@
   border-radius: var(--radius-sm);
   font-weight: 500;
   color: var(--text);
+  transition: background 0.14s ease, color 0.14s ease, padding-left 0.14s ease;
 }
 .nav__menu a:hover {
   background: var(--bg-raised);
   color: var(--brand);
+  padding-left: 18px;
 }
 
 .header-cta {
@@ -665,6 +696,14 @@
 .footer-bottom a:hover {
   color: var(--brand);
 }
+/* Credito foto: riga discreta in coda al footer (coerente con hero__credit). */
+.footer-credit {
+  padding-bottom: var(--sp-5);
+  font-size: var(--fs-xs);
+  line-height: 1.5;
+  color: var(--text-2);
+  max-width: 60ch;
+}
 
 /* ---------- FORM ---------- */
 .field {
@@ -744,7 +783,7 @@
 .tabs__list {
   display: flex;
   flex-wrap: nowrap;
-  gap: var(--sp-5);
+  gap: var(--sp-2);
   border-bottom: 1px solid var(--line);
   overflow-x: auto;
   overflow-y: hidden;
@@ -758,7 +797,7 @@
   flex: none;
   white-space: nowrap;
   min-height: var(--touch);
-  padding: 12px 2px;
+  padding: 12px 18px;
   font-family: var(--f-display);
   font-weight: 600;
   font-size: var(--fs-sm);
@@ -767,22 +806,46 @@
   color: var(--text-2);
   background: none;
   border: 0;
-  border-bottom: 2px solid transparent;
+  border-bottom: 3px solid transparent;
   margin-bottom: -1px;
-  border-radius: 0;
-}
-.tabs__btn[aria-selected="true"] {
-  color: var(--text);
-  border-bottom-color: var(--brand);
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  cursor: pointer;
+  transition: color 0.16s ease, background 0.16s ease,
+    border-color 0.16s ease, transform 0.12s ease;
 }
 .tabs__btn:hover {
   color: var(--text);
+  background: var(--bg-raised);
+}
+.tabs__btn:active {
+  transform: translateY(1px);
+}
+.tabs__btn[aria-selected="true"] {
+  color: var(--brand);
+  border-bottom-color: var(--brand);
+  background: var(--brand-tint);
 }
 .tabs__panel {
   padding-top: var(--sp-6);
+  animation: tabFade 0.22s ease both;
 }
 .tabs__panel[hidden] {
   display: none;
+}
+@keyframes tabFade {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tabs__panel {
+    animation: none;
+  }
 }
 
 .wrap-note {
@@ -810,15 +873,14 @@
     display: none;
   }
   .nav-toggle {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
+    display: inline-grid;
+    place-items: center;
     min-height: var(--touch);
     min-width: var(--touch);
-    padding: 8px 16px;
+    /* Solo icona hamburger (nessuna scritta "Menu"): pulsante quadrato. */
+    padding: 8px;
     border: 1.5px solid var(--line-strong);
     border-radius: var(--radius-pill);
-    font-weight: 600;
     color: var(--text);
     background: var(--bg-elev);
   }
@@ -876,13 +938,19 @@
   }
   .mainnav .nav__menu {
     position: static;
-    display: block;
     box-shadow: none;
     border: 0;
     border-bottom: 1px solid var(--line);
     border-radius: 0;
     padding: 6px 0 var(--sp-4) var(--sp-4);
     background: transparent;
+    /* Nel drawer i sottomenu sono sempre visibili (accordion), quindi
+       annulliamo l'animazione hover del desktop. */
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    pointer-events: auto;
+    transition: none;
   }
   .mainnav .nav__menu a {
     min-height: 42px;
@@ -941,5 +1009,13 @@
   }
   .brand__sub {
     display: none;
+  }
+  /* Su smartphone il menu si apre a tutto schermo (non più sidebar laterale).
+     Da tablet (fino a 1200px) resta un drawer laterale. */
+  .mainnav .nav {
+    width: 100vw;
+    max-width: none;
+    border-left: 0;
+    padding: var(--sp-5) var(--sp-4);
   }
 }

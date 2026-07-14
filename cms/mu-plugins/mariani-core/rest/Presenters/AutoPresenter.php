@@ -76,7 +76,7 @@ final class AutoPresenter {
 			'cambio'        => $this->normalize_cambio( $meta->string( Schema::meta( 'cambio' ) ) ),
 			'trazione'      => $this->normalize_trazione( $meta->string( Schema::meta( 'trazione' ) ) ),
 			'carrozzeria'   => $this->primary_term_name( $post->ID, Schema::TAX_CARROZZERIA ),
-			'potenzaCv'     => $this->positive_int( $meta->int_or_null( Schema::meta( 'potenza_cv' ) ) ),
+			'potenzaCv'     => $this->non_negative_int( $meta->int_or_null( Schema::meta( 'potenza_cv' ) ) ),
 			'colore'        => $this->normalize_colore( $meta->string( Schema::meta( 'colore_esterno' ) ) ),
 			'badge'         => $this->badges( $meta, $tipo, $alimentazione, $finale < $listino ),
 			'inEvidenza'    => $meta->bool( Schema::meta( 'in_evidenza' ) ),
@@ -350,12 +350,12 @@ final class AutoPresenter {
 	}
 
 	/**
-	 * Garantisce un intero positivo per la potenza (fallback difensivo a 1).
+	 * Intero non negativo per la potenza: 0 = non definito (reso "n.d." dalla UI).
 	 *
 	 * @param int|null $value Valore letto dalle meta.
 	 */
-	private function positive_int( ?int $value ): int {
-		return ( null !== $value && $value > 0 ) ? $value : 1;
+	private function non_negative_int( ?int $value ): int {
+		return ( null !== $value && $value > 0 ) ? $value : 0;
 	}
 
 	/**

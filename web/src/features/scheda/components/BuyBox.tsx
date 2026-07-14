@@ -1,7 +1,13 @@
 import { getTranslations } from "next-intl/server";
 import type { Auto, Badge, SiteSettings } from "@/domain";
 import type { Locale } from "@/i18n/routing";
-import { formatKm, formatPrice } from "@/lib/mappers/auto";
+import {
+  formatKmLabel,
+  formatPower,
+  formatPrice,
+  formatPriceOrRequest,
+  formatYear,
+} from "@/lib/mappers/auto";
 import { buildWhatsappText, whatsappHref } from "../lib/messages";
 import { Countdown } from "./Countdown";
 
@@ -63,12 +69,13 @@ export async function BuyBox({
     buildWhatsappText(t("float.prefill"), vehicleTitle, pageUrl)
   );
 
+  const nd = tUnit("nd");
   const quick: Array<{ label: string; value: string }> = [
-    { label: t("quick.anno"), value: String(auto.anno) },
-    { label: t("quick.km"), value: `${formatKm(auto.km, locale)} ${tUnit("km")}` },
+    { label: t("quick.anno"), value: formatYear(auto.anno, nd) },
+    { label: t("quick.km"), value: formatKmLabel(auto.km, locale, tUnit("km"), nd) },
     { label: t("quick.alimentazione"), value: tSpec(`fuel.${auto.alimentazione}`) },
     { label: t("quick.cambio"), value: tSpec(`transmission.${auto.cambio}`) },
-    { label: t("quick.potenza"), value: `${auto.potenzaCv} ${tUnit("cv")}` },
+    { label: t("quick.potenza"), value: formatPower(auto.potenzaCv, tUnit("cv"), nd) },
     { label: t("quick.disponibilita"), value: auto.carrozzeria },
   ];
 
@@ -95,7 +102,9 @@ export async function BuyBox({
       <div className="pricebox">
         <div className="priceline priceline--list">
           <span className="priceline__lbl">{t("price.listino")}</span>
-          <span className="priceline__val">{formatPrice(auto.prezzoListino, locale)}</span>
+          <span className="priceline__val">
+            {formatPriceOrRequest(auto.prezzoListino, locale, tUnit("priceOnRequest"))}
+          </span>
         </div>
         {hasDiscount ? (
           <div className="priceline priceline--disc">
@@ -111,7 +120,9 @@ export async function BuyBox({
         <hr className="pricebox__sep" />
         <div className="pricebox__final">
           <span className="pricebox__final-lbl">{t("price.finale")}</span>
-          <span className="pricebox__final-val">{formatPrice(auto.prezzoFinale, locale)}</span>
+          <span className="pricebox__final-val">
+            {formatPriceOrRequest(auto.prezzoFinale, locale, tUnit("priceOnRequest"))}
+          </span>
         </div>
       </div>
 

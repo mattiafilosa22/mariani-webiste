@@ -68,7 +68,20 @@ export default async function LocaleLayout({ children, params }: LayoutProps) {
   const fontVars = `${archivo.variable} ${inter.variable} ${montserrat.variable}`;
 
   return (
-    <html lang={locale} className={fontVars}>
+    // `suppressHydrationWarning`: lo script anti-flash (`ThemeScript`) scrive
+    // `data-theme` su `<html>` PRIMA dell'idratazione, quindi l'attributo è
+    // assente nell'HTML del server ma presente nel client. È l'unico
+    // disallineamento atteso su questo elemento e va soppresso qui (pattern
+    // ufficiale next-themes), senza mascherare altri mismatch nel resto dell'app.
+    <html
+      lang={locale}
+      className={fontVars}
+      // Segnala a Next.js che lo `scroll-behavior: smooth` (in base.css) è
+      // intenzionale: il router lo neutralizza durante le transizioni di rotta
+      // (scroll-to-top istantaneo) e non emette più il warning in console.
+      data-scroll-behavior="smooth"
+      suppressHydrationWarning
+    >
       <head>
         <ThemeScript />
       </head>

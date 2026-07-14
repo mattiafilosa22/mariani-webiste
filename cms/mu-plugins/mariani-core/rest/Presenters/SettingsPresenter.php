@@ -11,6 +11,7 @@ declare( strict_types=1 );
 
 namespace Mariani\Core\Rest\Presenters;
 
+use Mariani\Core\Rest\Support\ImageTransformer;
 use Mariani\Core\Rest\Support\MetaReader;
 use WP_Post;
 
@@ -20,6 +21,22 @@ defined( 'ABSPATH' ) || exit;
  * Costruisce anagrafica, contatti, orari e social globali del sito.
  */
 final class SettingsPresenter {
+
+	/**
+	 * Trasformatore immagini, per l'immagine hero editabile.
+	 *
+	 * @var ImageTransformer
+	 */
+	private ImageTransformer $images;
+
+	/**
+	 * Inietta il trasformatore immagini.
+	 *
+	 * @param ImageTransformer $images Trasformatore immagini.
+	 */
+	public function __construct( ImageTransformer $images ) {
+		$this->images = $images;
+	}
 
 	/**
 	 * Trasforma la pagina impostazioni (o null) in un DTO SiteSettings valido.
@@ -63,7 +80,33 @@ final class SettingsPresenter {
 			$dto['mappa'] = $mappa;
 		}
 
+		$hero_image = $this->hero_image( $meta );
+		if ( null !== $hero_image ) {
+			$dto['heroImage'] = $hero_image;
+		}
+
+		$foto_credit = $meta->string( 'mariani_set_foto_credit' );
+		if ( '' !== $foto_credit ) {
+			$dto['fotoCredit'] = $foto_credit;
+		}
+
 		return $dto;
+	}
+
+	/**
+	 * Immagine hero editabile nel formato AutoImage, oppure null se non impostata.
+	 *
+	 * @param MetaReader $meta Lettore meta.
+	 * @return array<string,mixed>|null
+	 */
+	private function hero_image( MetaReader $meta ): ?array {
+		$attachment_id = $meta->int_or_null( 'mariani_set_hero_image' );
+
+		if ( null === $attachment_id || $attachment_id <= 0 ) {
+			return null;
+		}
+
+		return $this->images->to_front( $attachment_id );
 	}
 
 	/**

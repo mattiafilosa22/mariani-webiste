@@ -83,7 +83,8 @@
   },
   "Hero": {
     "pause": "Metti in pausa l'animazione",
-    "play": "Riprendi l'animazione"
+    "play": "Riprendi l'animazione",
+    "photoCredit": "Foto reali dei veicoli in vendita presso la nostra sede di Piombino — scatti di nostra proprietà."
   },
   "Slider": {
     "region": "Carosello auto in offerta",
@@ -192,7 +193,9 @@
     },
     "unit": {
       "km": "km",
-      "cv": "CV"
+      "cv": "CV",
+      "priceOnRequest": "Prezzo su richiesta",
+      "nd": "n.d."
     },
     "drive": {
       "anteriore": "Anteriore",
@@ -485,7 +488,7 @@
       "sending": "Invio in corso…",
       "success": "Richiesta inviata. Ti ricontatteremo a breve.",
       "failure": "Invio non riuscito. Riprova o contattaci per telefono.",
-      "responseNote": "Ti rispondiamo entro 1 giorno lavorativo.",
+      "responseNote": "Ti rispondiamo entro un giorno lavorativo.",
       "legalNote": "I tuoi dati saranno trattati nel rispetto del Regolamento UE 2016/679 (GDPR).",
       "msgNoleggio": "Richiesta noleggio a lungo termine. Profilo: {tipo}. Veicolo: {veicolo}. Durata: {durata}. Km/anno: {km}. Note: {messaggio}",
       "msgOfficina": "Richiesta intervento officina. Targa: {targa}. Note: {messaggio}",

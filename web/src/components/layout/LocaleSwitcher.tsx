@@ -63,11 +63,29 @@ export function LocaleSwitcher() {
   const alternates = parseAlternates(serialized);
 
   function hrefFor(locale: Locale): string {
+    // Locale corrente: il path esatto è sempre quello attuale, noto anche in SSR.
+    if (locale === active) return pathname;
+
+    // Fonte di verità: l'alternate hreflang esatto pubblicato dal server nell'
+    // `<head>`, letto dopo l'idratazione (gestisce lo slug TRADOTTO delle schede).
     const fromHead = alternates[locale];
     if (fromHead) return fromHead;
+
+    // Fallback pre-idratazione (SSR, `<head>` non ancora leggibile).
     const segments = pathname.split("/");
-    // segments[0] è "" (path assoluto), segments[1] è la locale corrente
+    // segments[0] è "" (path assoluto), segments[1] è la locale corrente.
     if (segments.length > 1) {
+      // Scheda auto (`/{locale}/auto/{slug}/`): lo slug è tradotto tra locali
+      // (Polylang, es. `-2` in EN) e qui non è noto. Lo swap ingenuo del solo
+      // segmento locale produrrebbe uno slug INESISTENTE nell'altra lingua: in
+      // export statico quel path non è generato → 404 / "missing param in
+      // generateStaticParams". Puntiamo quindi al catalogo localizzato, link
+      // sempre valido; dopo l'idratazione l'hreflang porta alla scheda esatta.
+      if (segments[2] === "auto" && Boolean(segments[3])) {
+        return `/${locale}/auto/`;
+      }
+      // Le altre route condividono gli stessi segmenti in entrambe le lingue:
+      // lo swap del solo locale è corretto.
       segments[1] = locale;
       return segments.join("/") || `/${locale}`;
     }

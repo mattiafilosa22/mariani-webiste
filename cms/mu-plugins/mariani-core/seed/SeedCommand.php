@@ -107,9 +107,9 @@ final class SeedCommand {
 		$terms = $this->taxonomies->seed();
 		\WP_CLI::log( sprintf( '  %d termini creati.', $terms ) );
 
-		\WP_CLI::log( '▸ Immagini segnaposto ...' );
+		\WP_CLI::log( '▸ Immagini (foto reali auto + segnaposto pagine) ...' );
 		$library = $this->media->seed();
-		\WP_CLI::log( sprintf( '  %d immagini disponibili.', count( $library ) ) );
+		\WP_CLI::log( sprintf( '  %d immagini disponibili.', $library->total() ) );
 
 		\WP_CLI::log( '▸ Auto di demo ...' );
 		$autos = $this->autos->seed( $library );

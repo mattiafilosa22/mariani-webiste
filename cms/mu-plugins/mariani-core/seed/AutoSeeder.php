@@ -13,6 +13,7 @@ declare( strict_types=1 );
 namespace Mariani\Core\Seed;
 
 use Mariani\Core\Seed\Data\Catalog;
+use Mariani\Core\Seed\Support\MediaLibrary;
 use Mariani\Core\Seed\Support\SeedMeta;
 use Mariani\Core\Support\Schema;
 
@@ -42,10 +43,10 @@ final class AutoSeeder {
 	/**
 	 * Seeda tutte le auto del catalogo collegando le traduzioni.
 	 *
-	 * @param array<string,int> $media_library Mappa chiave immagine => ID allegato.
+	 * @param MediaLibrary $media_library Libreria immagini seedata.
 	 * @return int Numero di auto (record base) processate.
 	 */
-	public function seed( array $media_library ): int {
+	public function seed( MediaLibrary $media_library ): int {
 		$count = 0;
 
 		foreach ( Catalog::autos() as $record ) {
@@ -77,9 +78,9 @@ final class AutoSeeder {
 	 * Seeda un singolo record (IT + EN) e collega le traduzioni.
 	 *
 	 * @param array<string,mixed> $record        Dati del veicolo.
-	 * @param array<string,int>   $media_library Libreria immagini seedata.
+	 * @param MediaLibrary        $media_library Libreria immagini seedata.
 	 */
-	private function seed_record( array $record, array $media_library ): void {
+	private function seed_record( array $record, MediaLibrary $media_library ): void {
 		$default = $this->language->default_language();
 
 		$translations = array(
@@ -100,10 +101,10 @@ final class AutoSeeder {
 	 *
 	 * @param array<string,mixed> $record        Dati del veicolo.
 	 * @param string              $lang          Slug lingua.
-	 * @param array<string,int>   $media_library Libreria immagini seedata.
+	 * @param MediaLibrary        $media_library Libreria immagini seedata.
 	 * @return int ID del post.
 	 */
-	private function upsert( array $record, string $lang, array $media_library ): int {
+	private function upsert( array $record, string $lang, MediaLibrary $media_library ): int {
 		$ref      = 'auto:' . $record['ref'] . ':' . $lang;
 		$existing = SeedMeta::find( $ref );
 		$content  = $this->localized( $record, $lang, 'content', (string) $record['content'] );
@@ -246,25 +247,27 @@ final class AutoSeeder {
 	}
 
 	/**
-	 * Sostituisce la galleria con gli allegati segnaposto indicati.
+	 * Sostituisce la galleria con le foto reali del veicolo (o il segnaposto).
 	 *
 	 * @param int                 $post_id       ID del post.
 	 * @param array<string,mixed> $record        Dati del veicolo.
-	 * @param array<string,int>   $media_library Libreria immagini seedata.
+	 * @param MediaLibrary        $media_library Libreria immagini seedata.
 	 */
-	private function write_gallery( int $post_id, array $record, array $media_library ): void {
+	private function write_gallery( int $post_id, array $record, MediaLibrary $media_library ): void {
 		$key = Schema::meta( 'galleria' );
 		delete_post_meta( $post_id, $key );
 
-		$media = is_array( $record['media'] ) ? $record['media'] : array();
+		$attachments = $media_library->gallery( (string) $record['ref'] );
+
+		if ( array() === $attachments ) {
+			$fallback    = $media_library->placeholder( 'esterno-fronte' );
+			$attachments = null === $fallback ? array() : array( $fallback );
+		}
+
 		$first = null;
 
-		foreach ( $media as $media_key ) {
-			if ( ! isset( $media_library[ $media_key ] ) ) {
-				continue;
-			}
-
-			$attachment_id = (int) $media_library[ $media_key ];
+		foreach ( $attachments as $attachment_id ) {
+			$attachment_id = (int) $attachment_id;
 			add_post_meta( $post_id, $key, $attachment_id );
 			$first ??= $attachment_id;
 		}
