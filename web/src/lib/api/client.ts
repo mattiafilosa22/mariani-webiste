@@ -13,6 +13,17 @@ export function isApiConfigured(): boolean {
 }
 
 /**
+ * Header Basic Auth opzionale, per buildare contro ambienti protetti (es. il
+ * test Pantheon con Lock attiva). Formato env `WP_API_BASIC_AUTH="utente:password"`.
+ * Assente ⇒ nessun header (comportamento invariato).
+ */
+function buildAuthHeaders(): Record<string, string> {
+  const creds = process.env.WP_API_BASIC_AUTH;
+  if (!creds) return {};
+  return { Authorization: `Basic ${Buffer.from(creds).toString("base64")}` };
+}
+
+/**
  * Modalità STRICT: con `WP_API_STRICT=1` il data layer NON ricade sul mock.
  * Ogni errore di fetch o di validazione zod viene propagato, così il build
  * statico fallisce e i disallineamenti col CMS live emergono subito.
@@ -58,7 +69,7 @@ export async function fetchValidated<S extends z.ZodTypeAny>(
   let response: Response;
   try {
     response = await fetch(buildUrl(path, params), {
-      headers: { Accept: "application/json" },
+      headers: { Accept: "application/json", ...buildAuthHeaders() },
     });
   } catch (error) {
     throw new ApiError(`Fetch fallita per ${path}`, { cause: error });
