@@ -14,7 +14,7 @@ la posta attualmente in produzione** fino al go-live.
 | Elemento | Valore |
 |---|---|
 | Nameserver autoritativi | `dns1..dns5.vhosting-it.com` (registrar/area clienti VHosting) |
-| `mariani-auto.it` / `www` | `185.116.60.222` — **sito attuale in produzione**, server diverso dal Plesk |
+| `mariani-auto.it` / `www` | `185.116.60.222` — **solo pagina di parcheggio** VHosting ("Dominio registrato"); porta 443 chiusa, quindi in https il dominio non risponde affatto |
 | `mail.mariani-auto.it` | `185.116.60.222` — **posta sul vecchio server** |
 | `MX` | `0 mail.mariani-auto.it.` |
 | `TXT` apex | assente (nessun SPF) |
@@ -26,15 +26,21 @@ la posta attualmente in produzione** fino al go-live.
 
 Vincoli:
 - Nessun Node in produzione: il Plesk serve solo file statici + PHP.
-- Il sito attuale e la posta devono restare operativi durante tutto lo sviluppo.
+- **La posta** (`mail`, `MX` → `185.116.60.222`) deve restare operativa: e l'unico
+  servizio vivo sul vecchio host e non viene mai spostato.
 - Solo plugin WordPress gratuiti; auto-update disattivati.
+
+Decisione conseguente: non esistendo un sito indicizzato da preservare, il dominio
+principale viene spostato sul Plesk **subito**, servendo una pagina coming soon
+(`coming-soon/`), senza attendere il completamento del frontend. Cadono di
+conseguenza i redirect 301 legacy previsti al go-live.
 
 ## Topologia target
 
 | Cosa | Host | Note |
 |---|---|---|
 | Frontend statico (export Next) | `mariani-auto.it` (+ `www`) | webroot del dominio su Plesk |
-| Anteprima pre-go-live | `preview.mariani-auto.it` | **stessa document root** del dominio principale, protetta da htpasswd |
+| Anteprima pre-go-live | `preview.mariani-auto.it` | document root propria, protetta da htpasswd — e il target della CI |
 | WordPress headless | `cms.mariani-auto.it` | back-office + REST `wp-json/mariani/v1/*` |
 | Database | MySQL/MariaDB locale Plesk | utente dedicato, host `localhost`, no accesso remoto |
 | Posta | resta su `185.116.60.222` | fuori scope di questo intervento |
@@ -116,10 +122,11 @@ Riuso di `.github/workflows/deploy.yml`. Modifiche necessarie:
 |---|---|
 | Posta interrotta dalla migrazione DNS | `mail` e `MX` replicati identici e verificati con `dig` prima e dopo il cambio NS; `mail` non viene mai spostato |
 | Certificato non emesso sul dominio principale | Emissione con record in DNS-only, proxy acceso solo dopo; CAA esteso a `pki.goog`/`ssl.com` |
-| Anteprima indicizzata da Google | htpasswd sulla webroot, non solo `noindex` |
+| Anteprima indicizzata da Google | htpasswd sulla document root di `preview`, non solo `noindex` |
 | Protezione directory cancellata dal deploy | `--exclude` esplicito nel comando rsync |
 | API cachata a build time | `cms` in DNS-only; se proxato, bypass cache su `/wp-admin` e `/wp-json` |
 | Rollback go-live | TTL 300 su Cloudflare: ripristino dell'A record precedente in pochi minuti |
+| Deploy CI che pubblica il sito incompleto | La CI scrive solo nella document root di `preview`, mai in quella del dominio |
 
 ## Fuori scope
 
