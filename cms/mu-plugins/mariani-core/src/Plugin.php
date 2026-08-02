@@ -9,6 +9,7 @@ declare( strict_types=1 );
 
 namespace Mariani\Core;
 
+use Mariani\Core\Branding\BrandingModule;
 use Mariani\Core\Fields\Fields;
 use Mariani\Core\Forms\FormsModule;
 use Mariani\Core\Mail\LeadNotifier;
@@ -77,6 +78,7 @@ final class Plugin {
 			new Fields(),
 			new Rest(),
 			new Security(),
+			new BrandingModule(),
 			new DeployWebhook(),
 			new LeadNotifier(),
 			new FormsModule(),

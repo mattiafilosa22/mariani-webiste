@@ -11,7 +11,7 @@ import type {
 import type { Locale } from "@/i18n/routing";
 import { formatKm, formatPrice } from "@/lib/mappers/auto";
 import type { CatalogFilters } from "../lib/types";
-import type { Facets, FacetOption } from "../lib/facets";
+import { modelloLabel, type Facets, type FacetOption } from "../lib/facets";
 import { COLORE_SWATCH } from "../lib/colors";
 import { FilterGroup } from "./FilterGroup";
 import { RangeFilter } from "./RangeFilter";
@@ -141,7 +141,7 @@ export function FilterPanel({
               groupLabel={t("groups.modello")}
               options={modelli}
               selected={filters.modello}
-              labelFor={(value) => value}
+              labelFor={modelloLabel}
               onToggle={(value) =>
                 onChange({ modello: toggle(filters.modello, value) })
               }

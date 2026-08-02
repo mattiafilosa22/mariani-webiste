@@ -63,7 +63,7 @@ identica, quindi il cambio è a impatto zero e osservabile.
 
 Vantaggi attesi: TTL basso (cutover e rollback in minuti anziché fino a 24h), CDN edge
 sull'export statico (TTFB/LCP), rate limiting davanti a login WP e endpoint `/lead`,
-redirect 301 legacy gestiti all'edge, analytics senza cookie.
+redirect gestiti all'edge senza toccare il server, analytics senza cookie.
 
 Regole di proxy:
 - `cms` → **DNS only (grigio)**, almeno in fase iniziale: evita risposte API cachate a

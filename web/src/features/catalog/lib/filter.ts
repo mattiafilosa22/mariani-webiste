@@ -1,4 +1,5 @@
 import type { AutoSummary } from "@/domain";
+import { MODELLO_KEY_SEP } from "./facets";
 import { PAGE_SIZE, type CatalogFilters, type SortKey } from "./types";
 
 /**
@@ -30,7 +31,10 @@ export function matchesFilters(
   if (filters.marca.length > 0 && !includesCi(filters.marca, auto.marca)) {
     return false;
   }
-  if (filters.modello.length > 0 && !includesCi(filters.modello, auto.modello)) {
+  if (
+    filters.modello.length > 0 &&
+    !includesCi(filters.modello, `${auto.marca}${MODELLO_KEY_SEP}${auto.modello}`)
+  ) {
     return false;
   }
   if (

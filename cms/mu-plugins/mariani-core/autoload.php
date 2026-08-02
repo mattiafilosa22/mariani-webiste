@@ -22,6 +22,7 @@ spl_autoload_register(
 			'Mariani\\Core\\Rest\\'      => 'rest/',
 			'Mariani\\Core\\I18n\\'      => 'i18n/',
 			'Mariani\\Core\\Security\\'  => 'security/',
+			'Mariani\\Core\\Branding\\'  => 'branding/',
 			'Mariani\\Core\\Webhook\\'   => 'webhook/',
 			'Mariani\\Core\\Mail\\'      => 'mail/',
 			'Mariani\\Core\\Forms\\'     => 'forms/',

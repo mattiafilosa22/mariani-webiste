@@ -59,8 +59,24 @@ export function buildFacets(autos: readonly AutoSummary[]): Facets {
 }
 
 /**
+ * Separatore usato per comporre il value univoco marca+modello nel facet
+ * "modello" (vedi `availableModelli`): il nome del termine tassonomico WP puo'
+ * ripetersi identico tra marche diverse (es. "7" per Omoda 7 e Jaecoo 7), quindi
+ * il solo nome modello non basta a identificare un'opzione di filtro univoca.
+ */
+export const MODELLO_KEY_SEP = "::";
+
+/** Estrae il nome modello da leggere in UI da un value composito marca+modello. */
+export function modelloLabel(value: string): string {
+  const idx = value.indexOf(MODELLO_KEY_SEP);
+  return idx === -1 ? value : value.slice(idx + MODELLO_KEY_SEP.length);
+}
+
+/**
  * Modelli disponibili in funzione delle marche selezionate (dipendenza
  * modello↔marca). Senza marche selezionate, mostra i modelli dell'intero scope.
+ * Il `value` e' composito (`marca::modello`) per restare univoco anche quando
+ * due marche condividono lo stesso nome modello.
  */
 export function availableModelli(
   autos: readonly AutoSummary[],
@@ -71,5 +87,5 @@ export function availableModelli(
     selected.length === 0
       ? autos
       : autos.filter((a) => selected.includes(a.marca.toLowerCase()));
-  return countBy(pool.map((a) => a.modello));
+  return countBy(pool.map((a) => `${a.marca}${MODELLO_KEY_SEP}${a.modello}`));
 }

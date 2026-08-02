@@ -409,11 +409,15 @@
 /* griglia risultati: colonne adattive allo spazio reale (con sidebar filtri).
    auto-fill + minmax evita l'overflow della 3ª colonna quando lo spazio non basta:
    il numero di colonne = quante ne stanno davvero (3 desktop largo, 2 tablet, 1 mobile).
-   min(300px,100%) impedisce lo sfondamento sui contenitori stretti. */
+   min(300px,100%) impedisce lo sfondamento sui contenitori stretti. max-width
+   impedisce una 4ª colonna sui monitor molto larghi: PAGE_SIZE (9) e' pensato
+   per una griglia 3x3, oltre le 3 colonne l'ultima riga di pagina resterebbe
+   incompleta con spazio vuoto a destra. */
 .results-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
   gap: var(--sp-5);
+  max-width: 1080px;
 }
 .results-grid > * {
   min-width: 0;

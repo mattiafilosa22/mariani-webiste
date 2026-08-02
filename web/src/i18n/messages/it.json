@@ -92,9 +92,9 @@
     "next": "Vai all'offerta successiva",
     "pause": "Metti in pausa lo scorrimento automatico",
     "play": "Riprendi lo scorrimento automatico",
-    "goToSlide": "Vai all'offerta {index}",
+    "goToSlide": "Vai al gruppo {index}",
     "slide": "Offerta {index} di {total}",
-    "dotsLabel": "Scegli l'offerta da mostrare"
+    "dotsLabel": "Scegli il gruppo di offerte da mostrare"
   },
   "Spec": {
     "fuel": {

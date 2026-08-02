@@ -84,10 +84,7 @@ export async function SchedaView({ auto, all, locale, settings }: SchedaViewProp
               <Link href={`${base}/auto`}>{auto.marca}</Link>
             </li>
             <li aria-hidden="true">{chevron}</li>
-            <li aria-current="page">
-              {auto.modello}
-              {auto.versione ? ` ${auto.versione}` : ""}
-            </li>
+            <li aria-current="page">{vehicleTitle}</li>
           </ol>
         </div>
       </nav>

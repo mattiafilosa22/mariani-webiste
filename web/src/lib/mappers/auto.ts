@@ -138,7 +138,10 @@ export function toCarCardVm(
   return {
     slug: summary.slug,
     brand: summary.marca,
-    model: summary.modello,
+    // Nome modello completo (marca + modello): per marchi come Omoda/Jaecoo il
+    // termine tassonomico "modello" è solo il numero (es. "7"), fuorviante se
+    // mostrato da solo nel titolo della card.
+    model: `${summary.marca} ${summary.modello}`.trim(),
     version: summary.versione,
     specs: [
       formatYear(summary.anno, labels.nd),

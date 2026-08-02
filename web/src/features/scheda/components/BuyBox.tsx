@@ -55,7 +55,8 @@ export async function BuyBox({
   const tSpec = await getTranslations("Spec");
   const tUnit = await getTranslations("Catalog.unit");
 
-  const hasDiscount = auto.prezzoFinale < auto.prezzoListino;
+  const hasDiscount =
+    auto.prezzoFinale < auto.prezzoListino && auto.prezzoFinale > 0;
   const discount = auto.prezzoListino - auto.prezzoFinale;
 
   const staticDate = new Intl.DateTimeFormat(localeTag[locale], {
@@ -100,17 +101,19 @@ export async function BuyBox({
       ) : null}
 
       <div className="pricebox">
-        <div className="priceline priceline--list">
-          <span className="priceline__lbl">{t("price.listino")}</span>
-          <span className="priceline__val">
-            {formatPriceOrRequest(auto.prezzoListino, locale, tUnit("priceOnRequest"))}
-          </span>
-        </div>
         {hasDiscount ? (
-          <div className="priceline priceline--disc">
-            <span className="priceline__lbl">{t("price.sconto")}</span>
-            <span className="priceline__val">−{formatPrice(discount, locale)}</span>
-          </div>
+          <>
+            <div className="priceline priceline--list">
+              <span className="priceline__lbl">{t("price.listino")}</span>
+              <span className="priceline__val">
+                {formatPrice(auto.prezzoListino, locale)}
+              </span>
+            </div>
+            <div className="priceline priceline--disc">
+              <span className="priceline__lbl">{t("price.sconto")}</span>
+              <span className="priceline__val">−{formatPrice(discount, locale)}</span>
+            </div>
+          </>
         ) : null}
 
         {auto.scadenzaOfferta ? (

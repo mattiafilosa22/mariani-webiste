@@ -132,10 +132,10 @@ describe("sortAutos", () => {
 });
 
 describe("availableModelli (dipendenza modello↔marca)", () => {
-  it("senza marca selezionata elenca tutti i modelli", () => {
+  it("senza marca selezionata elenca tutti i modelli con value composito marca::modello", () => {
     const models = availableModelli(dataset, []).map((m) => m.value);
-    expect(models).toContain("Puma");
-    expect(models).toContain("Focus");
+    expect(models).toContain("Ford::Puma");
+    expect(models).toContain("Ford::Focus");
   });
 
   it("con marca inesistente non elenca modelli", () => {
@@ -144,7 +144,19 @@ describe("availableModelli (dipendenza modello↔marca)", () => {
 
   it("con marca selezionata (case-insensitive) elenca i suoi modelli", () => {
     const models = availableModelli(dataset, ["ford"]);
-    expect(models.map((m) => m.value)).toContain("Focus");
+    expect(models.map((m) => m.value)).toContain("Ford::Focus");
+  });
+
+  it("modelli omonimi tra marche diverse restano distinti", () => {
+    const withHomonyms: AutoSummary[] = [
+      ...dataset,
+      auto({ id: "10", slug: "omoda-7", marca: "Omoda", modello: "7" }),
+      auto({ id: "11", slug: "jaecoo-7", marca: "Jaecoo", modello: "7" }),
+    ];
+    const models = availableModelli(withHomonyms, []).map((m) => m.value);
+    expect(models).toContain("Omoda::7");
+    expect(models).toContain("Jaecoo::7");
+    expect(models.filter((v) => v.endsWith("::7"))).toHaveLength(2);
   });
 });
 

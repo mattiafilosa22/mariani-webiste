@@ -8,6 +8,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
   gap: var(--sp-3);
   min-height: 48px;
   padding: 14px 30px;
@@ -17,6 +18,7 @@
   line-height: 1.1;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  white-space: nowrap;
   border-radius: 0;
   border: 1px solid transparent;
   text-align: center;
@@ -420,33 +422,30 @@
 .brand {
   display: inline-flex;
   align-items: center;
+  flex-shrink: 0;
   gap: var(--sp-3);
 }
 .brand__logo {
-  width: 52px;
   height: 52px;
-  border-radius: 0;
-  background: linear-gradient(140deg, var(--blue-500), var(--ford-navy));
-  display: grid;
-  place-items: center;
-  color: #fff;
-  font-family: var(--f-display);
-  font-weight: 800;
-  font-size: 1.3rem;
-  flex: none;
-  box-shadow: var(--glow);
+  width: auto;
+  flex-shrink: 0;
+}
+/* Il logo ha una variante scura (tratti chiari) per restare leggibile quando
+   header/footer passano al tema scuro, invece di appoggiarlo su una piastra
+   bianca fissa: cosi' si fonde nello sfondo in entrambi i temi. */
+[data-logo-dark] {
+  display: none;
+}
+:root[data-theme="dark"] [data-logo-light] {
+  display: none;
+}
+:root[data-theme="dark"] [data-logo-dark] {
+  display: block;
 }
 .brand__txt {
   display: flex;
   flex-direction: column;
   line-height: 1.1;
-}
-.brand__name {
-  font-family: var(--f-display);
-  font-weight: 800;
-  font-size: 1.3rem;
-  color: var(--text);
-  letter-spacing: -0.03em;
 }
 .brand__sub {
   font-family: var(--f-mono);
@@ -459,6 +458,7 @@
 .nav {
   display: flex;
   align-items: center;
+  flex-shrink: 0;
   gap: 2px;
 }
 .nav__link {
@@ -544,6 +544,7 @@
 .lang-switch {
   display: inline-flex;
   align-items: center;
+  flex-shrink: 0;
   border: 1.5px solid var(--line-strong);
   border-radius: var(--radius-pill);
   overflow: hidden;
@@ -612,10 +613,15 @@
 
 /* ---------- FOOTER ---------- */
 .site-footer {
-  background: var(--bg-sunken);
+  /* Bianco puro (non --bg-sunken): stesso colore della piastra del logo, cosi'
+     il lockup si fonde nel footer invece di sembrare un riquadro a se'. */
+  background: #fff;
   color: var(--text-2);
   font-size: var(--fs-sm);
   border-top: 1px solid var(--line);
+}
+:root[data-theme="dark"] .site-footer {
+  background: var(--bg-sunken);
 }
 .footer-grid {
   display: grid;
@@ -641,9 +647,6 @@
 }
 .footer-col li a:hover {
   color: var(--brand);
-}
-.footer-brand .brand__name {
-  color: var(--text);
 }
 .footer-contact {
   display: flex;
@@ -868,7 +871,7 @@
     gap: var(--sp-6);
   }
 }
-@media (max-width: 1200px) {
+@media (max-width: 1850px) {
   .nav {
     display: none;
   }
@@ -1011,7 +1014,8 @@
     display: none;
   }
   /* Su smartphone il menu si apre a tutto schermo (non più sidebar laterale).
-     Da tablet (fino a 1200px) resta un drawer laterale. */
+     Da tablet (fino a 1850px, soglia scelta perché con 7 voci di nav + CTA
+     l'inglese non ci sta in una sola riga sotto) resta un drawer laterale. */
   .mainnav .nav {
     width: 100vw;
     max-width: none;

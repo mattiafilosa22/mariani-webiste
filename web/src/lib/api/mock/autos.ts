@@ -2,7 +2,7 @@ import type { Alimentazione, Auto, AutoImage, Cambio, Colore } from "@/domain";
 
 /**
  * Dataset demo usato quando WordPress non è disponibile (build senza CMS).
- * Rispecchia le 11 auto reali del concessionario: i dati numerici non ancora
+ * Rispecchia le 15 auto reali del concessionario: i dati numerici non ancora
  * confermati (km, anno, prezzi, potenza) sono a 0 e la UI li rende come "n.d."
  * o "Prezzo su richiesta". I dati rispettano gli schemi zod del dominio.
  */
@@ -21,6 +21,7 @@ type RealCar = {
   slug: string;
   tipo: Auto["tipo"];
   categoria: Auto["categoria"];
+  marca: string;
   modello: string;
   versione: string;
   alimentazione: Alimentazione;
@@ -31,30 +32,34 @@ type RealCar = {
   inEvidenza: boolean;
 };
 
-/** Dati confermati delle 11 auto reali (il resto è 0/placeholder). */
+/** Dati confermati delle 15 auto reali (il resto è 0/placeholder). */
 const realCars: RealCar[] = [
-  { id: "1", slug: "ford-explorer", tipo: "nuova", categoria: "auto", modello: "Explorer", versione: "", alimentazione: "elettrico", cambio: "automatico", carrozzeria: "SUV", colore: "blu", badge: ["elettrico"], inEvidenza: true },
-  { id: "2", slug: "ford-mustang-mach-e", tipo: "nuova", categoria: "auto", modello: "Mustang Mach-E", versione: "", alimentazione: "elettrico", cambio: "automatico", carrozzeria: "SUV", colore: "nero", badge: ["elettrico"], inEvidenza: true },
-  { id: "3", slug: "ford-puma-st-line-x", tipo: "nuova", categoria: "auto", modello: "Puma", versione: "ST-Line X", alimentazione: "benzina", cambio: "manuale", carrozzeria: "SUV compatto", colore: "grigio", badge: [], inEvidenza: true },
-  { id: "4", slug: "ford-puma-e", tipo: "nuova", categoria: "auto", modello: "Puma Gen-E", versione: "", alimentazione: "elettrico", cambio: "automatico", carrozzeria: "SUV compatto", colore: "nero", badge: ["elettrico"], inEvidenza: true },
-  { id: "5", slug: "ford-focus-grigia-chiaro", tipo: "usata", categoria: "auto", modello: "Focus", versione: "", alimentazione: "benzina", cambio: "manuale", carrozzeria: "Berlina", colore: "grigio", badge: [], inEvidenza: false },
-  { id: "6", slug: "ford-focus-grigia-scuro", tipo: "usata", categoria: "auto", modello: "Focus", versione: "", alimentazione: "benzina", cambio: "manuale", carrozzeria: "Berlina", colore: "grigio", badge: [], inEvidenza: false },
-  { id: "7", slug: "ford-focus-rossa", tipo: "usata", categoria: "auto", modello: "Focus", versione: "", alimentazione: "benzina", cambio: "manuale", carrozzeria: "Berlina", colore: "rosso", badge: [], inEvidenza: false },
-  { id: "8", slug: "ford-kuga-phev", tipo: "usata", categoria: "auto", modello: "Kuga", versione: "PHEV", alimentazione: "ibrido", cambio: "automatico", carrozzeria: "SUV", colore: "nero", badge: ["ibrido"], inEvidenza: true },
-  { id: "9", slug: "ford-puma-bianca-km0", tipo: "km0", categoria: "auto", modello: "Puma", versione: "", alimentazione: "benzina", cambio: "manuale", carrozzeria: "SUV compatto", colore: "bianco", badge: ["km0"], inEvidenza: false },
-  { id: "10", slug: "ford-tourneo", tipo: "nuova", categoria: "commerciale", modello: "Tourneo", versione: "", alimentazione: "diesel", cambio: "manuale", carrozzeria: "Monovolume", colore: "bianco", badge: [], inEvidenza: false },
-  { id: "11", slug: "ford-tourneo-custom", tipo: "nuova", categoria: "commerciale", modello: "Tourneo Custom", versione: "", alimentazione: "diesel", cambio: "manuale", carrozzeria: "Furgone", colore: "nero", badge: [], inEvidenza: false },
+  { id: "1", slug: "ford-explorer", tipo: "nuova", categoria: "auto", marca: "Ford", modello: "Explorer", versione: "", alimentazione: "elettrico", cambio: "automatico", carrozzeria: "SUV", colore: "blu", badge: ["elettrico"], inEvidenza: true },
+  { id: "2", slug: "ford-mustang-mach-e", tipo: "nuova", categoria: "auto", marca: "Ford", modello: "Mustang Mach-E", versione: "", alimentazione: "elettrico", cambio: "automatico", carrozzeria: "SUV", colore: "nero", badge: ["elettrico"], inEvidenza: true },
+  { id: "3", slug: "ford-puma-st-line-x", tipo: "nuova", categoria: "auto", marca: "Ford", modello: "Puma", versione: "ST-Line X", alimentazione: "benzina", cambio: "manuale", carrozzeria: "SUV compatto", colore: "grigio", badge: [], inEvidenza: true },
+  { id: "4", slug: "ford-puma-e", tipo: "nuova", categoria: "auto", marca: "Ford", modello: "Puma Gen-E", versione: "", alimentazione: "elettrico", cambio: "automatico", carrozzeria: "SUV compatto", colore: "nero", badge: ["elettrico"], inEvidenza: true },
+  { id: "5", slug: "ford-focus-grigia-chiaro", tipo: "usata", categoria: "auto", marca: "Ford", modello: "Focus", versione: "", alimentazione: "benzina", cambio: "manuale", carrozzeria: "Berlina", colore: "grigio", badge: [], inEvidenza: false },
+  { id: "6", slug: "ford-focus-grigia-scuro", tipo: "usata", categoria: "auto", marca: "Ford", modello: "Focus", versione: "", alimentazione: "benzina", cambio: "manuale", carrozzeria: "Berlina", colore: "grigio", badge: [], inEvidenza: false },
+  { id: "7", slug: "ford-focus-rossa", tipo: "usata", categoria: "auto", marca: "Ford", modello: "Focus", versione: "", alimentazione: "benzina", cambio: "manuale", carrozzeria: "Berlina", colore: "rosso", badge: [], inEvidenza: false },
+  { id: "8", slug: "ford-kuga-phev", tipo: "usata", categoria: "auto", marca: "Ford", modello: "Kuga", versione: "PHEV", alimentazione: "ibrido", cambio: "automatico", carrozzeria: "SUV", colore: "nero", badge: ["ibrido"], inEvidenza: true },
+  { id: "9", slug: "ford-puma-bianca-km0", tipo: "km0", categoria: "auto", marca: "Ford", modello: "Puma", versione: "", alimentazione: "benzina", cambio: "manuale", carrozzeria: "SUV compatto", colore: "bianco", badge: ["km0"], inEvidenza: false },
+  { id: "10", slug: "ford-tourneo", tipo: "nuova", categoria: "commerciale", marca: "Ford", modello: "Tourneo", versione: "", alimentazione: "diesel", cambio: "manuale", carrozzeria: "Monovolume", colore: "bianco", badge: [], inEvidenza: false },
+  { id: "11", slug: "ford-tourneo-custom", tipo: "nuova", categoria: "commerciale", marca: "Ford", modello: "Tourneo Custom", versione: "", alimentazione: "diesel", cambio: "manuale", carrozzeria: "Furgone", colore: "nero", badge: [], inEvidenza: false },
+  { id: "12", slug: "omoda-5", tipo: "nuova", categoria: "auto", marca: "Omoda", modello: "5", versione: "", alimentazione: "benzina", cambio: "automatico", carrozzeria: "SUV compatto", colore: "nero", badge: [], inEvidenza: true },
+  { id: "13", slug: "omoda-7", tipo: "nuova", categoria: "auto", marca: "Omoda", modello: "7", versione: "", alimentazione: "ibrido", cambio: "automatico", carrozzeria: "SUV", colore: "nero", badge: ["ibrido"], inEvidenza: true },
+  { id: "14", slug: "jaecoo-7", tipo: "nuova", categoria: "auto", marca: "Jaecoo", modello: "7", versione: "", alimentazione: "benzina", cambio: "automatico", carrozzeria: "SUV", colore: "nero", badge: [], inEvidenza: true },
+  { id: "15", slug: "jaecoo-8", tipo: "nuova", categoria: "auto", marca: "Jaecoo", modello: "8", versione: "", alimentazione: "ibrido", cambio: "automatico", carrozzeria: "SUV", colore: "bianco", badge: ["ibrido"], inEvidenza: true },
 ];
 
 /** Espande i dati confermati in DTO completi con i campi numerici a 0. */
 function toMockAuto(car: RealCar): Auto {
-  const title = `Ford ${car.modello}${car.versione ? ` ${car.versione}` : ""}`;
+  const title = `${car.marca} ${car.modello}${car.versione ? ` ${car.versione}` : ""}`;
   return {
     id: car.id,
     slug: car.slug,
     tipo: car.tipo,
     categoria: car.categoria,
-    marca: "Ford",
+    marca: car.marca,
     modello: car.modello,
     versione: car.versione,
     anno: 0,

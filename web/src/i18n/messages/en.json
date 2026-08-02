@@ -92,9 +92,9 @@
     "next": "Go to next offer",
     "pause": "Pause automatic scrolling",
     "play": "Resume automatic scrolling",
-    "goToSlide": "Go to offer {index}",
+    "goToSlide": "Go to group {index}",
     "slide": "Offer {index} of {total}",
-    "dotsLabel": "Choose the offer to show"
+    "dotsLabel": "Choose the group of offers to show"
   },
   "Spec": {
     "fuel": {

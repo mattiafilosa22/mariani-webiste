@@ -62,9 +62,25 @@ export async function Header({ locale, settings }: HeaderProps) {
             href={`/${locale}`}
             aria-label={`${settings.nomeAzienda} — Home`}
           >
-            <span className="brand__logo">M</span>
+            {/* eslint-disable-next-line @next/next/no-img-element -- export statico: immagine gia dimensionata, ottimizzatore server non disponibile */}
+            <img
+              className="brand__logo"
+              data-logo-light
+              src="/brand/logo.png"
+              width={408}
+              height={188}
+              alt={settings.nomeAzienda}
+            />
+            {/* eslint-disable-next-line @next/next/no-img-element -- export statico: immagine gia dimensionata, ottimizzatore server non disponibile */}
+            <img
+              className="brand__logo"
+              data-logo-dark
+              src="/brand/logo-dark.png"
+              width={408}
+              height={188}
+              alt={settings.nomeAzienda}
+            />
             <span className="brand__txt">
-              <span className="brand__name">{settings.nomeAzienda}</span>
               <span className="brand__sub">Ford Blubay · Concessionaria</span>
             </span>
           </Link>

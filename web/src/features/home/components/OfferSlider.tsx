@@ -41,6 +41,36 @@ export function OfferSlider({ slides, heading }: OfferSliderProps) {
   const [interacting, setInteracting] = useState(false);
   const reduceMotion = usePrefersReducedMotion();
 
+  // Quante card sono visibili insieme nel viewport dello slider: i dot
+  // rappresentano "gruppi" (pagine) di card, non le singole card, altrimenti
+  // con 9 offerte ci sarebbero 9 pallini invece di ~3. Ricalcolato a runtime
+  // (ResizeObserver) perché la larghezza card/viewport cambia per breakpoint.
+  const [cardsPerView, setCardsPerView] = useState(1);
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+    const measure = () => {
+      const first = track.children[0] as HTMLElement | undefined;
+      if (!first || first.clientWidth === 0) return;
+      const gap = parseFloat(getComputedStyle(track).columnGap || "0") || 0;
+      const perView = Math.max(
+        1,
+        Math.round((track.clientWidth + gap) / (first.clientWidth + gap))
+      );
+      setCardsPerView(perView);
+    };
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(track);
+    return () => observer.disconnect();
+  }, [total]);
+
+  const pageCount = Math.max(1, Math.ceil(total / cardsPerView));
+  const activePage = Math.min(
+    pageCount - 1,
+    Math.floor(active / cardsPerView)
+  );
+
   const setActiveIndex = useCallback((index: number) => {
     activeRef.current = index;
     setActive(index);
@@ -93,22 +123,24 @@ export function OfferSlider({ slides, heading }: OfferSliderProps) {
     };
   }, [setActiveIndex]);
 
-  // Autoplay: attivo solo se consentito e non in pausa/interazione.
+  // Autoplay: attivo solo se consentito e non in pausa/interazione. Avanza di
+  // una pagina (gruppo di card) alla volta, non di una singola card.
   useEffect(() => {
-    if (reduceMotion || userPaused || interacting || total <= 1) return;
+    if (reduceMotion || userPaused || interacting || pageCount <= 1) return;
     const id = window.setInterval(() => {
-      goTo((activeRef.current + 1) % total);
+      const currentPage = Math.floor(activeRef.current / cardsPerView);
+      goTo(((currentPage + 1) % pageCount) * cardsPerView);
     }, AUTOPLAY_MS);
     return () => window.clearInterval(id);
-  }, [reduceMotion, userPaused, interacting, total, goTo]);
+  }, [reduceMotion, userPaused, interacting, pageCount, cardsPerView, goTo]);
 
   function handleKeyDown(event: KeyboardEvent<HTMLDivElement>) {
     if (event.key === "ArrowRight") {
       event.preventDefault();
-      goTo(activeRef.current + 1);
+      goTo(activeRef.current + cardsPerView);
     } else if (event.key === "ArrowLeft") {
       event.preventDefault();
-      goTo(activeRef.current - 1);
+      goTo(activeRef.current - cardsPerView);
     }
   }
 
@@ -155,7 +187,7 @@ export function OfferSlider({ slides, heading }: OfferSliderProps) {
     }
   }, [goTo]);
 
-  const autoplayOn = !reduceMotion && !userPaused && total > 1;
+  const autoplayOn = !reduceMotion && !userPaused && pageCount > 1;
 
   return (
     <div
@@ -172,7 +204,7 @@ export function OfferSlider({ slides, heading }: OfferSliderProps) {
       <div className="offers-head">
         {heading}
         <div className="slider-nav">
-          {total > 1 && !reduceMotion ? (
+          {pageCount > 1 && !reduceMotion ? (
             <button
               type="button"
               className="slider-btn"
@@ -210,7 +242,7 @@ export function OfferSlider({ slides, heading }: OfferSliderProps) {
             type="button"
             className="slider-btn"
             aria-label={t("prev")}
-            onClick={() => goTo(activeRef.current - 1)}
+            onClick={() => goTo(activeRef.current - cardsPerView)}
           >
             <svg
               width="24"
@@ -228,7 +260,7 @@ export function OfferSlider({ slides, heading }: OfferSliderProps) {
             type="button"
             className="slider-btn"
             aria-label={t("next")}
-            onClick={() => goTo(activeRef.current + 1)}
+            onClick={() => goTo(activeRef.current + cardsPerView)}
           >
             <svg
               width="24"
@@ -271,16 +303,16 @@ export function OfferSlider({ slides, heading }: OfferSliderProps) {
         </div>
       </div>
 
-      {total > 1 ? (
+      {pageCount > 1 ? (
         <div className="slider-dots" role="group" aria-label={t("dotsLabel")}>
-          {slides.map((_, index) => (
+          {Array.from({ length: pageCount }, (_, page) => (
             <button
               type="button"
-              key={index}
-              className={`dot${index === active ? " is-active" : ""}`}
-              aria-label={t("goToSlide", { index: index + 1 })}
-              aria-current={index === active}
-              onClick={() => goTo(index)}
+              key={page}
+              className={`dot${page === activePage ? " is-active" : ""}`}
+              aria-label={t("goToSlide", { index: page + 1 })}
+              aria-current={page === activePage}
+              onClick={() => goTo(page * cardsPerView)}
             />
           ))}
         </div>
