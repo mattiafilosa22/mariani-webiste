@@ -53,6 +53,17 @@ if ( ! defined( 'MARIANI_GH_TOKEN' ) ) {
 
 /*
  * -------------------------------------------------------------------------
+ * Sito pubblico: il CMS non ha frontend, ogni richiesta di navigazione su
+ * cms.<dominio> viene rimandata qui. Senza questa costante il frontend
+ * risponde 403 (mai una pagina renderizzata).
+ * -------------------------------------------------------------------------
+ */
+if ( ! defined( 'MARIANI_SITE_URL' ) ) {
+	define( 'MARIANI_SITE_URL', 'https://mariani-auto.it' );
+}
+
+/*
+ * -------------------------------------------------------------------------
  * CORS — origini del frontend headless autorizzate a chiamare la REST API.
  *
  * Il frontend statico sta su un host diverso dal CMS, quindi il POST del form

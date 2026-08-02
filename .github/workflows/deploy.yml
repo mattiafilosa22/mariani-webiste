@@ -52,9 +52,15 @@ jobs:
       - name: Deploy via rsync over SSH
         uses: burnett01/rsync-deployments@7.0.2
         with:
-          switches: -az --delete --exclude='.well-known'
+          # --delete tiene la webroot allineata all'export. Le esclusioni proteggono
+          # ciò che non nasce dalla build: challenge ACME di Let's Encrypt e i file
+          # con cui Plesk implementa la protezione directory dell'anteprima.
+          switches: -az --delete --exclude='.well-known' --exclude='.htaccess' --exclude='.htpasswd'
           path: web/out/
-          remote_path: ${{ secrets.VHOSTING_REMOTE_PATH }} # es. /home/utente/public_html/
+          # Document root di preview.mariani-auto.it, NON quella del dominio:
+          # finché il sito non è approvato, il dominio serve la coming soon.
+          # Es. /var/www/vhosts/mariani-auto.it/preview.mariani-auto.it/
+          remote_path: ${{ secrets.VHOSTING_REMOTE_PATH }}
           remote_host: ${{ secrets.VHOSTING_SSH_HOST }}
           remote_port: ${{ secrets.VHOSTING_SSH_PORT }}     # tipicamente 22
           remote_user: ${{ secrets.VHOSTING_SSH_USER }}

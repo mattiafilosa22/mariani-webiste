@@ -97,7 +97,8 @@ Riuso di `.github/workflows/deploy.yml`. Modifiche necessarie:
   `--delete` li rimuove a ogni deploy;
 - purge Cloudflare attivo (zone id + token con permesso *Cache Purge*).
 
-`deploy-pantheon.yml` diventa obsoleto: da rimuovere a fine migrazione.
+`deploy-pantheon.yml` e `scripts/deploy-pantheon.sh` sono stati rimossi: l'ambiente
+di test Pantheon non fa più parte dell'architettura.
 
 ## Ordine di esecuzione
 
