@@ -37,3 +37,6 @@ npm-debug.log*
 
 # Config locale deploy Pantheon (segreti, non tracciare)
 scripts/.pantheon.env
+
+# Zip di appoggio per il caricamento manuale su Plesk (rigenerabile).
+coming-soon/coming-soon-da-caricare.zip
