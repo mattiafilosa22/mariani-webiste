@@ -6,8 +6,8 @@ Stato: approvato (design), da eseguire
 ## Obiettivo
 
 Portare online l'architettura WordPress headless + Next.js static export su hosting
-VHosting/Plesk, con Cloudflare come DNS autoritativo e CDN, **senza toccare il sito e
-la posta attualmente in produzione** fino al go-live.
+VHosting/Plesk, con Cloudflare come DNS autoritativo e CDN, **senza mai interrompere
+la posta**, pubblicando subito una coming soon sul dominio e il sito vero al go-live.
 
 ## Situazione di partenza (rilevata il 2026-08-02)
 
@@ -45,9 +45,11 @@ conseguenza i redirect 301 legacy previsti al go-live.
 | Database | MySQL/MariaDB locale Plesk | utente dedicato, host `localhost`, no accesso remoto |
 | Posta | resta su `185.116.60.222` | fuori scope di questo intervento |
 
-**Decisione chiave**: `preview` e il dominio principale condividono la document root.
-Un solo target di deploy; al go-live non si copia né si ricostruisce nulla — si sposta
-il DNS e si toglie la protezione.
+**Decisione chiave**: document root separate. Il dominio principale serve la coming
+soon (pubblica), `preview` ospita il sito vero dietro htpasswd ed è l'unico target
+della CI. Al go-live non si sposta un file: si cambia la *Root del documento* del
+dominio principale facendola puntare alla cartella di `preview` e si toglie la
+protezione. Un campo, reversibile.
 
 La build usa `NEXT_PUBLIC_SITE_URL=https://mariani-auto.it` fin da subito, così
 canonical, sitemap, hreflang e OG sono definitivi. L'anteprima non viene indicizzata
@@ -84,7 +86,7 @@ WP (cliente pubblica) ──webhook──> GitHub repository_dispatch (wp-conten
                        GitHub Actions: npm ci → build export statico
                        (legge https://cms.mariani-auto.it/wp-json/mariani/v1)
                                         │
-                       rsync SSH → document root di mariani-auto.it (Plesk)
+                       rsync SSH → document root di preview.mariani-auto.it (Plesk)
                                         │
                                  purge cache Cloudflare
 ```
@@ -103,7 +105,9 @@ Riuso di `.github/workflows/deploy.yml`. Modifiche necessarie:
    registrar, attesa attivazione. Verifica: risoluzione invariata per `@`, `www`, `mail`, `MX`.
 2. **DNS nuovi record**: `cms` e `preview` → IP Plesk (grigi).
 3. **Plesk**: sottodominio `cms`, dominio `mariani-auto.it`, `preview` con document root
-   condivisa; Let's Encrypt su `cms` e `preview`; htpasswd su `preview`/webroot.
+   propria; coming soon caricata nella document root del dominio; htpasswd su `preview`.
+   Poi switch degli A record `@`/`www` sul Plesk e, subito dopo, Let's Encrypt su tutti
+   e tre gli host + redirect HTTP→HTTPS.
 4. **WordPress** su `cms` via WP Toolkit: lingua IT, titolo corretto, nessun set plugin,
    prefisso tabelle non standard, auto-update disattivati, admin tecnico con email controllata.
 5. **Contenuti/codice CMS**: mu-plugin `mariani-core`, plugin (Meta Box, Polylang,
@@ -112,9 +116,9 @@ Riuso di `.github/workflows/deploy.yml`. Modifiche necessarie:
 6. **CI**: chiave SSH dedicata, GitHub Secrets, primo deploy manuale (`workflow_dispatch`),
    verifica dell'export su `preview`.
 7. **Webhook**: test del ciclo pubblicazione → rebuild automatico.
-8. **Go-live** (finestra dedicata): togliere htpasswd, spostare `@` e `www` sull'IP Plesk
-   **lasciando `mail` invariato**, emettere Let's Encrypt sul dominio principale, attivare
-   il proxy Cloudflare, impostare i redirect 301 legacy.
+8. **Go-live**: puntare la *Root del documento* del dominio principale alla cartella di
+   `preview`, togliere htpasswd, attivare il proxy Cloudflare (arancione) su `@` e `www`.
+   Nessuna modifica DNS, quindi nessun rischio per la posta.
 
 ## Rischi e mitigazioni
 
