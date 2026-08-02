@@ -17,13 +17,13 @@ concurrency:
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
-    # I secret Cloudflare passano da env perche il contesto `secrets` non e
-    # utilizzabile nelle condizioni `if:` di uno step: GitHub rifiuta l'intero
-    # workflow. Con env la condizione e valida e lo step si salta da solo
-    # quando il purge non e configurato.
+    # Il contesto `secrets` non e utilizzabile nelle condizioni `if:` di uno
+    # step (GitHub rifiuta l'intero workflow), quindi la condizione legge da
+    # env. A livello di job sta SOLO lo zone id, che identifica la zona e non
+    # e una credenziale: il token API resta nello step che lo usa, per non
+    # esporlo alle action di terze parti che girano negli altri step.
     env:
       CF_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
-      CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -78,6 +78,8 @@ jobs:
       # direttamente dentro il comando run:.
       - name: Purge Cloudflare cache
         if: ${{ env.CF_ZONE_ID != '' }}
+        env:
+          CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: |
           curl -sS -X POST \
             "https://api.cloudflare.com/client/v4/zones/${CF_ZONE_ID}/purge_cache" \
