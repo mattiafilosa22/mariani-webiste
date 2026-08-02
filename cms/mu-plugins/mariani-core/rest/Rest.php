@@ -22,6 +22,7 @@ use Mariani\Core\Rest\Repositories\AutoRepository;
 use Mariani\Core\Rest\Repositories\LeadRepository;
 use Mariani\Core\Rest\Repositories\PageRepository;
 use Mariani\Core\Rest\Repositories\SettingsRepository;
+use Mariani\Core\Rest\Support\Cors;
 use Mariani\Core\Rest\Support\ImageTransformer;
 
 defined( 'ABSPATH' ) || exit;
@@ -36,6 +37,8 @@ final class Rest implements Module {
 	 */
 	public function register(): void {
 		add_action( 'rest_api_init', array( $this, 'register_routes' ) );
+
+		( new Cors() )->register();
 	}
 
 	/**

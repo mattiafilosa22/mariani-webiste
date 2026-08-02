@@ -53,6 +53,21 @@ if ( ! defined( 'MARIANI_GH_TOKEN' ) ) {
 
 /*
  * -------------------------------------------------------------------------
+ * CORS — origini del frontend headless autorizzate a chiamare la REST API.
+ *
+ * Il frontend statico sta su un host diverso dal CMS, quindi il POST del form
+ * contatti verso /lead e cross-origin: senza questa whitelist il browser lo
+ * blocca. Elenco separato da virgole, senza slash finale. Niente wildcard.
+ * -------------------------------------------------------------------------
+ */
+if ( ! defined( 'MARIANI_ALLOWED_ORIGINS' ) ) {
+	// Produzione: 'https://mariani-auto.it,https://www.mariani-auto.it,https://preview.mariani-auto.it'.
+	// Sviluppo locale: aggiungere 'http://localhost:3000'.
+	define( 'MARIANI_ALLOWED_ORIGINS', '' );
+}
+
+/*
+ * -------------------------------------------------------------------------
  * SMTP (placeholder) — usati da un plugin SMTP o dalla configurazione mail.
  * -------------------------------------------------------------------------
  */

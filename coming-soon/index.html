@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mariani Concessionaria Ford — Piombino</title>
+<meta name="description" content="Mariani, concessionaria Ford Blubay a Piombino. Il nuovo sito è in lavorazione: la concessionaria è aperta, chiamaci allo 0565 276520 o passa in Via Adige 3.">
+<meta name="theme-color" content="#00194d">
+<link rel="icon" href="assets/logo.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Mariani Concessionaria Ford — Piombino">
+<meta property="og:description" content="Il nuovo sito è in lavorazione. La concessionaria è aperta: 0565 276520, Via Adige 3, Piombino.">
+<meta property="og:image" content="assets/showroom.jpg">
+<style>
+  :root{
+    --ink:#00102e;
+    --navy:#00194d;
+    --navy-deep:#000b22;
+    --brand:#003399;
+    --electric:#6e9bff;
+    --gold:#d8b264;
+    --paper:#ffffff;
+    --muted:#a9bad8;
+    --rule:rgba(169,186,216,.28);
+    --f-display:"Archivo","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --f-body:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  }
+
+  *,*::before,*::after{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;
+    min-height:100vh;
+    background:var(--navy-deep);
+    color:var(--paper);
+    font-family:var(--f-body);
+    font-size:1.0625rem;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit}
+  :focus-visible{outline:3px solid var(--electric);outline-offset:3px}
+
+  /* ---------- impianto: due campi, foto a destra ---------- */
+  .sheet{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) minmax(0,.82fr);
+    min-height:100vh;
+  }
+
+  .field{
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    gap:48px;
+    padding:clamp(28px,4.4vw,64px);
+    background:
+      linear-gradient(180deg,var(--navy) 0%,var(--ink) 58%,var(--navy-deep) 100%);
+  }
+  /* reticolo da tavolo da disegno: hairline, quasi invisibile */
+  .field::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background-image:
+      linear-gradient(to right,rgba(169,186,216,.07) 1px,transparent 1px),
+      linear-gradient(to bottom,rgba(169,186,216,.07) 1px,transparent 1px);
+    background-size:96px 96px;
+    pointer-events:none;
+  }
+  .field > *{position:relative}
+
+  .brand{display:flex;align-items:center;gap:18px}
+  /* Il logo sorgente è 408×188: oltre ~170px in CSS si vede sgranato su schermi 2x. */
+  .brand img{width:clamp(124px,11vw,164px);height:auto;display:block}
+  .brand__tag{
+    font-family:var(--f-display);
+    font-size:.7rem;
+    line-height:1.5;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    color:var(--muted);
+    border-left:1px solid var(--rule);
+    padding-left:16px;
+  }
+
+  /* ---------- il blocco che porta il messaggio ---------- */
+  .eyebrow{
+    font-family:var(--f-display);
+    font-size:.78rem;
+    letter-spacing:.26em;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin:0 0 26px;
+    display:flex;
+    align-items:center;
+    gap:16px;
+  }
+  .eyebrow::after{
+    content:"";
+    height:1px;
+    flex:1;
+    background:linear-gradient(90deg,var(--gold),transparent);
+    max-width:180px;
+  }
+
+  h1{
+    font-family:var(--f-display);
+    font-weight:800;
+    font-size:clamp(2.5rem,6.2vw,5rem);
+    line-height:.98;
+    letter-spacing:-.028em;
+    margin:0 0 26px;
+    text-wrap:balance;
+  }
+  h1 em{
+    font-style:normal;
+    display:block;
+    color:var(--electric);
+  }
+
+  .lede{
+    font-size:clamp(1.0625rem,1.5vw,1.3125rem);
+    line-height:1.5;
+    color:#dfe7f6;
+    max-width:34ch;
+    margin:0 0 40px;
+  }
+
+  .actions{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:44px}
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:12px;
+    min-height:56px;
+    padding:0 30px;
+    font-family:var(--f-display);
+    font-size:1.0625rem;
+    font-weight:700;
+    letter-spacing:.01em;
+    text-decoration:none;
+    border:1px solid transparent;
+    transition:transform .18s ease,background-color .18s ease,color .18s ease;
+  }
+  .btn--primary{background:var(--paper);color:var(--ink)}
+  .btn--primary:hover{background:var(--electric);color:var(--ink)}
+  .btn--ghost{border-color:var(--rule);color:var(--paper)}
+  .btn--ghost:hover{border-color:var(--electric);color:var(--electric)}
+  .btn:active{transform:translateY(1px)}
+  .btn svg{width:20px;height:20px;flex:none}
+
+  /* ---------- dati utili: quello per cui la gente arriva qui ---------- */
+  .facts{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+    gap:1px;
+    background:var(--rule);
+    border:1px solid var(--rule);
+  }
+  .fact{
+    background:rgba(0,11,34,.72);
+    padding:20px 22px;
+  }
+  .fact dt{
+    font-family:var(--f-display);
+    font-size:.7rem;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin:0 0 10px;
+  }
+  .fact dd{margin:0;font-size:.98rem;line-height:1.5;color:#dfe7f6}
+  .fact a{text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--rule)}
+  .fact a:hover{text-decoration-color:var(--electric);color:var(--electric)}
+  .fact .closed{color:var(--muted)}
+
+  .colophon{
+    font-size:.85rem;
+    color:var(--muted);
+    border-top:1px solid var(--rule);
+    padding-top:18px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px 20px;
+    justify-content:space-between;
+  }
+
+  /* ---------- lastra fotografica ---------- */
+  .plate{position:relative;overflow:hidden;background:var(--ink)}
+  .plate img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:52% 62%;
+    display:block;
+  }
+  .plate::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+      linear-gradient(90deg,rgba(0,11,34,.92) 0%,rgba(0,11,34,.18) 34%,transparent 62%),
+      linear-gradient(0deg,rgba(0,11,34,.55),transparent 45%);
+  }
+  .caption{
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:0;
+    z-index:1;
+    padding:22px clamp(20px,2.6vw,34px);
+    font-size:.8rem;
+    letter-spacing:.02em;
+    color:var(--muted);
+    border-top:1px solid var(--rule);
+    background:linear-gradient(0deg,rgba(0,11,34,.86),rgba(0,11,34,0));
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width:1000px){
+    .sheet{grid-template-columns:1fr;grid-template-rows:auto auto}
+    .plate{order:-1;min-height:46vh;max-height:60vh}
+    .plate img{object-position:52% 58%}
+    .field{gap:36px}
+  }
+  @media (max-width:520px){
+    .actions .btn{width:100%;justify-content:center}
+    .colophon{flex-direction:column;gap:6px}
+  }
+
+  /* ---------- entrata: una sola sequenza, discreta ---------- */
+  @media (prefers-reduced-motion:no-preference){
+    .reveal{animation:rise .7s cubic-bezier(.2,.7,.3,1) both}
+    .reveal:nth-of-type(1){animation-delay:.05s}
+    .eyebrow{animation:rise .7s cubic-bezier(.2,.7,.3,1) .1s both}
+    h1{animation:rise .7s cubic-bezier(.2,.7,.3,1) .18s both}
+    .lede{animation:rise .7s cubic-bezier(.2,.7,.3,1) .26s both}
+    .actions{animation:rise .7s cubic-bezier(.2,.7,.3,1) .34s both}
+    .facts{animation:rise .7s cubic-bezier(.2,.7,.3,1) .42s both}
+    @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  }
+</style>
+</head>
+<body>
+<main class="sheet">
+
+  <section class="field">
+    <header class="brand reveal">
+      <img src="assets/logo.png" alt="Mariani Auto" width="408" height="188">
+      <span class="brand__tag">Concessionaria Ford<br>Blubay · Piombino</span>
+    </header>
+
+    <div>
+      <p class="eyebrow">Sito in lavorazione</p>
+
+      <h1>Il nuovo sito<br>è ancora <em>sul tavolo da disegno.</em></h1>
+
+      <p class="lede">Stiamo rifacendo mariani-auto.it da zero. La concessionaria, intanto, è aperta come sempre.</p>
+
+      <div class="actions">
+        <a class="btn btn--primary" href="tel:+390565276520">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></svg>
+          Chiama 0565 276520
+        </a>
+        <a class="btn btn--ghost" href="https://wa.me/390565276520" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm5.6 14.1c-.2.7-1.3 1.3-1.9 1.3-.5 0-1.1.2-3.6-.8-3-1.3-4.9-4.4-5-4.6-.2-.2-1.2-1.6-1.2-3s.8-2.1 1-2.4c.3-.3.6-.4.8-.4h.6c.2 0 .4-.1.7.5l.9 2.1c.1.2.2.4 0 .7l-.4.5-.3.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.7-.1l.9-1.1c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.6.3.1.2.1.8-.1 1.5Z"/></svg>
+          Scrivi su WhatsApp
+        </a>
+      </div>
+
+      <dl class="facts">
+        <div class="fact">
+          <dt>Dove siamo</dt>
+          <dd><a href="https://www.google.com/maps/search/?api=1&amp;query=Via+Adige+3+Piombino" rel="noopener">Via Adige 3<br>57025 Piombino (LI)</a></dd>
+        </div>
+        <div class="fact">
+          <dt>Vendita</dt>
+          <dd>Lun–Ven 8:30–12:30<br>e 14:30–18:30<br><span class="closed">Sabato e domenica chiuso</span></dd>
+        </div>
+        <div class="fact">
+          <dt>Officina</dt>
+          <dd>Lun–Ven 8:00–12:30<br>e 14:00–18:00<br><span class="closed">Sabato e domenica chiuso</span></dd>
+        </div>
+      </dl>
+    </div>
+
+    <p class="colophon">
+      <span>Mariani S.r.l. — Concessionaria Ford Blubay</span>
+      <span>mariani-auto.it</span>
+    </p>
+  </section>
+
+  <figure class="plate" style="margin:0">
+    <img src="assets/showroom.jpg" alt="Ford Mustang Mach-E nel nostro showroom di Piombino, davanti ai bozzetti disegnati a mano" width="1500" height="2000">
+    <figcaption class="caption">Il nostro showroom, Via Adige 3 — Piombino</figcaption>
+  </figure>
+
+</main>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"AutoDealer",
+  "name":"Mariani Concessionaria Ford",
+  "url":"https://mariani-auto.it",
+  "image":"https://mariani-auto.it/assets/showroom.jpg",
+  "telephone":"+39 0565 276520",
+  "address":{
+    "@type":"PostalAddress",
+    "streetAddress":"Via Adige 3",
+    "postalCode":"57025",
+    "addressLocality":"Piombino",
+    "addressRegion":"LI",
+    "addressCountry":"IT"
+  },
+  "openingHoursSpecification":[{
+    "@type":"OpeningHoursSpecification",
+    "dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],
+    "opens":"08:30",
+    "closes":"12:30"
+  },{
+    "@type":"OpeningHoursSpecification",
+    "dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],
+    "opens":"14:30",
+    "closes":"18:30"
+  }]
+}
+</script>
+</body>
+</html>
