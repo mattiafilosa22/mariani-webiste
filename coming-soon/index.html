@@ -218,11 +218,13 @@
   }
 
   /* ---------- responsive ---------- */
+  /* Sotto i 1000px la foto sparisce: in verticale finirebbe ritagliata su un
+     dettaglio insignificante e spingerebbe i contatti — telefono, indirizzo,
+     orari — sotto la piega, che è l'unica cosa per cui la pagina esiste. */
   @media (max-width:1000px){
-    .sheet{grid-template-columns:1fr;grid-template-rows:auto auto}
-    .plate{order:-1;min-height:46vh;max-height:60vh}
-    .plate img{object-position:52% 58%}
-    .field{gap:36px}
+    .sheet{grid-template-columns:1fr}
+    .plate{display:none}
+    .field{gap:36px;min-height:100vh}
   }
   @media (max-width:520px){
     .actions .btn{width:100%;justify-content:center}
@@ -292,7 +294,7 @@
   </section>
 
   <figure class="plate" style="margin:0">
-    <img src="assets/showroom.jpg" alt="Ford Mustang Mach-E nel nostro showroom di Piombino, davanti ai bozzetti disegnati a mano" width="1500" height="2000">
+    <img src="assets/showroom.jpg" alt="Ford Mustang Mach-E nel nostro showroom di Piombino, davanti ai bozzetti disegnati a mano" width="1500" height="2000" loading="lazy" decoding="async">
     <figcaption class="caption">Il nostro showroom, Via Adige 3 — Piombino</figcaption>
   </figure>
 
