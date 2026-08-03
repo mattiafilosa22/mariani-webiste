@@ -41,6 +41,35 @@ final class HeadlessGuard implements Module {
 		add_action( 'template_redirect', array( $this, 'block_frontend' ), 0 );
 		add_action( 'send_headers', array( $this, 'send_noindex_header' ) );
 		add_filter( 'robots_txt', array( $this, 'filter_robots' ), 10, 1 );
+		add_filter( 'allowed_redirect_hosts', array( $this, 'allow_site_host' ) );
+	}
+
+	/**
+	 * Autorizza il sito pubblico come destinazione di wp_safe_redirect().
+	 *
+	 * Senza questo, WordPress considera esterno l'host del frontend e ripiega
+	 * su wp-admin: il visitatore finirebbe sulla schermata di login invece che
+	 * sul sito.
+	 *
+	 * @param string[] $hosts Host gia consentiti.
+	 * @return string[]
+	 */
+	public function allow_site_host( array $hosts ): array {
+		$site_url = $this->public_site_url();
+
+		if ( null === $site_url ) {
+			return $hosts;
+		}
+
+		$host = wp_parse_url( $site_url, PHP_URL_HOST );
+
+		if ( ! is_string( $host ) || '' === $host ) {
+			return $hosts;
+		}
+
+		$hosts[] = $host;
+
+		return array_values( array_unique( $hosts ) );
 	}
 
 	/**
