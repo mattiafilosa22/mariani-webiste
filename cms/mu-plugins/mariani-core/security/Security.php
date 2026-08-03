@@ -32,5 +32,6 @@ final class Security implements Module {
 
 		( new AdminMenu() )->register();
 		( new HeadlessGuard() )->register();
+		( new CommentsDisabled() )->register();
 	}
 }
