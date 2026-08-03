@@ -20,6 +20,10 @@ defined( 'ABSPATH' ) || exit;
  *
  * Include un debounce (transient) per evitare rebuild a raffica ed e un no-op
  * silenzioso se le costanti di configurazione non sono definite.
+ *
+ * L'esito dell'ultima chiamata viene registrato e, in caso di errore, mostrato
+ * in bacheca: senza, un token scaduto o revocato produrrebbe un guasto muto —
+ * il redattore pubblica, WordPress dice "fatto", e il sito non si aggiorna piu.
  */
 final class DeployWebhook implements Module {
 
@@ -29,6 +33,13 @@ final class DeployWebhook implements Module {
 	 * @var string
 	 */
 	private const DEBOUNCE_KEY = 'mariani_deploy_debounce';
+
+	/**
+	 * Opzione con l'esito dell'ultima notifica inviata.
+	 *
+	 * @var string
+	 */
+	private const STATUS_OPTION = 'mariani_deploy_last_status';
 
 	/**
 	 * Finestra di debounce in secondi.
@@ -51,6 +62,36 @@ final class DeployWebhook implements Module {
 		add_action( 'save_post_' . Schema::CPT_AUTO, array( $this, 'on_save' ), 10, 2 );
 		add_action( 'save_post_page', array( $this, 'on_save' ), 10, 2 );
 		add_action( 'transition_post_status', array( $this, 'on_transition' ), 10, 3 );
+		add_action( 'admin_notices', array( $this, 'render_failure_notice' ) );
+	}
+
+	/**
+	 * Avvisa in bacheca se l'ultima notifica a GitHub non e andata a buon fine.
+	 */
+	public function render_failure_notice(): void {
+		if ( ! current_user_can( 'edit_posts' ) ) {
+			return;
+		}
+
+		$status = get_option( self::STATUS_OPTION );
+
+		if ( ! is_array( $status ) || ! empty( $status['ok'] ) ) {
+			return;
+		}
+
+		printf(
+			'<div class="notice notice-error"><p><strong>%s</strong> %s<br><em>%s</em></p></div>',
+			esc_html__( 'Aggiornamento del sito non riuscito.', 'mariani-core' ),
+			esc_html__( 'Le modifiche sono salvate, ma il sito pubblico non e stato ricostruito. Avvisa chi cura la manutenzione tecnica.', 'mariani-core' ),
+			esc_html(
+				sprintf(
+					/* translators: 1: data e ora, 2: dettaglio errore */
+					__( 'Ultimo tentativo: %1$s — %2$s', 'mariani-core' ),
+					isset( $status['time'] ) ? wp_date( 'd/m/Y H:i', (int) $status['time'] ) : '?',
+					isset( $status['message'] ) ? (string) $status['message'] : '?'
+				)
+			)
+		);
 	}
 
 	/**
@@ -107,11 +148,14 @@ final class DeployWebhook implements Module {
 		$repo  = (string) constant( 'MARIANI_GH_REPO' );
 		$token = (string) constant( 'MARIANI_GH_TOKEN' );
 
-		wp_remote_post(
+		// Chiamata bloccante, con timeout corto: l'API di GitHub risponde in
+		// poche centinaia di millisecondi e in cambio sappiamo se il deploy e
+		// stato accettato. Con "blocking => false" un 403 sarebbe invisibile.
+		$response = wp_remote_post(
 			'https://api.github.com/repos/' . $repo . '/dispatches',
 			array(
-				'timeout'  => 15,
-				'blocking' => false,
+				'timeout'  => 8,
+				'blocking' => true,
 				'headers'  => array(
 					'Accept'        => 'application/vnd.github+json',
 					'Authorization' => 'Bearer ' . $token,
@@ -129,6 +173,52 @@ final class DeployWebhook implements Module {
 				),
 			)
 		);
+
+		$this->record_outcome( $response );
+	}
+
+	/**
+	 * Registra l'esito della notifica per poterlo mostrare in bacheca.
+	 *
+	 * GitHub risponde 204 quando accetta il dispatch: qualunque altra cosa e
+	 * un problema da segnalare (token scaduto, permessi revocati, rete giu).
+	 *
+	 * @param array<string, mixed>|\WP_Error $response Risposta di wp_remote_post.
+	 */
+	private function record_outcome( $response ): void {
+		if ( is_wp_error( $response ) ) {
+			$ok      = false;
+			$code    = 0;
+			$message = $response->get_error_message();
+		} else {
+			$code    = (int) wp_remote_retrieve_response_code( $response );
+			$ok      = 204 === $code;
+			$message = $ok
+				? __( 'Ricostruzione del sito avviata.', 'mariani-core' )
+				: sprintf(
+					/* translators: 1: codice HTTP, 2: messaggio restituito da GitHub */
+					__( 'GitHub ha risposto %1$d: %2$s', 'mariani-core' ),
+					$code,
+					wp_remote_retrieve_response_message( $response )
+				);
+		}
+
+		update_option(
+			self::STATUS_OPTION,
+			array(
+				'ok'      => $ok,
+				'code'    => $code,
+				'message' => $message,
+				'time'    => time(),
+			),
+			false
+		);
+
+		// Un tentativo fallito non deve restare "coperto" dal debounce: cosi il
+		// salvataggio successivo riprova subito invece di aspettare due minuti.
+		if ( ! $ok ) {
+			delete_transient( self::DEBOUNCE_KEY );
+		}
 	}
 
 	/**
