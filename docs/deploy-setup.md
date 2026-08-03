@@ -87,7 +87,48 @@ Let's Encrypt da Plesk su `mariani-auto.it` (+`www`), `cms` e `preview`, poi
 *Reindirizza da HTTP a HTTPS* nelle impostazioni di hosting dei tre host.
 La validazione HTTP-01 richiede record **grigi**: emettere prima di accendere il proxy.
 
-## 7. Go-live
+## 7. Manutenzione di WordPress (aggiornamenti)
+
+Gli aggiornamenti automatici sono disattivati e `DISALLOW_FILE_MODS` blocca
+installazioni e aggiornamenti dalla dashboard, **per chiunque**, amministratori
+compresi: il back-office non ha più i pulsanti di aggiornamento.
+
+Un aggiornamento rotto non romperebbe solo il CMS — il frontend viene ricostruito
+da quelle API, quindi si porterebbe dietro il sito pubblico. Per questo si
+aggiorna a mano, con backup e verifica.
+
+Procedura, via SSH:
+
+```bash
+WP="/opt/plesk/php/8.4/bin/php /usr/local/bin/wp"
+DOC=~/cms.mariani-auto.it
+
+# 1. Backup di database e file (o snapshot da Plesk)
+$WP db export ~/backup-$(date +%F).sql --path="$DOC"
+
+# 2. Cosa c'è da aggiornare
+$WP core check-update --path="$DOC"
+$WP plugin list --fields=name,version,update --path="$DOC"
+
+# 3. Sbloccare temporaneamente le modifiche ai file
+$WP config delete DISALLOW_FILE_MODS --path="$DOC"
+
+# 4. Aggiornare
+$WP plugin update --all --path="$DOC"
+$WP core update --path="$DOC"
+
+# 5. Richiudere SUBITO
+$WP config set DISALLOW_FILE_MODS true --raw --type=constant --path="$DOC"
+
+# 6. Verificare che le API rispondano, poi ricostruire il sito
+curl -sI https://cms.mariani-auto.it/wp-json/mariani/v1/autos | head -1
+gh workflow run deploy.yml
+```
+
+Il passo 5 non è opzionale: se resta sbloccato, la protezione esiste solo finché
+nessuno apre la dashboard.
+
+## 8. Go-live
 
 1. Plesk: *Root del documento* di `mariani-auto.it` → cartella di `preview`.
 2. Rimuovere la protezione directory.

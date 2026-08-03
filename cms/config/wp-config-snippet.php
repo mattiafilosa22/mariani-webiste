@@ -32,9 +32,13 @@ if ( ! defined( 'DISALLOW_FILE_EDIT' ) ) {
 }
 
 /*
- * Decommentare per bloccare anche installazioni/aggiornamenti dalla dashboard:
- * define( 'DISALLOW_FILE_MODS', true );
+ * Blocca installazioni, aggiornamenti e rimozioni di core/plugin/temi dalla
+ * dashboard, per chiunque, amministratori compresi. La manutenzione si fa da
+ * riga di comando, con backup: vedi docs/deploy-setup.md.
  */
+if ( ! defined( 'DISALLOW_FILE_MODS' ) ) {
+	define( 'DISALLOW_FILE_MODS', true );
+}
 
 /*
  * -------------------------------------------------------------------------
