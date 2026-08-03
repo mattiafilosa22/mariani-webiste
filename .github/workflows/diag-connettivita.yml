@@ -1,0 +1,23 @@
+name: Diagnostica connettività runner → server
+
+# Workflow temporaneo: verifica quali porte del server sono raggiungibili dai
+# runner GitHub. Da rimuovere una volta chiarito il blocco SSH.
+on:
+  workflow_dispatch: {}
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test porte
+        env:
+          HOST: ${{ secrets.VHOSTING_SSH_HOST }}
+        run: |
+          echo "IP pubblico del runner: $(curl -s --max-time 10 https://api.ipify.org || echo sconosciuto)"
+          for p in 22 21 443 80 8443; do
+            if timeout 8 bash -c "cat < /dev/null > /dev/tcp/${HOST}/${p}" 2>/dev/null; then
+              echo "porta ${p}: APERTA"
+            else
+              echo "porta ${p}: bloccata/chiusa"
+            fi
+          done
