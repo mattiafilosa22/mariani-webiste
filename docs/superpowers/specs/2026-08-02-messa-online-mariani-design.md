@@ -1,7 +1,7 @@
 # Messa online sito Mariani — design
 
-Data: 2026-08-02
-Stato: approvato (design), da eseguire
+Data: 2026-08-02 (aggiornato il 2026-08-03)
+Stato: eseguito — restano SMTP e utente redattore
 
 ## Obiettivo
 
@@ -86,16 +86,23 @@ WP (cliente pubblica) ──webhook──> GitHub repository_dispatch (wp-conten
                        GitHub Actions: npm ci → build export statico
                        (legge https://cms.mariani-auto.it/wp-json/mariani/v1)
                                         │
-                       rsync SSH → document root di preview.mariani-auto.it (Plesk)
+                       pubblica site.tar.gz nella release "site-latest"
+                                        │
+                    il server scarica (cron 5 min, scripts/pull-deploy.sh)
+                    verifica sha256 → rsync nella document root di preview
                                         │
                                  purge cache Cloudflare
 ```
 
-Riuso di `.github/workflows/deploy.yml`. Modifiche necessarie:
-- secret `VHOSTING_*` valorizzati con host/utente/chiave/percorso del Plesk;
-- `--exclude` per i file di protezione directory (`.htaccess`, `.htpasswd`), altrimenti
-  `--delete` li rimuove a ogni deploy;
-- purge Cloudflare attivo (zone id + token con permesso *Cache Purge*).
+**Il deploy è in pull, non in push** (deviazione rispetto al piano iniziale). Il
+firewall di VHosting scarta a intermittenza le connessioni SSH in ingresso dai runner
+GitHub: `rsync` falliva a giorni alterni con "Operation timed out", mentre la stessa
+chiave funzionava da altre reti. Invertendo il verso non c'è più nulla da far entrare
+nel server, e i secret `VHOSTING_SSH_*` non servono più alla pipeline.
+
+Il purge Cloudflare è passato dalla CI al server: in pull, al termine della build il
+sito online è ancora quello vecchio, quindi svuotare la cache lì la riempirebbe di
+nuovo con i file superati.
 
 `deploy-pantheon.yml` e `scripts/deploy-pantheon.sh` sono stati rimossi: l'ambiente
 di test Pantheon non fa più parte dell'architettura.
@@ -132,6 +139,42 @@ di test Pantheon non fa più parte dell'architettura.
 | API cachata a build time | `cms` in DNS-only; se proxato, bypass cache su `/wp-admin` e `/wp-json` |
 | Rollback go-live | TTL 300 su Cloudflare: ripristino dell'A record precedente in pochi minuti |
 | Deploy CI che pubblica il sito incompleto | La CI scrive solo nella document root di `preview`, mai in quella del dominio |
+
+## Esito (2026-08-03)
+
+Realizzato:
+
+- DNS su Cloudflare, TTL 300, posta mai interrotta. VHosting ha poi allineato anche la
+  propria zona: **due zone autoritative coesistono** e oggi concordano — prima di
+  qualunque futura modifica DNS va chiesta la rimozione di quella VHosting.
+- `mariani-auto.it` serve la coming soon (`coming-soon/`), HTTPS attivo.
+- `cms.mariani-auto.it`: WordPress 7.0.2 IT, prefisso `mar_`, mu-plugin `mariani-core`,
+  plugin del piano, contenuti seed (15 auto, 8 pagine, 27 termini, IT/EN).
+- `preview.mariani-auto.it`: sito completo dietro password, aggiornato dalla pipeline.
+- Ciclo completo verificato: modifica in WP → webhook → build → release → pull del
+  server → purge cache. Latenza osservata 5-8 minuti.
+
+Aggiunte non previste dal piano, emerse durante l'esecuzione:
+
+- `security/HeadlessGuard.php` — il CMS non ha frontend navigabile; serviva anche
+  `allowed_redirect_hosts`, altrimenti `wp_safe_redirect()` ripiegava su `wp-admin`.
+- `rest/Support/Cors.php` — senza whitelist il POST `/lead` cross-origin veniva
+  bloccato dal browser.
+- `security/CommentsDisabled.php` — commenti e pingback chiusi ovunque.
+- `DISALLOW_FILE_MODS` — nessun aggiornamento o installazione dalla dashboard, per
+  chiunque. Procedura di manutenzione manuale in `docs/deploy-setup.md`.
+- Registrazione dell'esito del webhook con avviso in bacheca: la chiamata era
+  fire-and-forget e un token senza permessi produceva un guasto silenzioso.
+
+Vincolo di configurazione da ricordare: su `preview` è stata **disattivata
+l'"elaborazione intelligente dei file statici"** di nginx. Con quella attiva e la
+directory protetta da password, il vhost restituiva 404 su ogni file di almeno 1024
+byte — pagine incluse — servendo invece i file più piccoli. Se al go-live la document
+root del dominio verrà puntata alla cartella di `preview`, verificare il comportamento
+sul vhost del dominio.
+
+Da completare: SMTP per le notifiche dei lead (le caselle sono sul vecchio host, la
+sezione Posta non è disponibile in questo Plesk) e utente "Redattore Mariani".
 
 ## Fuori scope
 
