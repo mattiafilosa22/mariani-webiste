@@ -43,3 +43,10 @@ coming-soon/coming-soon-da-caricare.zip
 
 # Artefatti locali di Playwright MCP.
 .playwright-mcp/
+
+# Listini PDF Ford: stanno nella libreria media di WordPress, non in git
+# (15 MB di binari resterebbero nella storia del repo per sempre).
+docs/*.pdf
+
+# Cache di tooling locale
+.serena/

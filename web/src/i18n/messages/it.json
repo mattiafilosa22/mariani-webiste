@@ -63,7 +63,8 @@
     "from": "da",
     "loading": "Caricamento…",
     "empty": "Nessun veicolo disponibile.",
-    "error": "Si è verificato un errore."
+    "error": "Si è verificato un errore.",
+    "photoUnavailable": "Foto non disponibile"
   },
   "QuickSearch": {
     "title": "Trova la tua auto",

@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
 import type { Badge } from "@/domain";
 import type { CarCardVm } from "@/lib/mappers/auto";
+import { ImagePlaceholder } from "./ImagePlaceholder";
 
 type CarCardProps = {
   vm: CarCardVm;
@@ -25,21 +26,26 @@ const badgeLabelKey: Record<Badge, string> = {
 export async function CarCard({ vm, locale }: CarCardProps) {
   const t = await getTranslations("CarCard");
   const tActions = await getTranslations("Actions");
+  const tCommon = await getTranslations("Common");
   const href = `/${locale}/auto/${vm.slug}`;
 
   return (
     <article className="car-card">
       <div className="car-card__media">
-        {/* eslint-disable-next-line @next/next/no-img-element -- export statico: immagini già dimensionate, ottimizzatore server non disponibile */}
-        <img
-          src={vm.image.src}
-          srcSet={vm.image.srcset}
-          width={vm.image.width}
-          height={vm.image.height}
-          alt={vm.image.alt}
-          loading="lazy"
-          decoding="async"
-        />
+        {vm.image ? (
+          // eslint-disable-next-line @next/next/no-img-element -- export statico: immagini già dimensionate, ottimizzatore server non disponibile
+          <img
+            src={vm.image.src}
+            srcSet={vm.image.srcset}
+            width={vm.image.width}
+            height={vm.image.height}
+            alt={vm.image.alt}
+            loading="lazy"
+            decoding="async"
+          />
+        ) : (
+          <ImagePlaceholder label={tCommon("photoUnavailable")} />
+        )}
         {vm.badges.length > 0 ? (
           <div className="car-card__badges">
             {vm.badges.map((badge) => (

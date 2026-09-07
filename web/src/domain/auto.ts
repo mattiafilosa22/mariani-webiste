@@ -91,15 +91,20 @@ const autoBaseSchema = z.object({
   scadenzaOfferta: z.string().optional(),
 });
 
-/** Riepilogo usato nelle griglie/card: immagine di copertina singola. */
+/**
+ * Riepilogo usato nelle griglie/card: immagine di copertina singola.
+ * `null` quando il veicolo non ha ancora foto in WP (es. listino importato
+ * da Excel senza immagini): la UI mostra un segnaposto, non un errore.
+ */
 export const autoSummarySchema = autoBaseSchema.extend({
-  copertina: autoImageSchema,
+  copertina: autoImageSchema.nullable(),
 });
 export type AutoSummary = z.infer<typeof autoSummarySchema>;
 
 /** Scheda completa: galleria, dotazioni, specifiche tecniche. */
 export const autoSchema = autoBaseSchema.extend({
-  galleria: z.array(autoImageSchema).min(1),
+  // Nessun vincolo di lunghezza minima: una scheda può non avere ancora foto.
+  galleria: z.array(autoImageSchema).default([]),
   dotazioni: z.array(z.string()).default([]),
   optional: z.array(z.string()).default([]),
   specifiche: z.record(z.string(), z.string()).default({}),

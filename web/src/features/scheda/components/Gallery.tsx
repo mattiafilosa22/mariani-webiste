@@ -9,6 +9,7 @@ import {
 } from "react";
 import { useTranslations } from "next-intl";
 import type { AutoImage } from "@/domain";
+import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 
 type GalleryProps = {
   images: AutoImage[];
@@ -19,9 +20,13 @@ type GalleryProps = {
  * orizzontale) e lightbox modale accessibile.
  * Immagini WordPress: `<img srcset>` (l'ottimizzatore server non è disponibile
  * in export statico). Le miniature sono `button` con `aria-current`.
+ * Senza foto (`images` vuoto, es. listino importato senza immagini) mostra
+ * un segnaposto statico che mantiene le proporzioni: niente lightbox né
+ * strip, non c'è nulla da ingrandire o sfogliare.
  */
 export function Gallery({ images }: GalleryProps) {
   const t = useTranslations("Scheda.gallery");
+  const tCommon = useTranslations("Common");
   const [active, setActive] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const total = images.length;
@@ -34,6 +39,16 @@ export function Gallery({ images }: GalleryProps) {
     (delta: number) => setActive((prev) => (prev + delta + total) % total),
     [total]
   );
+
+  if (total === 0 || !current) {
+    return (
+      <div className="gallery">
+        <div className="gallery__main gallery__main--empty">
+          <ImagePlaceholder label={tCommon("photoUnavailable")} />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="gallery">

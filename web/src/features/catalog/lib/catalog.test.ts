@@ -212,6 +212,12 @@ describe("runCatalog", () => {
     expect(result.total).toBe(3);
     expect(result.items.map((a) => a.prezzoFinale)).toEqual([24900, 31500, 41500]);
   });
+
+  it("gestisce senza errori un veicolo senza foto (copertina null)", () => {
+    const withoutPhoto = auto({ id: "6", slug: "no-photo", copertina: null });
+    const result = runCatalog([...dataset, withoutPhoto], filters({}));
+    expect(result.items.find((a) => a.slug === "no-photo")?.copertina).toBeNull();
+  });
 });
 
 describe("params round-trip", () => {

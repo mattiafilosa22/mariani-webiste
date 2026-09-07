@@ -30,7 +30,7 @@ export function autoToSummary(auto: Auto): AutoSummary {
     badge: auto.badge,
     inEvidenza: auto.inEvidenza,
     scadenzaOfferta: auto.scadenzaOfferta,
-    copertina: auto.galleria[0],
+    copertina: auto.galleria[0] ?? null,
   };
 }
 

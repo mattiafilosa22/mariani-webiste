@@ -89,6 +89,11 @@ describe("toCarCardVm", () => {
     expect(vm.price.old).toBeNull();
     expect(vm.price.isPromo).toBe(false);
   });
+
+  it("passes through a null cover when the vehicle has no photos", () => {
+    const vm = toCarCardVm({ ...baseSummary, copertina: null }, "it", labels);
+    expect(vm.image).toBeNull();
+  });
 });
 
 describe("autoToSummary", () => {
@@ -106,7 +111,21 @@ describe("autoToSummary", () => {
       specifiche: {},
     };
     const summary = autoToSummary(auto);
-    expect(summary.copertina.alt).toBe("cover");
+    expect(summary.copertina?.alt).toBe("cover");
     expect(summary.slug).toBe("ford-puma");
+  });
+
+  it("returns a null cover when the vehicle has no gallery photos", () => {
+    const auto: Auto = {
+      ...baseSummary,
+      trazione: "anteriore",
+      carrozzeria: "SUV compatto",
+      galleria: [],
+      dotazioni: [],
+      optional: [],
+      specifiche: {},
+    };
+    const summary = autoToSummary(auto);
+    expect(summary.copertina).toBeNull();
   });
 });

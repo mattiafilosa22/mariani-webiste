@@ -63,7 +63,8 @@
     "from": "from",
     "loading": "Loading…",
     "empty": "No vehicles available.",
-    "error": "Something went wrong."
+    "error": "Something went wrong.",
+    "photoUnavailable": "Photo not available"
   },
   "QuickSearch": {
     "title": "Find your car",
