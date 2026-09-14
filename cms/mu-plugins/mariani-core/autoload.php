@@ -26,6 +26,7 @@ spl_autoload_register(
 			'Mariani\\Core\\Webhook\\'   => 'webhook/',
 			'Mariani\\Core\\Mail\\'      => 'mail/',
 			'Mariani\\Core\\Forms\\'     => 'forms/',
+			'Mariani\\Core\\Privacy\\'   => 'privacy/',
 			'Mariani\\Core\\Seed\\'      => 'seed/',
 			'Mariani\\Core\\'            => 'src/',
 		);

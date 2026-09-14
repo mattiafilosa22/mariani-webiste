@@ -44,6 +44,9 @@ final class FluentFormsGateway {
 	 */
 	private const SUBMISSION_SERVICE = '\FluentForm\App\Services\Form\SubmissionHandlerService';
 
+	/** Modello delle submission, usato per applicare la retention. */
+	private const SUBMISSION_MODEL = '\FluentForm\App\Models\Submission';
+
 	/**
 	 * Indica se Fluent Forms e attivo e le API attese sono disponibili.
 	 */
@@ -135,5 +138,43 @@ final class FluentFormsGateway {
 		} catch ( Throwable $e ) {
 			return new WP_Error( 'mariani_ff_submission_exception', $e->getMessage() );
 		}
+	}
+
+	/**
+	 * Elimina le submission del form anteriori al cutoff, rispettando un batch.
+	 *
+	 * @param int    $form_id ID del form Fluent Forms.
+	 * @param string $cutoff  Data UTC MySQL esclusiva.
+	 * @param int    $limit   Numero massimo di record.
+	 */
+	public function delete_submissions_before( int $form_id, string $cutoff, int $limit = 200 ): int {
+		if ( $form_id <= 0 || ! class_exists( self::SUBMISSION_MODEL ) ) {
+			return 0;
+		}
+
+		$deleted = 0;
+
+		try {
+			$model       = self::SUBMISSION_MODEL;
+			$submissions = $model::where( 'form_id', $form_id )
+				->where( 'created_at', '<', $cutoff )
+				->orderBy( 'id', 'asc' )
+				->limit( max( 1, $limit ) )
+				->get();
+
+			foreach ( $submissions as $submission ) {
+				if ( $submission->delete() ) {
+					++$deleted;
+				}
+			}
+		} catch ( Throwable $exception ) {
+			if ( function_exists( 'error_log' ) ) {
+				error_log( // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- nessun dato personale nel messaggio.
+					'[mariani-core] Pulizia periodica Fluent Forms non completata.'
+				);
+			}
+		}
+
+		return $deleted;
 	}
 }

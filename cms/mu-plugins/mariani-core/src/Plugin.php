@@ -14,6 +14,8 @@ use Mariani\Core\Fields\Fields;
 use Mariani\Core\Forms\FormsModule;
 use Mariani\Core\Mail\LeadNotifier;
 use Mariani\Core\PostTypes\PostTypes;
+use Mariani\Core\Privacy\LeadRetention;
+use Mariani\Core\Forms\FluentFormsGateway;
 use Mariani\Core\Rest\Rest;
 use Mariani\Core\Seed\SeedModule;
 use Mariani\Core\Security\Security;
@@ -82,6 +84,7 @@ final class Plugin {
 			new DeployWebhook(),
 			new LeadNotifier(),
 			new FormsModule(),
+			new LeadRetention( new FluentFormsGateway() ),
 			new SeedModule(),
 		);
 
