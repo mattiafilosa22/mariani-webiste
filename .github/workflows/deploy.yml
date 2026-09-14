@@ -45,6 +45,13 @@ jobs:
         working-directory: web
         run: npm ci
 
+      - name: Quality checks
+        working-directory: web
+        run: |
+          npm run lint
+          npm run typecheck
+          npm test
+
       - name: Build static export
         working-directory: web
         env:
@@ -64,6 +71,12 @@ jobs:
       - name: Verify export output
         working-directory: web
         run: test -f out/it/index.html && test -f out/en/index.html
+
+      - name: Browser release checks
+        working-directory: web
+        run: |
+          npx playwright install --with-deps chromium
+          npm run test:e2e
 
       # Il pacchetto viene pubblicato, non spinto: il server di VHosting blocca
       # in modo intermittente le connessioni SSH in ingresso dai runner GitHub
