@@ -1,10 +1,12 @@
 import { getTranslations } from "next-intl/server";
 import { Tabs, type TabItem } from "./Tabs";
 import { LeadForm, type LeadVariant } from "./LeadForm";
+import type { Locale } from "@/i18n/routing";
 
 type ContactFormProps = {
   vehicleTitle: string;
   slug: string;
+  locale: Locale;
 };
 
 const VARIANTS: LeadVariant[] = [
@@ -19,7 +21,7 @@ const VARIANTS: LeadVariant[] = [
  * richiesta. Il guscio è RSC (label/messaggio pre-compilato da i18n); ogni
  * pannello è un `LeadForm` client autonomo.
  */
-export async function ContactForm({ vehicleTitle, slug }: ContactFormProps) {
+export async function ContactForm({ vehicleTitle, slug, locale }: ContactFormProps) {
   const t = await getTranslations("Scheda.contact");
   const tForm = await getTranslations("Scheda.form");
 
@@ -34,6 +36,7 @@ export async function ContactForm({ vehicleTitle, slug }: ContactFormProps) {
         vehicleTitle={vehicleTitle}
         slug={slug}
         defaultMessage={defaultMessage}
+        privacyHref={`/${locale}/privacy-policy`}
       />
     ),
   }));

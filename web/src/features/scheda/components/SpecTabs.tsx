@@ -3,6 +3,7 @@ import type { Auto } from "@/domain";
 import type { Locale } from "@/i18n/routing";
 import { formatKmLabel, formatPower, formatYear } from "@/lib/mappers/auto";
 import { buildSpecTabs, type SpecRow, type SpecTab } from "../lib/specTabs";
+import { shouldShowRegistrationData } from "../lib/vehiclePresentation";
 import { Tabs, type TabItem } from "./Tabs";
 
 type SpecTabsProps = {
@@ -21,14 +22,19 @@ export async function SpecTabs({ auto, locale }: SpecTabsProps) {
   const tUnit = await getTranslations("Catalog.unit");
   const tDrive = await getTranslations("Catalog.drive");
 
+  const registrationRows: SpecRow[] = shouldShowRegistrationData(auto.tipo)
+    ? [
+        { label: t("fields.anno"), value: formatYear(auto.anno, tUnit("nd")) },
+        { label: t("fields.km"), value: formatKmLabel(auto.km, locale, tUnit("km"), tUnit("nd")) },
+      ]
+    : [];
   const datiRows: SpecRow[] = [
     { label: t("fields.tipo"), value: t(`tipo.${auto.tipo}`) },
     { label: t("fields.categoria"), value: t(`categoria.${auto.categoria}`) },
     { label: t("fields.marca"), value: auto.marca },
     { label: t("fields.modello"), value: auto.modello },
     { label: t("fields.versione"), value: auto.versione },
-    { label: t("fields.anno"), value: formatYear(auto.anno, tUnit("nd")) },
-    { label: t("fields.km"), value: formatKmLabel(auto.km, locale, tUnit("km"), tUnit("nd")) },
+    ...registrationRows,
     { label: t("fields.carrozzeria"), value: auto.carrozzeria },
     { label: t("fields.colore"), value: tSpec(`color.${auto.colore}`) },
     { label: t("fields.potenza"), value: formatPower(auto.potenzaCv, tUnit("cv"), tUnit("nd")) },

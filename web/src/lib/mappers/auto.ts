@@ -143,12 +143,14 @@ export function toCarCardVm(
     // mostrato da solo nel titolo della card.
     model: `${summary.marca} ${summary.modello}`.trim(),
     version: summary.versione,
-    specs: [
-      formatYear(summary.anno, labels.nd),
-      formatKmLabel(summary.km, locale, labels.km, labels.nd),
-      labels.alimentazione,
-      labels.cambio,
-    ],
+    specs: summary.tipo === "nuova"
+      ? [labels.alimentazione, labels.cambio]
+      : [
+          formatYear(summary.anno, labels.nd),
+          formatKmLabel(summary.km, locale, labels.km, labels.nd),
+          labels.alimentazione,
+          labels.cambio,
+        ],
     price: {
       now: formatPriceOrRequest(summary.prezzoFinale, locale, labels.priceOnRequest),
       old: hasDiscount ? formatPrice(summary.prezzoListino, locale) : null,

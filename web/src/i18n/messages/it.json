@@ -64,7 +64,7 @@
     "loading": "Caricamento…",
     "empty": "Nessun veicolo disponibile.",
     "error": "Si è verificato un errore.",
-    "photoUnavailable": "Foto non disponibile"
+    "photoUnavailable": "Foto disponibile su richiesta"
   },
   "QuickSearch": {
     "title": "Trova la tua auto",
@@ -369,7 +369,7 @@
       "permutaModello": "Modello",
       "permutaAnno": "Anno",
       "permutaKm": "Km",
-      "privacy": "Ho letto e accetto l'<a>informativa sulla privacy</a> e acconsento al trattamento dei dati.",
+      "privacy": "Ho letto e accetto l''<a>informativa sulla privacy</a> e acconsento al trattamento dei dati.",
       "required": "Campo obbligatorio",
       "invalidEmail": "Inserisci un'email valida",
       "consentRequired": "Devi accettare l'informativa per procedere",
@@ -478,7 +478,7 @@
       "km": "Km annui",
       "targa": "Targa",
       "select": "Seleziona…",
-      "privacy": "Ho letto e accetto l'<a>informativa privacy</a> e acconsento al trattamento dei dati.",
+      "privacy": "Ho letto e accetto l''<a>informativa privacy</a> e acconsento al trattamento dei dati.",
       "marketing": "Acconsento a ricevere comunicazioni commerciali e promozionali (facoltativo).",
       "required": "Campo obbligatorio",
       "invalidEmail": "Inserisci un'email valida",

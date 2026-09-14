@@ -25,6 +25,8 @@ use Mariani\Core\Support\Schema;
 
 defined( 'WP_CLI' ) || exit;
 
+require_once __DIR__ . '/lib/import-rules.php';
+
 const IMPORT_REF_META = '_mariani_import_ref';
 
 // Senza lingua assegnata Polylang esclude il post dalle query del frontend:
@@ -150,7 +152,7 @@ function mariani_import_meta( array $row ): array {
 		'testo_promo'           => PROMO_NOTE,
 		'data_scadenza_offerta' => PROMO_SCADENZA,
 		'pronta_consegna'       => '',
-		'in_evidenza'           => '',
+		'in_evidenza'           => mariani_import_is_featured( $row['ref'] ) ? '1' : '',
 	);
 
 	return $meta;

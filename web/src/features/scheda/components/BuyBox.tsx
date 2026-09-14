@@ -9,6 +9,7 @@ import {
   formatYear,
 } from "@/lib/mappers/auto";
 import { buildWhatsappText, whatsappHref } from "../lib/messages";
+import { shouldShowRegistrationData } from "../lib/vehiclePresentation";
 import { Countdown } from "./Countdown";
 
 type BuyBoxProps = {
@@ -71,9 +72,14 @@ export async function BuyBox({
   );
 
   const nd = tUnit("nd");
+  const registrationQuick = shouldShowRegistrationData(auto.tipo)
+    ? [
+        { label: t("quick.anno"), value: formatYear(auto.anno, nd) },
+        { label: t("quick.km"), value: formatKmLabel(auto.km, locale, tUnit("km"), nd) },
+      ]
+    : [];
   const quick: Array<{ label: string; value: string }> = [
-    { label: t("quick.anno"), value: formatYear(auto.anno, nd) },
-    { label: t("quick.km"), value: formatKmLabel(auto.km, locale, tUnit("km"), nd) },
+    ...registrationQuick,
     { label: t("quick.alimentazione"), value: tSpec(`fuel.${auto.alimentazione}`) },
     { label: t("quick.cambio"), value: tSpec(`transmission.${auto.cambio}`) },
     { label: t("quick.potenza"), value: formatPower(auto.potenzaCv, tUnit("cv"), nd) },

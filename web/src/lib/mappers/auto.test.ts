@@ -48,7 +48,7 @@ describe("formatPrice", () => {
 
 describe("toCarCardVm", () => {
   it("marks a discounted vehicle as promo with old price", () => {
-    const vm = toCarCardVm(baseSummary, "it", labels);
+    const vm = toCarCardVm({ ...baseSummary, tipo: "usata" }, "it", labels);
     expect(vm.price.isPromo).toBe(true);
     expect(vm.price.old).not.toBeNull();
     expect(vm.brand).toBe("Ford");
@@ -75,6 +75,7 @@ describe("toCarCardVm", () => {
   it("renders graceful placeholders when km/anno/prezzo are undefined (0)", () => {
     const undefinedData: AutoSummary = {
       ...baseSummary,
+      tipo: "usata",
       anno: 0,
       km: 0,
       prezzoListino: 0,
@@ -93,6 +94,16 @@ describe("toCarCardVm", () => {
   it("passes through a null cover when the vehicle has no photos", () => {
     const vm = toCarCardVm({ ...baseSummary, copertina: null }, "it", labels);
     expect(vm.image).toBeNull();
+  });
+
+  it("omits registration year and mileage from cards for new vehicles", () => {
+    const vm = toCarCardVm(
+      { ...baseSummary, tipo: "nuova", anno: 0, km: 0 },
+      "it",
+      labels
+    );
+
+    expect(vm.specs).toEqual([labels.alimentazione, labels.cambio]);
   });
 });
 

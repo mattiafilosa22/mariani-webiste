@@ -16,6 +16,7 @@ type LeadFormProps = {
   slug: string;
   /** Messaggio di default per il tab "Preventivo" (pre-compilato). */
   defaultMessage: string;
+  privacyHref: string;
 };
 
 type Status = "idle" | "sending" | "success" | "error";
@@ -39,6 +40,7 @@ export function LeadForm({
   vehicleTitle,
   slug,
   defaultMessage,
+  privacyHref,
 }: LeadFormProps) {
   const t = useTranslations("Scheda.form");
   const uid = useId();
@@ -163,7 +165,7 @@ export function LeadForm({
           aria-describedby={errors.privacy ? `${id("privacy")}-err` : undefined}
         />
         <label htmlFor={id("privacy")}>
-          {t.rich("privacy", { a: (chunks) => <a href="#">{chunks}</a> })}{" "}
+          {t.rich("privacy", { a: (chunks) => <a href={privacyHref}>{chunks}</a> })}{" "}
           <span className="req">*</span>
           {errors.privacy ? (
             <span className="field-error" id={`${id("privacy")}-err`} role="alert">

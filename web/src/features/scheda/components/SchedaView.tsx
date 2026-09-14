@@ -104,7 +104,7 @@ export async function SchedaView({ auto, all, locale, settings }: SchedaViewProp
 
       <SpecTabs auto={auto} locale={locale} />
 
-      <ContactForm vehicleTitle={vehicleTitle} slug={auto.slug} />
+      <ContactForm vehicleTitle={vehicleTitle} slug={auto.slug} locale={locale} />
 
       <SimilarCars all={all} current={auto} locale={locale} />
 
