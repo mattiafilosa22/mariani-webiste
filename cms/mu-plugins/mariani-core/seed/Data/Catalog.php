@@ -356,7 +356,7 @@ final class Catalog {
 			'title_en' => 'Mariani · Ford Blubay Dealership',
 			'meta'     => array(
 				'mariani_home_hero_eyebrow'           => 'Concessionaria Ford ufficiale · Sede unica',
-				'mariani_home_hero_titolo'            => 'La tua prossima Ford,',
+				'mariani_home_hero_titolo'            => 'La tua prossima auto',
 				'mariani_home_hero_titolo_accent'     => 'senza compromessi.',
 				'mariani_home_hero_sottotitolo'       => "Nuovo, usato garantito, Km 0 e veicoli commerciali. Più officina autorizzata e noleggio a lungo termine, in un'unica sede di fiducia.",
 				'mariani_home_hero_poster'            => new MediaRef( 'esterno-fronte' ),
@@ -376,7 +376,7 @@ final class Catalog {
 			),
 			'meta_en'  => array(
 				'mariani_home_hero_eyebrow'           => 'Official Ford dealership · Single location',
-				'mariani_home_hero_titolo'            => 'Your next Ford,',
+				'mariani_home_hero_titolo'            => 'Your next car',
 				'mariani_home_hero_titolo_accent'     => 'no compromises.',
 				'mariani_home_hero_sottotitolo'       => 'New, certified used, zero-km and commercial vehicles. Plus an authorised workshop and long-term rental, all under one trusted roof.',
 				'mariani_home_hero_stats'             => array( '30+|years in business', '400+|vehicles available', '10,000+|happy customers' ),
