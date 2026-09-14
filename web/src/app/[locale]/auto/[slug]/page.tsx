@@ -3,13 +3,13 @@ import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { routing, type Locale } from "@/i18n/routing";
 import { getAuto, getAutos, getSettings } from "@/lib/api";
-import { formatKm, formatPrice } from "@/lib/mappers/auto";
 import {
   absoluteUrl,
   autoPath,
   autoTranslationKey,
   buildMetadata,
 } from "@/lib/seo";
+import { buildVehicleDescription } from "@/lib/seo/vehicleDescription";
 import type { Auto } from "@/domain";
 import { SchedaView, buildVehicleTitle } from "@/features/scheda";
 
@@ -79,14 +79,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const title = buildVehicleTitle(auto);
   const cover = auto.galleria[0];
 
-  const description = [
+  const description = buildVehicleDescription({
+    auto,
+    locale,
     title,
-    String(auto.anno),
-    `${formatKm(auto.km, locale)} km`,
-    tSpec(`fuel.${auto.alimentazione}`),
-    tSpec(`transmission.${auto.cambio}`),
-    formatPrice(auto.prezzoFinale, locale),
-  ].join(" · ");
+    fuel: tSpec(`fuel.${auto.alimentazione}`),
+    transmission: tSpec(`transmission.${auto.cambio}`),
+  });
 
   return buildMetadata({
     locale,

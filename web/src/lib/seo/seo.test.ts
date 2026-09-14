@@ -5,6 +5,7 @@ import { buildMetadata } from "./metadata";
 import { buildLanguageAlternates } from "./metadata";
 import { localePathsFor, autoPath, absoluteUrl } from "./site";
 import { autoTranslationKey, autoVehicleKey } from "./translation";
+import { buildVehicleDescription } from "./vehicleDescription";
 import {
   parseAddress,
   buildOpeningHours,
@@ -345,5 +346,20 @@ describe("buildMetadata / alternates", () => {
     expect(meta.twitter && "card" in meta.twitter && meta.twitter.card).toBe(
       "summary_large_image"
     );
+  });
+});
+
+describe("buildVehicleDescription", () => {
+  it("omette anno e chilometri per un'auto nuova", () => {
+    const description = buildVehicleDescription({
+      auto: { ...auto, tipo: "nuova", anno: 0, km: 0 },
+      locale: "it",
+      title: "Ford Puma Titanium",
+      fuel: "Ibrida",
+      transmission: "Automatica",
+    });
+
+    expect(description).toBe("Ford Puma Titanium · Ibrida · Automatica · 24.900 €");
+    expect(description).not.toContain("0 km");
   });
 });
