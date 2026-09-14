@@ -10,7 +10,19 @@ export const dynamic = "force-static";
  */
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: [{ userAgent: "*", allow: "/" }],
+    rules: [
+      { userAgent: "*", allow: "/" },
+      {
+        userAgent: [
+          "OAI-SearchBot",
+          "ChatGPT-User",
+          "GPTBot",
+          "ClaudeBot",
+          "PerplexityBot",
+        ],
+        allow: "/",
+      },
+    ],
     sitemap: absoluteUrl("/sitemap.xml"),
     host: SITE_URL,
   };

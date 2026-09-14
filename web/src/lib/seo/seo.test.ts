@@ -79,9 +79,9 @@ function roundtrip(node: unknown): Record<string, unknown> {
 describe("absoluteUrl", () => {
   it("prefissa i path relativi con la base del sito", () => {
     expect(absoluteUrl("/it/auto/")).toBe(
-      "https://www.marianiford.it/it/auto/"
+      "https://mariani-auto.it/it/auto/"
     );
-    expect(absoluteUrl("og.png")).toBe("https://www.marianiford.it/og.png");
+    expect(absoluteUrl("og.png")).toBe("https://mariani-auto.it/og.png");
   });
 
   it("lascia invariati gli URL già assoluti (immagini CMS)", () => {
@@ -312,17 +312,17 @@ describe("buildMetadata / alternates", () => {
     const paths = localePathsFor("auto");
     const languages = buildLanguageAlternates(paths);
     expect(languages).toEqual({
-      it: "https://www.marianiford.it/it/auto/",
-      en: "https://www.marianiford.it/en/auto/",
-      "x-default": "https://www.marianiford.it/it/auto/",
+      it: "https://mariani-auto.it/it/auto/",
+      en: "https://mariani-auto.it/en/auto/",
+      "x-default": "https://mariani-auto.it/it/auto/",
     });
   });
 
   it("omette la lingua senza controparte invece di puntare a un URL errato", () => {
     const languages = buildLanguageAlternates({ en: "/en/auto/x/" });
     expect(languages).toEqual({
-      en: "https://www.marianiford.it/en/auto/x/",
-      "x-default": "https://www.marianiford.it/en/auto/x/",
+      en: "https://mariani-auto.it/en/auto/x/",
+      "x-default": "https://mariani-auto.it/en/auto/x/",
     });
     expect(languages).not.toHaveProperty("it");
   });
@@ -339,9 +339,9 @@ describe("buildMetadata / alternates", () => {
       absolute: "Auto usate — Mariani Concessionaria Ford",
     });
     expect(meta.alternates?.canonical).toBe(
-      "https://www.marianiford.it/it/auto/"
+      "https://mariani-auto.it/it/auto/"
     );
-    expect(meta.openGraph?.url).toBe("https://www.marianiford.it/it/auto/");
+    expect(meta.openGraph?.url).toBe("https://mariani-auto.it/it/auto/");
     expect(meta.twitter && "card" in meta.twitter && meta.twitter.card).toBe(
       "summary_large_image"
     );

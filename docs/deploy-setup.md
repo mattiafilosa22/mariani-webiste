@@ -178,3 +178,8 @@ nessuno apre la dashboard.
 3. Cloudflare: proxy arancione su `@` e `www`.
 
 Nessuna modifica DNS, quindi nessun rischio per la posta. Reversibile in un minuto.
+
+Dopo lo switch verificare che `robots.txt` e `sitemap.xml` rispondano HTTP 200,
+registrare il dominio in Google Search Console e ripetere una prova di scansione
+pubblica. I file `llms.txt` facilitano la lettura del sito, ma non garantiscono
+l'inclusione nei risultati di ricerca o negli assistenti AI.

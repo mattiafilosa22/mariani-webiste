@@ -6,7 +6,7 @@ import { routing, type Locale } from "@/i18n/routing";
  * Nessun host localhost hardcoded: in build senza env si usa il dominio reale.
  */
 export const SITE_URL = (
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.marianiford.it"
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://mariani-auto.it"
 ).replace(/\/$/, "");
 
 /**
