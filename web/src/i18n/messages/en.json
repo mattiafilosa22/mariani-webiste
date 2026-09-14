@@ -438,6 +438,8 @@
       "infoTitle": "Our contacts"
     },
     "map": {
+      "load": "Load map",
+      "loadHint": "Loading the map requests map images from OpenStreetMap.",
       "open": "Open in maps",
       "openAria": "Open the dealership map in a new tab: {label}",
       "aria": "Map of the Mariani dealership: {label}"

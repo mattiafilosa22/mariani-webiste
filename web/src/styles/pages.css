@@ -409,6 +409,13 @@
   text-align: center;
   padding: var(--sp-5);
 }
+.map__placeholder p {
+  max-width: 44ch;
+  margin: 0;
+}
+.map__placeholder .btn {
+  min-height: 44px;
+}
 .map__open {
   align-self: flex-start;
 }

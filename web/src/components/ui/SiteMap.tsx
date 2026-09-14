@@ -1,11 +1,11 @@
 import { getTranslations } from "next-intl/server";
-import { LeafletMount } from "./LeafletMount";
+import { DeferredMap } from "./DeferredMap";
 
 /**
  * Guscio server della mappa sede (RSC). Rende sempre — anche in export statico
  * e senza JavaScript — il contenitore e l'alternativa accessibile: un link
- * "Apri in mappe" con `aria-label` e coordinate. Lo strato interattivo Leaflet
- * (tile OpenStreetMap cookieless, marker locale) è un'isola client ssr:false.
+ * "Apri in mappe" con `aria-label` e coordinate. Lo strato Leaflet viene
+ * inizializzato soltanto dopo una scelta esplicita dell'utente.
  */
 
 type SiteMapProps = {
@@ -33,12 +33,14 @@ export async function SiteMap({
   return (
     <div className="map">
       <div className="map__canvas">
-        <LeafletMount
+        <DeferredMap
           lat={lat}
           lng={lng}
           label={label}
           ariaLabel={t("aria", { label })}
           zoom={zoom}
+          loadLabel={t("load")}
+          loadHint={t("loadHint")}
         />
       </div>
       <a

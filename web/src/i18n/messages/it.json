@@ -438,6 +438,8 @@
       "infoTitle": "I nostri contatti"
     },
     "map": {
+      "load": "Carica la mappa",
+      "loadHint": "Attivando la mappa verranno richieste le immagini cartografiche a OpenStreetMap.",
       "open": "Apri in mappe",
       "openAria": "Apri in una nuova scheda la mappa della sede: {label}",
       "aria": "Mappa della sede Mariani: {label}"
