@@ -25,6 +25,7 @@ CONF="$HOME/.mariani-deploy.conf"
 [ -f "$CONF" ] && . "$CONF"
 
 BASE="https://github.com/${REPO}/releases/download/${TAG}"
+CACHE_BUST="$(date +%s)"
 mkdir -p "$STATE_DIR"
 
 log() {
@@ -44,7 +45,7 @@ auth_header=()
 
 # 1. L'impronta del pacchetto pubblicato. Poche centinaia di byte: si puo
 #    interrogare spesso senza scaricare 20 MB ogni volta.
-remote_sha=$(curl -fsSL --max-time 30 "${auth_header[@]}" "${BASE}/site.tar.gz.sha256" 2>/dev/null | tr -d '[:space:]') || {
+remote_sha=$(curl -fsSL --max-time 30 "${auth_header[@]}" "${BASE}/site.tar.gz.sha256?cache_bust=${CACHE_BUST}" 2>/dev/null | tr -d '[:space:]') || {
 	log "ERRORE: impossibile leggere l'impronta del pacchetto"
 	exit 1
 }
@@ -67,7 +68,7 @@ log "nuovo pacchetto: ${remote_sha:0:12} (precedente: ${prev:0:12})"
 work=$(mktemp -d "$STATE_DIR/work.XXXXXX")
 trap 'rm -rf "$work"' EXIT
 
-curl -fsSL --max-time 300 "${auth_header[@]}" -o "$work/site.tar.gz" "${BASE}/site.tar.gz" || {
+curl -fsSL --max-time 300 "${auth_header[@]}" -o "$work/site.tar.gz" "${BASE}/site.tar.gz?cache_bust=${CACHE_BUST}" || {
 	log "ERRORE: download fallito"
 	exit 1
 }
