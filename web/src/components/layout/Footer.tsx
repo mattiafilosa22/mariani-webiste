@@ -63,9 +63,6 @@ export async function Footer({ locale, settings }: FooterProps) {
               height={188}
               alt={settings.nomeAzienda}
             />
-            <span className="brand__txt">
-              <span className="brand__sub">Ford Blubay · Concessionaria</span>
-            </span>
           </Link>
           <div className="footer-contact">
             <span>{settings.indirizzo}</span>
@@ -137,8 +134,7 @@ export async function Footer({ locale, settings }: FooterProps) {
 
       <div className="container footer-bottom">
         <p>
-          © {year} {settings.ragioneSociale} · Concessionaria Ford Blubay ·
-          P.IVA {settings.partitaIva}
+          © {year} {settings.ragioneSociale} · P.IVA {settings.partitaIva}
         </p>
         <div className="footer-bottom__legal">
           <Link href={`${base}/cookie-policy`}>{t("cookiePrefs")}</Link>

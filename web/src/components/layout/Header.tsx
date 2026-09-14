@@ -80,9 +80,6 @@ export async function Header({ locale, settings }: HeaderProps) {
               height={188}
               alt={settings.nomeAzienda}
             />
-            <span className="brand__txt">
-              <span className="brand__sub">Ford Blubay · Concessionaria</span>
-            </span>
           </Link>
           <MainNav />
         </div>

@@ -170,6 +170,16 @@ export type VehicleJsonLdInput = {
 /** Nodo `Car` (sottotipo di Vehicle) con `offers` in EUR. */
 export function buildVehicleJsonLd(input: VehicleJsonLdInput): JsonObject {
   const { auto, name, url, images, colorLabel, sellerName } = input;
+  const knownYear = auto.anno > 1900 ? String(auto.anno) : undefined;
+  const knownMileage =
+    auto.tipo !== "nuova" && auto.km > 0
+      ? {
+          "@type": "QuantitativeValue",
+          value: auto.km,
+          unitCode: "KMT",
+        }
+      : undefined;
+
   return schemaNode("Car", {
     name,
     url,
@@ -177,17 +187,13 @@ export function buildVehicleJsonLd(input: VehicleJsonLdInput): JsonObject {
     brand: { "@type": "Brand", name: auto.marca },
     model: auto.modello,
     vehicleConfiguration: auto.versione || undefined,
-    vehicleModelDate: String(auto.anno),
-    productionDate: String(auto.anno),
+    vehicleModelDate: knownYear,
+    productionDate: knownYear,
     bodyType: auto.carrozzeria,
     color: colorLabel,
     fuelType: FUEL_TYPE[auto.alimentazione],
     vehicleTransmission: TRANSMISSION[auto.cambio],
-    mileageFromOdometer: {
-      "@type": "QuantitativeValue",
-      value: auto.km,
-      unitCode: "KMT",
-    },
+    mileageFromOdometer: knownMileage,
     vehicleEngine: {
       "@type": "EngineSpecification",
       enginePower: {

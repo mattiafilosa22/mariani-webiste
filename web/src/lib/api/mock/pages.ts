@@ -9,12 +9,12 @@ export const mockPages: Record<Locale, Record<string, PageContent>> = {
   it: {
     home: {
       key: "home",
-      title: "Mariani · Concessionaria Ford Blubay",
+      title: "Mariani Auto · Piombino",
       subtitle:
         "Auto nuove, usate, Km0, veicoli commerciali, noleggio e officina.",
       hero: {
         eyebrow: "Concessionaria Ford ufficiale · Sede unica",
-        title: "La tua prossima Ford,",
+        title: "La tua prossima auto",
         titleAccent: "senza compromessi.",
         subtitle:
           "Nuovo, usato garantito, Km 0 e veicoli commerciali. Più officina autorizzata e noleggio a lungo termine, in un'unica sede di fiducia.",
@@ -166,12 +166,12 @@ export const mockPages: Record<Locale, Record<string, PageContent>> = {
   en: {
     home: {
       key: "home",
-      title: "Mariani · Ford Blubay Dealership",
+      title: "Mariani Auto · Piombino",
       subtitle:
         "New, used and zero-km cars, commercial vehicles, rental and workshop.",
       hero: {
         eyebrow: "Official Ford dealership · Single location",
-        title: "Your next Ford,",
+        title: "Your next car",
         titleAccent: "no compromises.",
         subtitle:
           "New, certified used, zero-km and commercial vehicles. Plus an authorised workshop and long-term rental, all under one trusted roof.",

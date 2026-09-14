@@ -2,13 +2,12 @@ import type { SiteSettings } from "@/domain";
 
 /**
  * Impostazioni demo. Dati sede reali (indirizzo, telefono, orari);
- * email, P.IVA, ragione sociale e social restano segnaposto finché
- * non vengono forniti/gestiti in WordPress.
+ * Gli stessi valori sono mantenuti nel CMS e validati all'export.
  */
 export const mockSettings: SiteSettings = {
   nomeAzienda: "Mariani",
   ragioneSociale: "Mariani S.r.l.",
-  partitaIva: "01234567890",
+  partitaIva: "01300000492",
   indirizzo: "Via Adige 3, 57025 Piombino (LI)",
   telefono: "0565 276520",
   telefonoAssistenza: "0565 276520",

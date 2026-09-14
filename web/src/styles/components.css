@@ -442,19 +442,6 @@
 :root[data-theme="dark"] [data-logo-dark] {
   display: block;
 }
-.brand__txt {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.1;
-}
-.brand__sub {
-  font-family: var(--f-mono);
-  font-size: var(--fs-xs);
-  color: var(--text-2);
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
 .nav {
   display: flex;
   align-items: center;
@@ -1008,9 +995,6 @@
     min-height: 34px;
   }
   .header-cta .btn--green {
-    display: none;
-  }
-  .brand__sub {
     display: none;
   }
   /* Su smartphone il menu si apre a tutto schermo (non più sidebar laterale).

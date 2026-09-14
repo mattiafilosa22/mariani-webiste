@@ -209,7 +209,7 @@ final class Catalog {
 				'mariani_set_tel_assistenza'  => '0565 276520',
 				'mariani_set_whatsapp'        => '390565276520',
 				'mariani_set_email'           => 'info@marianiford.it',
-				'mariani_set_piva'            => '01234567890',
+				'mariani_set_piva'            => '01300000492',
 				'mariani_set_rea'             => 'LI-000000',
 				'mariani_set_maps_url'        => 'https://www.google.com/maps/search/?api=1&query=Via+Adige+3+Piombino',
 				'mariani_set_map_lat'         => self::LAT,
@@ -352,8 +352,8 @@ final class Catalog {
 	private static function page_home(): array {
 		return array(
 			'key'      => 'home',
-			'title'    => 'Mariani · Concessionaria Ford Blubay',
-			'title_en' => 'Mariani · Ford Blubay Dealership',
+			'title'    => 'Mariani Auto · Piombino',
+			'title_en' => 'Mariani Auto · Piombino',
 			'meta'     => array(
 				'mariani_home_hero_eyebrow'           => 'Concessionaria Ford ufficiale · Sede unica',
 				'mariani_home_hero_titolo'            => 'La tua prossima auto',

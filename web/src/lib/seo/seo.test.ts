@@ -49,7 +49,7 @@ const auto: Auto = {
 const settings: SiteSettings = {
   nomeAzienda: "Mariani",
   ragioneSociale: "Mariani S.r.l.",
-  partitaIva: "01234567890",
+  partitaIva: "01300000492",
   indirizzo: "Via Adige 3, 57025 Piombino (LI)",
   telefono: "0565 276520",
   telefonoAssistenza: "0565 276520",
@@ -195,6 +195,21 @@ describe("buildVehicleJsonLd", () => {
     const offer = parsed.offers as Record<string, unknown>;
     expect(offer).not.toHaveProperty("priceValidUntil");
   });
+
+  it("non pubblica anno e chilometri sentinella per un'auto nuova", () => {
+    const node = buildVehicleJsonLd({
+      auto: { ...auto, tipo: "nuova", anno: 0, km: 0 },
+      name: "Ford Puma",
+      url: "https://mariani-auto.it/it/auto/ford-puma/",
+      images: [],
+      sellerName: "Mariani",
+    });
+    const parsed = roundtrip(node);
+
+    expect(parsed).not.toHaveProperty("vehicleModelDate");
+    expect(parsed).not.toHaveProperty("productionDate");
+    expect(parsed).not.toHaveProperty("mileageFromOdometer");
+  });
 });
 
 describe("buildDealerJsonLd", () => {
@@ -208,6 +223,7 @@ describe("buildDealerJsonLd", () => {
     expect(json["@type"]).toBe("AutoDealer");
     expect(json.areaServed).toBe("Piombino");
     expect(json.telephone).toBe("0565 276520");
+    expect(json.vatID).toBe("01300000492");
     expect(json.sameAs).toEqual([
       "https://instagram.com/marianiford",
       "https://wa.me/390565276520",
