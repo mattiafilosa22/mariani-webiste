@@ -95,30 +95,34 @@ final class MediaSeeder {
 			}
 		}
 
-		return $this->seed_hero( $library );
+		return $this->seed_editorial_media( $library );
 	}
 
 	/**
-	 * Importa (idempotente) l'immagine hero della home come voce di libreria.
-	 *
-	 * La foto reale vive in cms/seed/media/hero-mache.jpg (stesso asset servito
-	 * come fallback locale dal front-end); e risolta da MediaRef( 'hero-mache' ).
+	 * Importa (idempotente) le immagini editoriali come voci di libreria.
 	 *
 	 * @param array<string,int> $library Segnaposto gia risolti.
 	 * @return array<string,int>
 	 */
-	private function seed_hero( array $library ): array {
-		$path = $this->media_directory() . '/hero-mache.jpg';
+	private function seed_editorial_media( array $library ): array {
+		$assets = array(
+			'hero-mache'    => array( 'hero-mache.jpg', __( 'Ford Mustang Mach-E nello showroom Mariani', 'mariani-core' ) ),
+			'home-catalogo' => array( 'home/catalogo-showroom.jpg', __( 'Cliente che consulta il catalogo nello showroom Mariani', 'mariani-core' ) ),
+			'home-officina' => array( 'home/officina-service.jpg', __( 'Tecnico al lavoro nell’officina Mariani', 'mariani-core' ) ),
+		);
 
-		if ( ! is_file( $path ) ) {
-			return $library;
-		}
+		foreach ( $assets as $key => $asset ) {
+			$path = $this->media_directory() . '/' . $asset[0];
 
-		$title = __( 'Ford Mustang Mach-E — showroom Mariani, Piombino', 'mariani-core' );
-		$id    = $this->ensure_attachment( 'media:hero-mache', $title, $title, $path );
+			if ( ! is_file( $path ) ) {
+				continue;
+			}
 
-		if ( null !== $id ) {
-			$library['hero-mache'] = $id;
+			$id = $this->ensure_attachment( 'media:' . $key, $asset[1], $asset[1], $path );
+
+			if ( null !== $id ) {
+				$library[ $key ] = $id;
+			}
 		}
 
 		return $library;

@@ -79,7 +79,9 @@ Parametri: `lang`. `key` ∈ `home|officina|noleggio|chi-siamo|contatti`.
 
 Sempre: `key`, `title`. Per `home`: blocchi `hero`, `bento`, `service`
 (campi opzionali `eyebrow`/`titleAccent`/`subtitle` inclusi solo se valorizzati;
-`stats` derivati dai campi ripetibili nel formato `valore|etichetta`). Per le
+`stats` derivati dai campi ripetibili nel formato `valore|etichetta`). I blocchi
+`bento` e `service` espongono inoltre `image?: AutoImage | null`, alimentata dai
+campi media WordPress e omessa quando l'allegato non è valido. Per le
 altre pagine: `body` (testo principale) se presente.
 
 ## GET `/settings` → `SiteSettings`

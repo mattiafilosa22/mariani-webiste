@@ -21,7 +21,21 @@ export async function Service({ service, locale }: ServiceProps) {
       <div className="container">
         <div className="split">
           <Reveal className="split__media" index={0}>
-            <div className="ph" aria-hidden="true">
+            {service.image ? (
+              // eslint-disable-next-line @next/next/no-img-element -- export statico: srcset WordPress già dimensionato.
+              <img
+                className="home-editorial-image"
+                src={service.image.src}
+                srcSet={service.image.srcset || undefined}
+                sizes="(max-width: 860px) 100vw, 50vw"
+                width={service.image.width}
+                height={service.image.height}
+                alt={service.image.alt}
+                loading="lazy"
+                decoding="async"
+              />
+            ) : (
+              <div className="ph" aria-hidden="true">
               <svg
                 viewBox="0 0 24 24"
                 fill="none"
@@ -30,7 +44,8 @@ export async function Service({ service, locale }: ServiceProps) {
               >
                 <path d="M14.7 6.3a4 4 0 0 1-5 5L4 17v3h3l5.7-5.7a4 4 0 0 0 5-5l-2.3 2.3-2-2 2.3-2.3z" />
               </svg>
-            </div>
+              </div>
+            )}
           </Reveal>
 
           <Reveal className="split__body" index={1}>

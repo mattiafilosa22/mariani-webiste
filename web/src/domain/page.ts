@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { autoImageSchema } from "./auto";
 
 /**
  * Contenuto editoriale di una pagina, gestito in WordPress
@@ -43,6 +44,7 @@ export const homeBentoSchema = z.object({
   feature: contentBlockSchema,
   highlight: contentBlockSchema,
   stats: z.array(bentoStatSchema).default([]),
+  image: autoImageSchema.nullish(),
 });
 export type HomeBento = z.infer<typeof homeBentoSchema>;
 
@@ -52,6 +54,7 @@ export const homeServiceSchema = z.object({
   title: z.string().min(1),
   lead: z.string().min(1),
   checklist: z.array(z.string().min(1)).default([]),
+  image: autoImageSchema.nullish(),
 });
 export type HomeService = z.infer<typeof homeServiceSchema>;
 

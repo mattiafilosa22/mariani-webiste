@@ -27,7 +27,21 @@ export async function Bento({ bento, locale }: BentoProps) {
 
         <div className="bento">
           <Reveal as="article" className="bento__cell bento__feature" index={0}>
-            <div className="ph" aria-hidden="true">
+            {bento.image ? (
+              // eslint-disable-next-line @next/next/no-img-element -- export statico: srcset WordPress già dimensionato.
+              <img
+                className="home-editorial-image"
+                src={bento.image.src}
+                srcSet={bento.image.srcset || undefined}
+                sizes="(max-width: 860px) 100vw, 50vw"
+                width={bento.image.width}
+                height={bento.image.height}
+                alt={bento.image.alt}
+                loading="lazy"
+                decoding="async"
+              />
+            ) : (
+              <div className="ph" aria-hidden="true">
               <svg
                 viewBox="0 0 24 24"
                 fill="none"
@@ -37,7 +51,8 @@ export async function Bento({ bento, locale }: BentoProps) {
                 <rect x="2" y="7" width="20" height="13" rx="2" />
                 <path d="M2 13h20M7 7l2-3h6l2 3" />
               </svg>
-            </div>
+              </div>
+            )}
             <div className="bento__overlay">
               <h3>{bento.feature.title}</h3>
               <p>{bento.feature.text}</p>

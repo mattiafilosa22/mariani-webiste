@@ -65,7 +65,7 @@ final class Rest implements Module {
 			),
 			new PagesController(
 				new PageRepository(),
-				new PagePresenter()
+				new PagePresenter( $images )
 			),
 			new SettingsController(
 				new SettingsRepository(),

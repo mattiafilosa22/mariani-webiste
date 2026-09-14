@@ -171,6 +171,7 @@ final class PageFields {
 			$this->textarea( 'mariani_home_bento_sottotitolo', __( 'Bento — Sottotitolo', 'mariani-core' ) ),
 			$this->text( 'mariani_home_bento_feature_titolo', __( 'Bento — Cella principale: titolo', 'mariani-core' ) ),
 			$this->textarea( 'mariani_home_bento_feature_testo', __( 'Bento — Cella principale: testo', 'mariani-core' ) ),
+			$this->image( 'mariani_home_bento_feature_img', __( 'Bento — Cella principale: immagine', 'mariani-core' ) ),
 			$this->text( 'mariani_home_bento_highlight_titolo', __( 'Bento — Cella evidenza: titolo', 'mariani-core' ) ),
 			$this->textarea( 'mariani_home_bento_highlight_testo', __( 'Bento — Cella evidenza: testo', 'mariani-core' ) ),
 			$this->repeater_text( 'mariani_home_bento_stats', __( 'Bento — Statistiche (formato "valore|etichetta")', 'mariani-core' ) ),
@@ -178,6 +179,7 @@ final class PageFields {
 			$this->text( 'mariani_home_service_eyebrow', __( 'Service — Eyebrow', 'mariani-core' ) ),
 			$this->text( 'mariani_home_service_titolo', __( 'Service — Titolo', 'mariani-core' ) ),
 			$this->textarea( 'mariani_home_service_lead', __( 'Service — Testo introduttivo', 'mariani-core' ) ),
+			$this->image( 'mariani_home_service_img', __( 'Service — Immagine', 'mariani-core' ) ),
 			$this->repeater_text( 'mariani_home_service_checklist', __( 'Service — Checklist (una voce per riga)', 'mariani-core' ) ),
 		);
 

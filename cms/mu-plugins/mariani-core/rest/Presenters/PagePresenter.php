@@ -12,6 +12,7 @@ declare( strict_types=1 );
 
 namespace Mariani\Core\Rest\Presenters;
 
+use Mariani\Core\Rest\Support\ImageTransformer;
 use Mariani\Core\Rest\Support\MetaReader;
 use WP_Post;
 
@@ -21,6 +22,21 @@ defined( 'ABSPATH' ) || exit;
  * Costruisce il contenuto editoriale tipizzato di ciascuna pagina chiave.
  */
 final class PagePresenter {
+	/**
+	 * Trasformatore delle immagini WordPress.
+	 *
+	 * @var ImageTransformer
+	 */
+	private ImageTransformer $images;
+
+	/**
+	 * Inietta il trasformatore immagini condiviso dal layer REST.
+	 *
+	 * @param ImageTransformer $images Trasformatore immagini.
+	 */
+	public function __construct( ImageTransformer $images ) {
+		$this->images = $images;
+	}
 
 	/**
 	 * Lettore meta della pagina corrente.
@@ -245,6 +261,7 @@ final class PagePresenter {
 
 		$this->maybe( $bento, 'eyebrow', $this->meta->string( 'mariani_home_bento_eyebrow' ) );
 		$this->maybe( $bento, 'subtitle', $this->meta->string( 'mariani_home_bento_sottotitolo' ) );
+		$this->maybe_image( $bento, 'image', 'mariani_home_bento_feature_img' );
 
 		return $bento;
 	}
@@ -262,6 +279,7 @@ final class PagePresenter {
 		);
 
 		$this->maybe( $service, 'eyebrow', $this->meta->string( 'mariani_home_service_eyebrow' ) );
+		$this->maybe_image( $service, 'image', 'mariani_home_service_img' );
 
 		return $service;
 	}
@@ -303,6 +321,21 @@ final class PagePresenter {
 	private function maybe( array &$target, string $key, string $value ): void {
 		if ( '' !== trim( $value ) ) {
 			$target[ $key ] = $value;
+		}
+	}
+
+	/**
+	 * Aggiunge un'immagine responsive soltanto quando la meta punta a un allegato valido.
+	 *
+	 * @param array<string,mixed> $target   DTO da arricchire.
+	 * @param string              $key      Chiave pubblica del DTO.
+	 * @param string              $meta_key Meta key dell'allegato.
+	 */
+	private function maybe_image( array &$target, string $key, string $meta_key ): void {
+		$image = $this->images->to_front( $this->meta->int_or_null( $meta_key ) ?? 0 );
+
+		if ( null !== $image ) {
+			$target[ $key ] = $image;
 		}
 	}
 }
