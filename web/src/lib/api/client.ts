@@ -7,6 +7,8 @@ import type { z } from "zod";
  */
 
 const API_URL = process.env.WP_API_URL;
+const RETRYABLE_STATUSES = new Set([502, 503, 504, 508]);
+const RETRY_DELAYS_MS = [200, 600] as const;
 
 export function isApiConfigured(): boolean {
   return typeof API_URL === "string" && API_URL.length > 0;
@@ -52,6 +54,33 @@ function buildUrl(path: string, params?: FetchParams): string {
   return url.toString();
 }
 
+function wait(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+/**
+ * Il CMS vive su hosting condiviso: una chiusura socket o un 508 possono
+ * capitare durante l'export. Ritentiamo solo le letture e solo per errori
+ * transitori; l'ultimo esito resta visibile al chiamante e in modalità strict
+ * fa fallire il build.
+ */
+async function fetchWithRetry(url: string, init: RequestInit): Promise<Response> {
+  for (let attempt = 0; ; attempt += 1) {
+    try {
+      const response = await fetch(url, init);
+      const canRetry =
+        attempt < RETRY_DELAYS_MS.length &&
+        RETRYABLE_STATUSES.has(response.status);
+
+      if (!canRetry) return response;
+    } catch (error) {
+      if (attempt >= RETRY_DELAYS_MS.length) throw error;
+    }
+
+    await wait(RETRY_DELAYS_MS[attempt]);
+  }
+}
+
 /**
  * Esegue la fetch e valida con lo schema fornito.
  * Un 404 restituisce `null` (risorsa assente); ogni altro errore lancia
@@ -68,7 +97,7 @@ export async function fetchValidated<S extends z.ZodTypeAny>(
 
   let response: Response;
   try {
-    response = await fetch(buildUrl(path, params), {
+    response = await fetchWithRetry(buildUrl(path, params), {
       headers: { Accept: "application/json", ...buildAuthHeaders() },
     });
   } catch (error) {

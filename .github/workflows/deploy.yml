@@ -56,6 +56,9 @@ jobs:
           NEXT_PUBLIC_WP_API_URL: ${{ secrets.WP_API_URL }}
           # URL pubblico del sito (per canonical, sitemap, hreflang, OG)
           NEXT_PUBLIC_SITE_URL: ${{ secrets.SITE_URL }}
+          # In produzione un errore del CMS deve fermare l'export: pubblicare
+          # silenziosamente il catalogo mock renderebbe verde un deploy rotto.
+          WP_API_STRICT: "1"
         run: npm run build
 
       - name: Verify export output
