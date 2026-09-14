@@ -136,9 +136,6 @@ export async function Footer({ locale, settings }: FooterProps) {
         <p>
           © {year} {settings.ragioneSociale} · P.IVA {settings.partitaIva}
         </p>
-        <div className="footer-bottom__legal">
-          <Link href={`${base}/cookie-policy`}>{t("cookiePrefs")}</Link>
-        </div>
       </div>
 
       <p className="container footer-credit">{fotoCredit}</p>

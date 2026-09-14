@@ -149,8 +149,8 @@ export const mockPages: Record<Locale, Record<string, PageContent>> = {
       title: "Privacy Policy",
       legal: {
         body:
-          "<p>La presente informativa descrive le modalità di trattamento dei dati personali degli utenti che consultano il sito e utilizzano i moduli di contatto, ai sensi del Regolamento UE 2016/679 (GDPR).</p><h2>Titolare del trattamento</h2><p>Titolare del trattamento è Mariani S.r.l., Via Adige 3, 57025 Piombino (LI).</p><h2>Finalità e base giuridica</h2><p>I dati forniti tramite i moduli sono trattati per rispondere alle richieste di informazioni, preventivo o appuntamento. Il conferimento è facoltativo ma necessario per dare seguito alla richiesta.</p><h2>Diritti dell'interessato</h2><p>In ogni momento è possibile esercitare i diritti di accesso, rettifica, cancellazione e opposizione scrivendo a info@marianiford.it.</p>",
-        updatedAt: "2026-01-01",
+          "<p>Questa informativa descrive il trattamento dei dati personali di chi consulta il sito e invia una richiesta ai sensi del GDPR.</p><h2>Titolare del trattamento</h2><p>Mariani S.r.l., Via Adige 3, 57025 Piombino (LI), P.IVA 01300000492. Contatto: info@marianiford.it.</p><h2>Finalità e base giuridica</h2><p>I dati sono usati per rispondere a richieste e adottare misure precontrattuali ai sensi dell’art. 6(1)(b) GDPR. Non sono usati per marketing.</p><h2>Conservazione</h2><p>I dati delle richieste sono conservati per 12 mesi.</p><h2>Diritti</h2><p>Sono esercitabili i diritti previsti dagli artt. 15–22 GDPR ed è possibile proporre reclamo al Garante.</p>",
+        updatedAt: "2026-09-14",
       },
     },
     "cookie-policy": {
@@ -158,8 +158,8 @@ export const mockPages: Record<Locale, Record<string, PageContent>> = {
       title: "Cookie Policy",
       legal: {
         body:
-          "<p>Questo sito utilizza cookie tecnici necessari al funzionamento e, previo consenso, cookie di terze parti per finalità statistiche e di profilazione.</p><h2>Cookie tecnici</h2><p>Sono indispensabili per la corretta navigazione e non richiedono consenso.</p><h2>Mappa OpenStreetMap</h2><p>Le mappe sono servite tramite tile OpenStreetMap senza cookie di profilazione.</p><h2>Gestione delle preferenze</h2><p>È possibile gestire o revocare il consenso in qualsiasi momento dalle impostazioni del browser.</p>",
-        updatedAt: "2026-01-01",
+          "<p>Il sito pubblico non usa cookie statistici, pubblicitari o di profilazione e non integra Google Analytics o Meta Pixel. Per questo non viene mostrato un banner di consenso.</p><h2>Mappa OpenStreetMap</h2><p>La mappa viene richiesta ai server OpenStreetMap soltanto dopo la scelta “Carica la mappa”.</p>",
+        updatedAt: "2026-09-14",
       },
     },
   },
@@ -306,8 +306,8 @@ export const mockPages: Record<Locale, Record<string, PageContent>> = {
       title: "Privacy Policy",
       legal: {
         body:
-          "<p>This notice describes how the personal data of users who browse the site and use the contact forms is processed, pursuant to EU Regulation 2016/679 (GDPR).</p><h2>Data controller</h2><p>The data controller is Mariani S.r.l., Via Adige 3, 57025 Piombino (LI), Italy.</p><h2>Purposes and legal basis</h2><p>Data provided through the forms is processed to respond to requests for information, quotes or appointments. Providing it is optional but required to follow up on the request.</p><h2>Rights of the data subject</h2><p>You may exercise your rights of access, rectification, erasure and objection at any time by writing to info@marianiford.it.</p>",
-        updatedAt: "2026-01-01",
+          "<p>This notice describes how Mariani processes personal data submitted through the website under the GDPR.</p><h2>Data controller</h2><p>Mariani S.r.l., Via Adige 3, 57025 Piombino (LI), Italy, VAT no. 01300000492. Contact: info@marianiford.it.</p><h2>Purposes and legal basis</h2><p>Data is used to answer requests and take pre-contractual steps under Article 6(1)(b) GDPR. It is not used for marketing.</p><h2>Retention</h2><p>Request data is kept for 12 months.</p><h2>Rights</h2><p>Rights under Articles 15–22 GDPR may be exercised and a complaint may be lodged with the Italian Data Protection Authority.</p>",
+        updatedAt: "2026-09-14",
       },
     },
     "cookie-policy": {
@@ -315,8 +315,8 @@ export const mockPages: Record<Locale, Record<string, PageContent>> = {
       title: "Cookie Policy",
       legal: {
         body:
-          "<p>This site uses technical cookies necessary for its operation and, subject to consent, third-party cookies for statistical and profiling purposes.</p><h2>Technical cookies</h2><p>They are essential for correct browsing and do not require consent.</p><h2>OpenStreetMap map</h2><p>Maps are served through OpenStreetMap tiles without profiling cookies.</p><h2>Managing preferences</h2><p>You can manage or withdraw consent at any time from your browser settings.</p>",
-        updatedAt: "2026-01-01",
+          "<p>The public website does not use statistical, advertising or profiling cookies and does not integrate Google Analytics or Meta Pixel. A consent banner is therefore not displayed.</p><h2>OpenStreetMap map</h2><p>The map is requested from OpenStreetMap servers only after choosing “Load map”.</p>",
+        updatedAt: "2026-09-14",
       },
     },
   },

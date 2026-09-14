@@ -32,7 +32,7 @@ const SUBMIT_LABEL = {
 /**
  * Form contatto accessibile (una variante per tipo di richiesta).
  * - Label associate, `aria-invalid`/`aria-describedby`, errori con `role="alert"`.
- * - Consenso GDPR obbligatorio; honeypot anti-bot.
+ * - Presa visione privacy obbligatoria; honeypot anti-bot.
  * - Invio disaccoppiato via `submitLead` (POST a /lead); stati loading/success/error.
  */
 export function LeadForm({

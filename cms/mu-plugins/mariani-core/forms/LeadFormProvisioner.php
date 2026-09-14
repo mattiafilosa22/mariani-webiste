@@ -134,7 +134,7 @@ final class LeadFormProvisioner {
 				$this->text_field( 'tipo', __( 'Tipo richiesta', 'mariani-core' ), false ),
 				$this->text_field( 'fonte', __( 'Fonte / Auto', 'mariani-core' ), false ),
 				$this->textarea_field( 'messaggio', __( 'Messaggio', 'mariani-core' ), true ),
-				$this->text_field( 'consenso', __( 'Consenso trattamento dati', 'mariani-core' ), false ),
+				$this->text_field( 'consenso', __( 'Presa visione informativa privacy', 'mariani-core' ), false ),
 			),
 			'submitButton' => $this->submit_button(),
 		);

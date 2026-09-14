@@ -17,7 +17,7 @@ use WP_REST_Response;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Espone POST /lead con honeypot, consenso GDPR e rate-limit via transient.
+ * Espone POST /lead con honeypot, presa visione privacy e rate-limit.
  */
 final class LeadController extends Controller {
 
@@ -147,12 +147,11 @@ final class LeadController extends Controller {
 			'tipo'      => $this->first_param( $request, array( 'tipo', 'tipoRichiesta' ) ),
 			'fonte'     => $this->first_param( $request, array( 'fonte', 'autoSlug' ) ),
 			'consenso'  => $this->to_bool( $request->get_param( 'consenso' ) ),
-			'marketing' => $this->to_bool( $request->get_param( 'marketing' ) ),
 		);
 	}
 
 	/**
-	 * Valida i campi obbligatori e il consenso GDPR.
+	 * Valida i campi obbligatori e la presa visione privacy.
 	 *
 	 * @param array<string,mixed> $data Dati sanificati.
 	 * @return WP_Error|null Errore se non valido, altrimenti null.
@@ -177,7 +176,7 @@ final class LeadController extends Controller {
 		if ( true !== $data['consenso'] ) {
 			return new WP_Error(
 				'mariani_lead_consent',
-				__( 'Il consenso al trattamento dei dati e obbligatorio.', 'mariani-core' ),
+				__( 'Conferma di aver letto l’informativa privacy.', 'mariani-core' ),
 				array( 'status' => 422 )
 			);
 		}

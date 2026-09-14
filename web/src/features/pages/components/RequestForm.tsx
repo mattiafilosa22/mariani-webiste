@@ -9,7 +9,7 @@ export type RequestVariant = "noleggio" | "officina" | "contatti";
 
 type RequestFormProps = {
   variant: RequestVariant;
-  /** Rotta della privacy policy per il link di consenso GDPR. */
+  /** Rotta della privacy policy per il link di presa visione. */
   privacyHref: string;
   /** Opzioni di durata (mesi) per il noleggio, derivate dal contenuto WP. */
   durataOptions?: number[];
@@ -29,7 +29,7 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 /**
  * Form contatto accessibile e riusabile per Noleggio, Officina e Contatti.
  * - Label associate, `aria-invalid`/`aria-describedby`, errori con `role="alert"`.
- * - Consenso GDPR obbligatorio (link alla privacy policy) + honeypot anti-bot.
+ * - Presa visione privacy obbligatoria (con link) + honeypot anti-bot.
  * - Invio disaccoppiato via `submitLead` (POST /lead); messaggio composto dai
  *   campi della variante tramite template i18n. Nessun testo editoriale qui.
  */
@@ -170,10 +170,6 @@ export function RequestForm({
               </span>
             ) : null}
           </label>
-        </div>
-        <div className="check">
-          <input id={id("marketing")} name="marketing" type="checkbox" />
-          <label htmlFor={id("marketing")}>{t("marketing")}</label>
         </div>
       </div>
 

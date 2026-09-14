@@ -94,8 +94,8 @@ final class LeadFormBridge {
 			'fonte'     => $this->first( $data, array( 'fonte', 'auto_slug' ) ),
 			'messaggio' => $this->value( $data, 'messaggio' ),
 			'consenso'  => ! empty( $data['consenso'] )
-				? __( 'Prestato', 'mariani-core' )
-				: __( 'Non prestato', 'mariani-core' ),
+				? __( 'Informativa letta', 'mariani-core' )
+				: __( 'Informativa non letta', 'mariani-core' ),
 		);
 	}
 
