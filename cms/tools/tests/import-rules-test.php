@@ -29,15 +29,17 @@ if ( mariani_import_is_featured( 'bronco-badlands-2-7-v6-ecoboost-biturbo' ) ) {
 	exit( 1 );
 }
 
+// Kuga and Focus galleries come from Catalog::media_archive(), not from stock vehicles.
 $media_cases = array(
-	'puma-titanium-1-0-mhev-125cv'                    => 'ford-puma-st-line-x',
-	'puma-gen-e-premium-168-cv-43-kwh'                => 'ford-puma-e',
-	'kuga-titanium-2-5-auto-fhev'                     => 'ford-kuga-phev',
-	'explorer-explorer-er-286-cv-77-kwh'              => 'ford-explorer',
-	'tourneo-connect-plus-swb-man-1-5-ecoboost-115cv' => 'ford-tourneo',
-	'bronco-badlands-2-7-v6-ecoboost-biturbo'         => null,
-	'capri-capri-er-286-cv-77-kwh'                    => null,
-	'e-courier-titanium-168-cv-43-kwh'                => null,
+	'puma-titanium-1-0-mhev-125cv'                      => 'ford-puma-st-line-x',
+	'puma-gen-e-premium-168-cv-43-kwh'                  => 'ford-puma-e',
+	'kuga-titanium-2-5-auto-fhev'                       => 'ford-kuga-phev',
+	'focus-st-line-5p-man-1-5-ecoblue-tdci-115-cv-tdci' => 'ford-focus-grigia-scuro',
+	'explorer-explorer-er-286-cv-77-kwh'                => 'ford-explorer',
+	'tourneo-connect-plus-swb-man-1-5-ecoboost-115cv'   => 'ford-tourneo',
+	'bronco-badlands-2-7-v6-ecoboost-biturbo'           => null,
+	'capri-capri-er-286-cv-77-kwh'                      => null,
+	'e-courier-titanium-168-cv-43-kwh'                  => null,
 );
 
 foreach ( $media_cases as $ref => $expected ) {

@@ -2,11 +2,12 @@ import type { Alimentazione, Auto, AutoImage, Cambio, Colore, Trazione } from "@
 
 /**
  * Dataset demo usato quando WordPress non è disponibile (build senza CMS).
- * Rispecchia le 17 auto reali del concessionario: i dati numerici non ancora
- * confermati (km, anno, prezzi, potenza) sono a 0, salvo i prezzi comunicati,
- * e la UI li rende come "n.d." o "Prezzo su richiesta". Cambio, trazione e
- * colore non comunicati sono `null` e la UI omette la voce. I dati rispettano
- * gli schemi zod del dominio.
+ * Rispecchia le 14 auto reali del concessionario: i dati numerici non ancora
+ * confermati (km, anno, prezzi, potenza) sono a 0, salvo quelli comunicati
+ * (prezzi; anno/km/potenza di Kuga usata e Capri), e la UI li rende come
+ * "n.d." o "Prezzo su richiesta". Cambio, trazione e colore non comunicati
+ * sono `null` e la UI omette la voce. I dati rispettano gli schemi zod del
+ * dominio.
  */
 
 function cover(alt: string): AutoImage {
@@ -36,18 +37,25 @@ type RealCar = {
   inEvidenza: boolean;
   /** Prezzo comunicato dal concessionario; assente = prezzo su richiesta. */
   prezzo?: number;
+  /** Anno comunicato; assente = 0 (n.d.). */
+  anno?: number;
+  /** Km comunicati; assente = 0. */
+  km?: number;
+  /** Potenza comunicata; assente = 0 (n.d.). */
+  potenzaCv?: number;
+  /** Voci tecniche come le espone il presenter WP (es. Cilindrata, Emissioni CO₂). */
+  specifiche?: Auto["specifiche"];
+  /** Nessuna foto: galleria vuota, copertina null, la UI mostra il segnaposto "foto non disponibile". */
+  senzaFoto?: true;
 };
 
-/** Dati confermati delle 17 auto reali (il resto è 0/placeholder). */
+/** Dati confermati delle 14 auto reali (il resto è 0/placeholder). */
 const realCars: RealCar[] = [
   { id: "1", slug: "ford-explorer", tipo: "nuova", categoria: "auto", marca: "Ford", modello: "Explorer", versione: "", alimentazione: "elettrico", cambio: "automatico", carrozzeria: "SUV", colore: "blu", badge: ["elettrico"], inEvidenza: true },
   { id: "2", slug: "ford-mustang-mach-e", tipo: "nuova", categoria: "auto", marca: "Ford", modello: "Mustang Mach-E", versione: "", alimentazione: "elettrico", cambio: "automatico", carrozzeria: "SUV", colore: "nero", badge: ["elettrico"], inEvidenza: true },
   { id: "3", slug: "ford-puma-st-line-x", tipo: "nuova", categoria: "auto", marca: "Ford", modello: "Puma", versione: "ST-Line X MHEV", alimentazione: "ibrido", cambio: "manuale", carrozzeria: "SUV compatto", colore: "grigio", badge: ["ibrido"], inEvidenza: true },
   { id: "4", slug: "ford-puma-e", tipo: "nuova", categoria: "auto", marca: "Ford", modello: "Puma Gen-E", versione: "", alimentazione: "elettrico", cambio: "automatico", carrozzeria: "SUV compatto", colore: "nero", badge: ["elettrico"], inEvidenza: true },
-  { id: "5", slug: "ford-focus-grigia-chiaro", tipo: "usata", categoria: "auto", marca: "Ford", modello: "Focus", versione: "", alimentazione: "benzina", cambio: "manuale", carrozzeria: "Berlina", colore: "grigio", badge: [], inEvidenza: false },
-  { id: "6", slug: "ford-focus-grigia-scuro", tipo: "usata", categoria: "auto", marca: "Ford", modello: "Focus", versione: "", alimentazione: "benzina", cambio: "manuale", carrozzeria: "Berlina", colore: "grigio", badge: [], inEvidenza: false },
-  { id: "7", slug: "ford-focus-rossa", tipo: "usata", categoria: "auto", marca: "Ford", modello: "Focus", versione: "", alimentazione: "benzina", cambio: "manuale", carrozzeria: "Berlina", colore: "rosso", badge: [], inEvidenza: false },
-  { id: "8", slug: "ford-kuga-phev", tipo: "usata", categoria: "auto", marca: "Ford", modello: "Kuga", versione: "PHEV", alimentazione: "ibrido", cambio: "automatico", carrozzeria: "SUV", colore: "nero", badge: ["ibrido"], inEvidenza: true },
+  { id: "18", slug: "ford-kuga-active-phev", tipo: "usata", categoria: "auto", marca: "Ford", modello: "Kuga", versione: "Active PHEV", alimentazione: "ibrido", cambio: "automatico", trazione: null, carrozzeria: "SUV", colore: "bianco", badge: ["ibrido", "neopatentati"], inEvidenza: false, prezzo: 29900, anno: 2024, km: 49963, potenzaCv: 242, specifiche: { Cilindrata: "2500 cm³", "Emissioni CO₂": "22 g/km" }, senzaFoto: true },
   { id: "9", slug: "ford-puma-bianca-km0", tipo: "km0", categoria: "auto", marca: "Ford", modello: "Puma", versione: "", alimentazione: "benzina", cambio: "manuale", carrozzeria: "SUV compatto", colore: "bianco", badge: ["km0"], inEvidenza: false },
   { id: "10", slug: "ford-tourneo", tipo: "nuova", categoria: "commerciale", marca: "Ford", modello: "Tourneo", versione: "", alimentazione: "diesel", cambio: "manuale", carrozzeria: "Monovolume", colore: "bianco", badge: [], inEvidenza: false },
   { id: "11", slug: "ford-tourneo-custom", tipo: "nuova", categoria: "commerciale", marca: "Ford", modello: "Tourneo Custom", versione: "", alimentazione: "diesel", cambio: "manuale", carrozzeria: "Furgone", colore: "nero", badge: [], inEvidenza: false },
@@ -55,9 +63,9 @@ const realCars: RealCar[] = [
   { id: "13", slug: "omoda-7", tipo: "nuova", categoria: "auto", marca: "Omoda", modello: "7", versione: "SHS PHEV", alimentazione: "ibrido", cambio: "automatico", carrozzeria: "SUV", colore: "nero", badge: ["ibrido"], inEvidenza: true },
   { id: "14", slug: "jaecoo-7", tipo: "nuova", categoria: "auto", marca: "Jaecoo", modello: "7", versione: "SHS PHEV", alimentazione: "ibrido", cambio: "automatico", carrozzeria: "SUV", colore: "nero", badge: ["ibrido"], inEvidenza: true },
   { id: "15", slug: "jaecoo-8", tipo: "nuova", categoria: "auto", marca: "Jaecoo", modello: "8", versione: "PHEV", alimentazione: "ibrido", cambio: "automatico", carrozzeria: "SUV", colore: "bianco", badge: ["ibrido"], inEvidenza: true },
-  // Dati non comunicati dal concessionario (null): cambio/trazione/colore del Ranger, trazione/colore della Capri.
+  // Dati non comunicati dal concessionario (null): cambio/trazione/colore del Ranger, trazione di Capri e Kuga.
   { id: "16", slug: "ford-ranger", tipo: "nuova", categoria: "commerciale", marca: "Ford", modello: "Ranger", versione: "", alimentazione: "diesel", cambio: null, trazione: null, carrozzeria: "Pick-up", colore: null, badge: [], inEvidenza: false },
-  { id: "17", slug: "ford-capri-km0", tipo: "km0", categoria: "auto", marca: "Ford", modello: "Capri", versione: "", alimentazione: "elettrico", cambio: "automatico", trazione: null, carrozzeria: "SUV", colore: null, badge: ["km0", "elettrico"], inEvidenza: false, prezzo: 43900 },
+  { id: "17", slug: "ford-capri-km0", tipo: "km0", categoria: "auto", marca: "Ford", modello: "Capri", versione: "", alimentazione: "elettrico", cambio: "automatico", trazione: null, carrozzeria: "SUV", colore: "bianco", badge: ["km0", "elettrico"], inEvidenza: false, prezzo: 43900, anno: 2025, km: 0, potenzaCv: 286 },
 ];
 
 /** Espande i dati confermati in DTO completi con i campi numerici a 0. */
@@ -71,22 +79,22 @@ function toMockAuto(car: RealCar): Auto {
     marca: car.marca,
     modello: car.modello,
     versione: car.versione,
-    anno: 0,
-    km: 0,
+    anno: car.anno ?? 0,
+    km: car.km ?? 0,
     prezzoListino: car.prezzo ?? 0,
     prezzoFinale: car.prezzo ?? 0,
     alimentazione: car.alimentazione,
     cambio: car.cambio,
     trazione: car.trazione === undefined ? "anteriore" : car.trazione,
     carrozzeria: car.carrozzeria,
-    potenzaCv: 0,
+    potenzaCv: car.potenzaCv ?? 0,
     colore: car.colore,
     badge: car.badge,
     inEvidenza: car.inEvidenza,
-    galleria: [cover(`${title} — Mariani Concessionaria, Piombino`)],
+    galleria: car.senzaFoto ? [] : [cover(`${title} — Mariani Concessionaria, Piombino`)],
     dotazioni: [],
     optional: [],
-    specifiche: {},
+    specifiche: car.specifiche ?? {},
   };
 }
 

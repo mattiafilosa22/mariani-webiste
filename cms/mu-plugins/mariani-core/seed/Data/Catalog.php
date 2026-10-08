@@ -174,15 +174,19 @@ final class Catalog {
 	}
 
 	/**
-	 * Elenco delle 17 auto reali del concessionario: 13 Ford (5 in evidenza, 3
-	 * commerciali) + 4 Omoda/Jaecoo (tutte in evidenza, nuove).
+	 * Elenco delle 14 auto reali del concessionario: 10 Ford (4 in evidenza, 3
+	 * commerciali, 1 usata) + 4 Omoda/Jaecoo (tutte in evidenza, nuove).
 	 *
 	 * I dati numerici (km, anno, prezzi, potenza) sono a 0/placeholder in attesa
-	 * di conferma, salvo i prezzi comunicati dal concessionario: il front-end li
-	 * rende come "n.d." o "Prezzo su richiesta". Cambio, trazione e colore non
-	 * comunicati restano vuoti (Ranger, Capri): il presenter li espone come null
-	 * e il front-end omette la voce. Le foto reali sono importate da
-	 * cms/seed/media/cars.
+	 * di conferma, salvo quelli comunicati dal concessionario (prezzi; anno, km,
+	 * potenza e motore della Kuga usata; anno e potenza della Capri Km 0): il
+	 * front-end li rende come "n.d." o "Prezzo su richiesta". Cambio, trazione e
+	 * colore non comunicati restano vuoti (Ranger; trazione di Capri e Kuga): il
+	 * presenter li espone come null e il front-end omette la voce. Lo stock usato
+	 * e solo quello della sede di Piombino (Excel «STOCK DL41 2026», righe con
+	 * ubicazione MARIANI). Le foto reali sono importate da cms/seed/media/cars;
+	 * le auto senza cartella foto usano il segnaposto dimostrativo, salvo quelle
+	 * con 'senza_foto' (copertina null: il front-end mostra "foto non disponibile").
 	 *
 	 * @return array<int,array<string,mixed>>
 	 */
@@ -192,12 +196,56 @@ final class Catalog {
 			self::car( 'ford-mustang-mach-e', 'ford', 'Ford', 'Mustang Mach-E', 'mustang-mach-e', '', 'nuova', 'auto', 'elettrico', 'suv', 'automatico', 'Nero', '#111114', true ),
 			self::car( 'ford-puma-st-line-x', 'ford', 'Ford', 'Puma', 'puma', 'ST-Line X MHEV', 'nuova', 'auto', 'ibrido', 'suv-compatto', 'manuale', 'Grigio', '#6b7280', true ),
 			self::car( 'ford-puma-e', 'ford', 'Ford', 'Puma Gen-E', 'puma-gen-e', '', 'nuova', 'auto', 'elettrico', 'suv-compatto', 'automatico', 'Nero', '#111114', true ),
-			self::car( 'ford-focus-grigia-chiaro', 'ford', 'Ford', 'Focus', 'focus', '', 'usata', 'auto', 'benzina', 'berlina', 'manuale', 'Grigio', '#9ca3af', false ),
-			self::car( 'ford-focus-grigia-scuro', 'ford', 'Ford', 'Focus', 'focus', '', 'usata', 'auto', 'benzina', 'berlina', 'manuale', 'Grigio', '#4b5563', false ),
-			self::car( 'ford-focus-rossa', 'ford', 'Ford', 'Focus', 'focus', '', 'usata', 'auto', 'benzina', 'berlina', 'manuale', 'Rosso', '#8f1d21', false ),
-			self::car( 'ford-kuga-phev', 'ford', 'Ford', 'Kuga', 'kuga', 'PHEV', 'usata', 'auto', 'ibrido', 'suv', 'automatico', 'Nero', '#111114', true ),
+			self::car(
+				'ford-kuga-active-phev',
+				'ford',
+				'Ford',
+				'Kuga',
+				'kuga',
+				'Active PHEV',
+				'usata',
+				'auto',
+				'ibrido',
+				'suv',
+				'automatico',
+				'Bianco Frozen White',
+				'#f3f4f6',
+				false,
+				29900,
+				'',
+				array(
+					'anno'         => '2024-06-01',
+					'km'           => 49963,
+					'potenza_cv'   => 242,
+					'cilindrata'   => 2500,
+					'co2'          => 22,
+					'neopatentati' => true,
+					'senza_foto'   => true,
+				)
+			),
 			self::car( 'ford-puma-bianca-km0', 'ford', 'Ford', 'Puma', 'puma', '', 'km0', 'auto', 'benzina', 'suv-compatto', 'manuale', 'Bianco', '#e5e7eb', false ),
-			self::car( 'ford-capri-km0', 'ford', 'Ford', 'Capri', 'capri', '', 'km0', 'auto', 'elettrico', 'suv', 'automatico', '', '', false, 43900, '' ),
+			self::car(
+				'ford-capri-km0',
+				'ford',
+				'Ford',
+				'Capri',
+				'capri',
+				'',
+				'km0',
+				'auto',
+				'elettrico',
+				'suv',
+				'automatico',
+				'Bianco Frozen White',
+				'#f3f4f6',
+				false,
+				43900,
+				'',
+				array(
+					'anno'       => '2025-02-01',
+					'potenza_cv' => 286,
+				)
+			),
 			self::car( 'ford-tourneo', 'ford', 'Ford', 'Tourneo', 'tourneo', '', 'nuova', 'commerciale', 'diesel', 'monovolume', 'manuale', 'Bianco', '#f3f4f6', false ),
 			self::car( 'ford-tourneo-custom', 'ford', 'Ford', 'Tourneo Custom', 'tourneo-custom', '', 'nuova', 'commerciale', 'diesel', 'furgone', 'manuale', 'Nero', '#111114', false ),
 			self::car( 'ford-ranger', 'ford', 'Ford', 'Ranger', 'ranger', '', 'nuova', 'commerciale', 'diesel', 'pick-up', '', '', '', false, 0, '' ),
@@ -205,6 +253,22 @@ final class Catalog {
 			self::car( 'omoda-7', 'omoda', 'Omoda', '7', 'omoda-7', 'SHS PHEV', 'nuova', 'auto', 'ibrido', 'suv', 'automatico', 'Nero', '#111114', true ),
 			self::car( 'jaecoo-7', 'jaecoo', 'Jaecoo', '7', 'jaecoo-7', 'SHS PHEV', 'nuova', 'auto', 'ibrido', 'suv', 'automatico', 'Nero', '#111114', true ),
 			self::car( 'jaecoo-8', 'jaecoo', 'Jaecoo', '8', 'jaecoo-8', 'PHEV', 'nuova', 'auto', 'ibrido', 'suv', 'automatico', 'Bianco', '#f3f4f6', true ),
+		);
+	}
+
+	/**
+	 * Gallerie di cms/seed/media/cars non legate a un'auto del catalogo.
+	 *
+	 * Sono le foto delle vecchie usate segnaposto: non sono piu in stock, ma il
+	 * tool del listino (cms/tools/lib/import-rules.php) le riusa per le Kuga e
+	 * le Focus nuove, quindi il seeder le importa comunque nella libreria media.
+	 *
+	 * @return array<string,string> Cartella foto => titolo (per titolo/alt allegato).
+	 */
+	public static function media_archive(): array {
+		return array(
+			'ford-kuga-phev'          => 'Ford Kuga',
+			'ford-focus-grigia-scuro' => 'Ford Focus',
 		);
 	}
 
@@ -276,23 +340,25 @@ final class Catalog {
 	 * I campi numerici non ancora forniti dal concessionario restano a 0 (km,
 	 * anno, prezzi, potenza) oppure a null (cilindrata, CO2, consumi...), cosi il
 	 * presenter li omette e il front-end mostra "n.d." / "Prezzo su richiesta".
+	 * I dati comunicati dal concessionario arrivano via $dati.
 	 *
-	 * @param string $ref            Slug canonico (coincide con la cartella foto).
-	 * @param string $marca_slug     Slug del termine marca.
-	 * @param string $marca_nome     Nome della marca (per il titolo/alt).
-	 * @param string $modello_nome   Nome del modello (per il titolo/alt).
-	 * @param string $modello_slug   Slug del termine modello.
-	 * @param string $versione       Versione/allestimento (puo essere vuota).
-	 * @param string $tipo           Tipo veicolo (nuova|usata|km0).
-	 * @param string $categoria      Categoria (auto|commerciale).
-	 * @param string $alimentazione  Slug alimentazione.
-	 * @param string $carrozzeria    Slug carrozzeria.
-	 * @param string $cambio         Cambio (manuale|automatico|'' = non comunicato).
-	 * @param string $colore_label   Etichetta colore (IT, normalizzata dal presenter; '' = non comunicato).
-	 * @param string $colore_hex     Colore esterno in esadecimale (swatch UI; '' = non comunicato).
-	 * @param bool   $in_evidenza    Se mostrarla tra i veicoli in evidenza.
-	 * @param int    $listino        Prezzo di listino in euro (0 = prezzo su richiesta).
-	 * @param string $trazione       Trazione (anteriore|posteriore|integrale|'' = non comunicata).
+	 * @param string              $ref            Slug canonico (coincide con la cartella foto).
+	 * @param string              $marca_slug     Slug del termine marca.
+	 * @param string              $marca_nome     Nome della marca (per il titolo/alt).
+	 * @param string              $modello_nome   Nome del modello (per il titolo/alt).
+	 * @param string              $modello_slug   Slug del termine modello.
+	 * @param string              $versione       Versione/allestimento (puo essere vuota).
+	 * @param string              $tipo           Tipo veicolo (nuova|usata|km0).
+	 * @param string              $categoria      Categoria (auto|commerciale).
+	 * @param string              $alimentazione  Slug alimentazione.
+	 * @param string              $carrozzeria    Slug carrozzeria.
+	 * @param string              $cambio         Cambio (manuale|automatico|'' = non comunicato).
+	 * @param string              $colore_label   Etichetta colore (IT, normalizzata dal presenter; '' = non comunicato).
+	 * @param string              $colore_hex     Colore esterno in esadecimale (swatch UI; '' = non comunicato).
+	 * @param bool                $in_evidenza    Se mostrarla tra i veicoli in evidenza.
+	 * @param int                 $listino        Prezzo di listino in euro (0 = prezzo su richiesta).
+	 * @param string              $trazione       Trazione (anteriore|posteriore|integrale|'' = non comunicata).
+	 * @param array<string,mixed> $dati           Dati confermati che sostituiscono i default del record (es. anno, km, potenza_cv, cilindrata, co2, neopatentati, senza_foto).
 	 * @return array<string,mixed>
 	 */
 	private static function car(
@@ -311,11 +377,12 @@ final class Catalog {
 		string $colore_hex,
 		bool $in_evidenza,
 		int $listino = 0,
-		string $trazione = 'anteriore'
+		string $trazione = 'anteriore',
+		array $dati = array()
 	): array {
 		$title = trim( $marca_nome . ' ' . $modello_nome . ' ' . $versione );
 
-		return array(
+		$record = array(
 			'ref'           => $ref,
 			'title'         => $title,
 			'content'       => sprintf(
@@ -355,6 +422,7 @@ final class Catalog {
 			'dotazioni'     => array(),
 			'optional'      => array(),
 			'commerciale'   => null,
+			'senza_foto'    => false,
 			'en'            => array(
 				'content' => sprintf(
 					'%s available at Mariani Concessionaria in Piombino. Contact us for details on price, availability and a possible test drive.',
@@ -362,6 +430,8 @@ final class Catalog {
 				),
 			),
 		);
+
+		return array_replace( $record, $dati );
 	}
 
 

@@ -2,7 +2,8 @@
 /**
  * Importa nella libreria media le foto reali delle auto e i segnaposto pagine.
  *
- * Per ogni veicolo del catalogo carica in modo idempotente le foto reali da
+ * Per ogni veicolo del catalogo (e per le gallerie d'archivio usate dal tool del
+ * listino) carica in modo idempotente le foto reali da
  * cms/seed/media/cars/<slug>/*.jpg (ordinate per nome) come galleria; la prima
  * e la copertina. I tre segnaposto editoriali (hero pagine) restano generati da
  * GD e servono anche come fallback per le auto senza foto.
@@ -129,19 +130,33 @@ final class MediaSeeder {
 	}
 
 	/**
-	 * Importa le gallerie reali di tutte le auto del catalogo.
+	 * Importa le gallerie reali delle auto del catalogo e dell'archivio media.
 	 *
 	 * @return array<string,array<int,int>>
 	 */
 	private function seed_galleries(): array {
 		$galleries = array();
 
-		foreach ( Catalog::autos() as $record ) {
-			$slug               = (string) $record['ref'];
-			$galleries[ $slug ] = $this->seed_car_gallery( $slug, (string) $record['title'] );
+		foreach ( $this->gallery_titles() as $slug => $title ) {
+			$galleries[ $slug ] = $this->seed_car_gallery( $slug, $title );
 		}
 
 		return $galleries;
+	}
+
+	/**
+	 * Cartelle foto da importare, con il titolo usato per titolo/alt allegato.
+	 *
+	 * @return array<string,string>
+	 */
+	private function gallery_titles(): array {
+		$titles = array();
+
+		foreach ( Catalog::autos() as $record ) {
+			$titles[ (string) $record['ref'] ] = (string) $record['title'];
+		}
+
+		return $titles + Catalog::media_archive();
 	}
 
 	/**
