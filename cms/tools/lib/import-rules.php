@@ -31,6 +31,8 @@ function mariani_import_is_featured( string $ref ): bool {
  * Maps a list-price vehicle to a compatible gallery already in the media archive.
  *
  * Null deliberately means that no sufficiently close model photo is available.
+ * The returned name is a cms/seed/media/cars folder: galleries of vehicles no
+ * longer in stock (Kuga, Focus) stay seeded via Catalog::media_archive().
  *
  * @param string $ref Stable import reference without language suffix.
  */

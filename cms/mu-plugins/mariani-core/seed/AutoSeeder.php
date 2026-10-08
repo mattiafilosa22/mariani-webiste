@@ -249,6 +249,9 @@ final class AutoSeeder {
 	/**
 	 * Sostituisce la galleria con le foto reali del veicolo (o il segnaposto).
 	 *
+	 * Le auto con 'senza_foto' restano senza galleria ne copertina: il presenter
+	 * espone copertina null e il front-end mostra "foto non disponibile".
+	 *
 	 * @param int                 $post_id       ID del post.
 	 * @param array<string,mixed> $record        Dati del veicolo.
 	 * @param MediaLibrary        $media_library Libreria immagini seedata.
@@ -259,7 +262,7 @@ final class AutoSeeder {
 
 		$attachments = $media_library->gallery( (string) $record['ref'] );
 
-		if ( array() === $attachments ) {
+		if ( array() === $attachments && ! (bool) $record['senza_foto'] ) {
 			$fallback    = $media_library->placeholder( 'esterno-fronte' );
 			$attachments = null === $fallback ? array() : array( $fallback );
 		}
@@ -272,9 +275,13 @@ final class AutoSeeder {
 			$first ??= $attachment_id;
 		}
 
-		if ( null !== $first ) {
-			set_post_thumbnail( $post_id, $first );
+		if ( null === $first ) {
+			delete_post_thumbnail( $post_id );
+
+			return;
 		}
+
+		set_post_thumbnail( $post_id, $first );
 	}
 
 	/**

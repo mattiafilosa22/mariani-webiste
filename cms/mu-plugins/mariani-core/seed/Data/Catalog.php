@@ -185,7 +185,8 @@ final class Catalog {
 	 * presenter li espone come null e il front-end omette la voce. Lo stock usato
 	 * e solo quello della sede di Piombino (Excel «STOCK DL41 2026», righe con
 	 * ubicazione MARIANI). Le foto reali sono importate da cms/seed/media/cars;
-	 * le auto senza cartella foto usano il segnaposto.
+	 * le auto senza cartella foto usano il segnaposto dimostrativo, salvo quelle
+	 * con 'senza_foto' (copertina null: il front-end mostra "foto non disponibile").
 	 *
 	 * @return array<int,array<string,mixed>>
 	 */
@@ -219,6 +220,7 @@ final class Catalog {
 					'cilindrata'   => 2500,
 					'co2'          => 22,
 					'neopatentati' => true,
+					'senza_foto'   => true,
 				)
 			),
 			self::car( 'ford-puma-bianca-km0', 'ford', 'Ford', 'Puma', 'puma', '', 'km0', 'auto', 'benzina', 'suv-compatto', 'manuale', 'Bianco', '#e5e7eb', false ),
@@ -251,6 +253,22 @@ final class Catalog {
 			self::car( 'omoda-7', 'omoda', 'Omoda', '7', 'omoda-7', 'SHS PHEV', 'nuova', 'auto', 'ibrido', 'suv', 'automatico', 'Nero', '#111114', true ),
 			self::car( 'jaecoo-7', 'jaecoo', 'Jaecoo', '7', 'jaecoo-7', 'SHS PHEV', 'nuova', 'auto', 'ibrido', 'suv', 'automatico', 'Nero', '#111114', true ),
 			self::car( 'jaecoo-8', 'jaecoo', 'Jaecoo', '8', 'jaecoo-8', 'PHEV', 'nuova', 'auto', 'ibrido', 'suv', 'automatico', 'Bianco', '#f3f4f6', true ),
+		);
+	}
+
+	/**
+	 * Gallerie di cms/seed/media/cars non legate a un'auto del catalogo.
+	 *
+	 * Sono le foto delle vecchie usate segnaposto: non sono piu in stock, ma il
+	 * tool del listino (cms/tools/lib/import-rules.php) le riusa per le Kuga e
+	 * le Focus nuove, quindi il seeder le importa comunque nella libreria media.
+	 *
+	 * @return array<string,string> Cartella foto => titolo (per titolo/alt allegato).
+	 */
+	public static function media_archive(): array {
+		return array(
+			'ford-kuga-phev'          => 'Ford Kuga',
+			'ford-focus-grigia-scuro' => 'Ford Focus',
 		);
 	}
 
@@ -340,7 +358,7 @@ final class Catalog {
 	 * @param bool                $in_evidenza    Se mostrarla tra i veicoli in evidenza.
 	 * @param int                 $listino        Prezzo di listino in euro (0 = prezzo su richiesta).
 	 * @param string              $trazione       Trazione (anteriore|posteriore|integrale|'' = non comunicata).
-	 * @param array<string,mixed> $dati           Dati confermati che sostituiscono i default del record (es. anno, km, potenza_cv, cilindrata, co2, neopatentati).
+	 * @param array<string,mixed> $dati           Dati confermati che sostituiscono i default del record (es. anno, km, potenza_cv, cilindrata, co2, neopatentati, senza_foto).
 	 * @return array<string,mixed>
 	 */
 	private static function car(
@@ -404,6 +422,7 @@ final class Catalog {
 			'dotazioni'     => array(),
 			'optional'      => array(),
 			'commerciale'   => null,
+			'senza_foto'    => false,
 			'en'            => array(
 				'content' => sprintf(
 					'%s available at Mariani Concessionaria in Piombino. Contact us for details on price, availability and a possible test drive.',

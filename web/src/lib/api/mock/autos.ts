@@ -4,9 +4,10 @@ import type { Alimentazione, Auto, AutoImage, Cambio, Colore, Trazione } from "@
  * Dataset demo usato quando WordPress non è disponibile (build senza CMS).
  * Rispecchia le 14 auto reali del concessionario: i dati numerici non ancora
  * confermati (km, anno, prezzi, potenza) sono a 0, salvo quelli comunicati
- * (prezzi; anno/km/potenza di Kuga usata e Capri), e la UI li rende come "n.d." o "Prezzo su richiesta". Cambio, trazione e
- * colore non comunicati sono `null` e la UI omette la voce. I dati rispettano
- * gli schemi zod del dominio.
+ * (prezzi; anno/km/potenza di Kuga usata e Capri), e la UI li rende come
+ * "n.d." o "Prezzo su richiesta". Cambio, trazione e colore non comunicati
+ * sono `null` e la UI omette la voce. I dati rispettano gli schemi zod del
+ * dominio.
  */
 
 function cover(alt: string): AutoImage {
