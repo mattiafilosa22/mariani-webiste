@@ -43,4 +43,23 @@ describe("fetchValidated", () => {
     });
     expect(fetchMock).toHaveBeenCalledTimes(2);
   });
+
+  it("resiste a un 502 ripetuto del CMS sotto carico", async () => {
+    vi.useFakeTimers();
+    const fetchMock = vi
+      .fn<typeof fetch>()
+      .mockResolvedValueOnce(new Response(null, { status: 502 }))
+      .mockResolvedValueOnce(new Response(null, { status: 502 }))
+      .mockResolvedValueOnce(new Response(null, { status: 502 }))
+      .mockResolvedValueOnce(Response.json({ ok: true }));
+    vi.stubGlobal("fetch", fetchMock);
+
+    const { fetchValidated } = await import("./client");
+
+    const result = fetchValidated("autos/test", responseSchema);
+    await vi.runAllTimersAsync();
+    await expect(result).resolves.toEqual({ ok: true });
+    expect(fetchMock).toHaveBeenCalledTimes(4);
+    vi.useRealTimers();
+  });
 });

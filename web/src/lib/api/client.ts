@@ -8,7 +8,9 @@ import type { z } from "zod";
 
 const API_URL = process.env.WP_API_URL;
 const RETRYABLE_STATUSES = new Set([502, 503, 504, 508]);
-const RETRY_DELAYS_MS = [200, 600] as const;
+// Backoff fino a ~14 s: l'8/10 un 502 del CMS sotto il carico dell'export ha fatto
+// fallire il deploy dopo i due tentativi brevi di prima (200 + 600 ms).
+const RETRY_DELAYS_MS = [500, 1500, 4000, 8000] as const;
 
 export function isApiConfigured(): boolean {
   return typeof API_URL === "string" && API_URL.length > 0;
