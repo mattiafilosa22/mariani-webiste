@@ -19,7 +19,8 @@
  *   - "listino:<ref>": la stessa galleria della scheda di listino con quel ref.
  *
  * Identita', lingue IT/EN e stato di pubblicazione come nell'import del listino:
- * lo stato del CSV vale solo alla creazione.
+ * lo stato del CSV vale solo alla creazione. stato="ritira" mette in bozza la scheda
+ * con quel ref (IT e EN): l'auto venduta sparisce dal sito ma resta recuperabile.
  *
  * @package Mariani\Core
  */
@@ -258,13 +259,50 @@ function mariani_stock_variant( array $row, string $title, string $lang, array $
 }
 
 /**
- * Crea o aggiorna la scheda (IT + EN) per una riga del CSV.
+ * Mette in bozza la scheda (IT + EN) di un'auto non piu in stock.
+ *
+ * @param array<string,string> $row   Riga del CSV (conta solo "ref").
+ * @param bool                 $apply Se false esegue solo l'anteprima.
+ * @return string Esito leggibile.
+ */
+function mariani_stock_retire( array $row, bool $apply ): string {
+	$ids = array_filter(
+		array_map(
+			static fn( string $lang ): ?int => mariani_import_find( $row['ref'] . ':' . $lang ),
+			STOCK_LANGS
+		)
+	);
+
+	if ( array() === $ids ) {
+		return sprintf( '%-9s %s (non presente: niente da fare)', 'RITIRA', $row['ref'] );
+	}
+
+	if ( $apply ) {
+		foreach ( $ids as $id ) {
+			wp_update_post(
+				array(
+					'ID'          => $id,
+					'post_status' => 'draft',
+				)
+			);
+		}
+	}
+
+	return sprintf( '%-9s #%-6d %s (in bozza, non cancellata)', 'RITIRA', reset( $ids ), get_the_title( reset( $ids ) ) );
+}
+
+/**
+ * Crea, aggiorna o ritira la scheda (IT + EN) per una riga del CSV.
  *
  * @param array<string,string> $row   Riga del CSV.
  * @param bool                 $apply Se false esegue solo l'anteprima.
  * @return string Esito leggibile.
  */
 function mariani_stock_row( array $row, bool $apply ): string {
+	if ( 'ritira' === $row['stato'] ) {
+		return mariani_stock_retire( $row, $apply );
+	}
+
 	$title       = '' !== $row['titolo'] ? $row['titolo'] : trim( $row['marca'] . ' ' . $row['modello'] . ' ' . $row['versione'] );
 	$existing    = mariani_import_find( $row['ref'] . ':it' );
 	$action      = null === $existing ? 'CREA' : 'AGGIORNA';
