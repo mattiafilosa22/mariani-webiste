@@ -103,7 +103,7 @@ export async function CatalogTemplate({ params, scope }: CatalogTemplateProps) {
     const vm = toCarCardVm(summary, locale, {
       km: tCard("CarCard.km"),
       alimentazione: tCard(`Spec.fuel.${summary.alimentazione}`),
-      cambio: tCard(`Spec.transmission.${summary.cambio}`),
+      cambio: summary.cambio ? tCard(`Spec.transmission.${summary.cambio}`) : "",
       priceOnRequest: tCard("Catalog.unit.priceOnRequest"),
       nd: tCard("Catalog.unit.nd"),
     });

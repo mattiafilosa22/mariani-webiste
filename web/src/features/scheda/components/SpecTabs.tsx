@@ -36,11 +36,11 @@ export async function SpecTabs({ auto, locale }: SpecTabsProps) {
     { label: t("fields.versione"), value: auto.versione },
     ...registrationRows,
     { label: t("fields.carrozzeria"), value: auto.carrozzeria },
-    { label: t("fields.colore"), value: tSpec(`color.${auto.colore}`) },
+    { label: t("fields.colore"), value: auto.colore ? tSpec(`color.${auto.colore}`) : "" },
     { label: t("fields.potenza"), value: formatPower(auto.potenzaCv, tUnit("cv"), tUnit("nd")) },
     { label: t("fields.alimentazione"), value: tSpec(`fuel.${auto.alimentazione}`) },
-    { label: t("fields.cambio"), value: tSpec(`transmission.${auto.cambio}`) },
-    { label: t("fields.trazione"), value: tDrive(auto.trazione) },
+    { label: t("fields.cambio"), value: auto.cambio ? tSpec(`transmission.${auto.cambio}`) : "" },
+    { label: t("fields.trazione"), value: auto.trazione ? tDrive(auto.trazione) : "" },
   ].filter((row) => row.value.trim().length > 0);
 
   const tabs = buildSpecTabs(

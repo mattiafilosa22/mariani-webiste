@@ -38,6 +38,11 @@ function countBy<T extends string>(values: readonly T[]): FacetOption<T>[] {
     .sort((a, b) => b.count - a.count || a.value.localeCompare(b.value));
 }
 
+/** Scarta i valori non comunicati (`null`): non diventano opzioni di filtro. */
+function known<T extends string>(values: readonly (T | null)[]): T[] {
+  return values.filter((value): value is T => value !== null);
+}
+
 function bounds(values: readonly number[]): Bounds | null {
   if (values.length === 0) return null;
   return { min: Math.min(...values), max: Math.max(...values) };
@@ -48,9 +53,9 @@ export function buildFacets(autos: readonly AutoSummary[]): Facets {
     marche: countBy(autos.map((a) => a.marca)),
     alimentazioni: countBy(autos.map((a) => a.alimentazione)),
     carrozzerie: countBy(autos.map((a) => a.carrozzeria)),
-    cambi: countBy(autos.map((a) => a.cambio)),
-    trazioni: countBy(autos.map((a) => a.trazione)),
-    colori: countBy(autos.map((a) => a.colore)),
+    cambi: countBy(known(autos.map((a) => a.cambio))),
+    trazioni: countBy(known(autos.map((a) => a.trazione))),
+    colori: countBy(known(autos.map((a) => a.colore))),
     prezzo: bounds(autos.map((a) => a.prezzoFinale)),
     anno: bounds(autos.map((a) => a.anno)),
     km: bounds(autos.map((a) => a.km)),

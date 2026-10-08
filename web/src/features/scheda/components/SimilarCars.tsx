@@ -33,7 +33,7 @@ export async function SimilarCars({ all, current, locale }: SimilarCarsProps) {
             const vm = toCarCardVm(summary, locale, {
               km: t("CarCard.km"),
               alimentazione: t(`Spec.fuel.${summary.alimentazione}`),
-              cambio: t(`Spec.transmission.${summary.cambio}`),
+              cambio: summary.cambio ? t(`Spec.transmission.${summary.cambio}`) : "",
               priceOnRequest: t("Catalog.unit.priceOnRequest"),
               nd: t("Catalog.unit.nd"),
             });

@@ -109,6 +109,14 @@ describe("matchesFilters", () => {
   it("nessun risultato quando i vincoli si escludono", () => {
     expect(filterAutos(dataset, filters({ alimentazione: ["elettrico"], prezzoMax: 10000 }))).toEqual([]);
   });
+
+  it("dato non comunicato (null): incluso senza filtro, escluso col filtro attivo", () => {
+    const ignoto = auto({ cambio: null, trazione: null, colore: null });
+    expect(matchesFilters(ignoto, filters({}))).toBe(true);
+    expect(matchesFilters(ignoto, filters({ cambio: ["manuale"] }))).toBe(false);
+    expect(matchesFilters(ignoto, filters({ trazione: ["anteriore"] }))).toBe(false);
+    expect(matchesFilters(ignoto, filters({ colore: ["grigio"] }))).toBe(false);
+  });
 });
 
 describe("sortAutos", () => {
@@ -168,6 +176,13 @@ describe("buildFacets", () => {
     expect(facets.prezzo).toEqual({ min: 13500, max: 41500 });
     expect(facets.km).toEqual({ min: 0, max: 28900 });
     expect(facets.cv).toEqual({ min: 75, max: 170 });
+  });
+
+  it("i valori non comunicati (null) non diventano opzioni di filtro", () => {
+    const facets = buildFacets([auto({ cambio: null, trazione: null, colore: null })]);
+    expect(facets.cambi).toEqual([]);
+    expect(facets.trazioni).toEqual([]);
+    expect(facets.colori).toEqual([]);
   });
 
   it("bounds nulli su dataset vuoto", () => {

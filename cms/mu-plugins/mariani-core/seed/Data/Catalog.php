@@ -90,6 +90,14 @@ final class Catalog {
 					'name' => 'Tourneo Custom',
 				),
 				array(
+					'slug' => 'ranger',
+					'name' => 'Ranger',
+				),
+				array(
+					'slug' => 'capri',
+					'name' => 'Capri',
+				),
+				array(
 					'slug' => 'omoda-5',
 					'name' => '5',
 				),
@@ -131,6 +139,10 @@ final class Catalog {
 					'slug' => 'monovolume',
 					'name' => 'Monovolume',
 				),
+				array(
+					'slug' => 'pick-up',
+					'name' => 'Pick-up',
+				),
 			),
 			'alimentazione' => array(
 				array(
@@ -162,12 +174,15 @@ final class Catalog {
 	}
 
 	/**
-	 * Elenco delle 15 auto reali del concessionario: 11 Ford (5 in evidenza, 2
+	 * Elenco delle 17 auto reali del concessionario: 13 Ford (5 in evidenza, 3
 	 * commerciali) + 4 Omoda/Jaecoo (tutte in evidenza, nuove).
 	 *
 	 * I dati numerici (km, anno, prezzi, potenza) sono a 0/placeholder in attesa
-	 * di conferma dal concessionario: il front-end li rende come "n.d." o
-	 * "Prezzo su richiesta". Le foto reali sono importate da cms/seed/media/cars.
+	 * di conferma, salvo i prezzi comunicati dal concessionario: il front-end li
+	 * rende come "n.d." o "Prezzo su richiesta". Cambio, trazione e colore non
+	 * comunicati restano vuoti (Ranger, Capri): il presenter li espone come null
+	 * e il front-end omette la voce. Le foto reali sono importate da
+	 * cms/seed/media/cars.
 	 *
 	 * @return array<int,array<string,mixed>>
 	 */
@@ -175,19 +190,21 @@ final class Catalog {
 		return array(
 			self::car( 'ford-explorer', 'ford', 'Ford', 'Explorer', 'explorer', '', 'nuova', 'auto', 'elettrico', 'suv', 'automatico', 'Blu', '#1f3a5f', true ),
 			self::car( 'ford-mustang-mach-e', 'ford', 'Ford', 'Mustang Mach-E', 'mustang-mach-e', '', 'nuova', 'auto', 'elettrico', 'suv', 'automatico', 'Nero', '#111114', true ),
-			self::car( 'ford-puma-st-line-x', 'ford', 'Ford', 'Puma', 'puma', 'ST-Line X', 'nuova', 'auto', 'benzina', 'suv-compatto', 'manuale', 'Grigio', '#6b7280', true ),
+			self::car( 'ford-puma-st-line-x', 'ford', 'Ford', 'Puma', 'puma', 'ST-Line X MHEV', 'nuova', 'auto', 'ibrido', 'suv-compatto', 'manuale', 'Grigio', '#6b7280', true ),
 			self::car( 'ford-puma-e', 'ford', 'Ford', 'Puma Gen-E', 'puma-gen-e', '', 'nuova', 'auto', 'elettrico', 'suv-compatto', 'automatico', 'Nero', '#111114', true ),
 			self::car( 'ford-focus-grigia-chiaro', 'ford', 'Ford', 'Focus', 'focus', '', 'usata', 'auto', 'benzina', 'berlina', 'manuale', 'Grigio', '#9ca3af', false ),
 			self::car( 'ford-focus-grigia-scuro', 'ford', 'Ford', 'Focus', 'focus', '', 'usata', 'auto', 'benzina', 'berlina', 'manuale', 'Grigio', '#4b5563', false ),
 			self::car( 'ford-focus-rossa', 'ford', 'Ford', 'Focus', 'focus', '', 'usata', 'auto', 'benzina', 'berlina', 'manuale', 'Rosso', '#8f1d21', false ),
 			self::car( 'ford-kuga-phev', 'ford', 'Ford', 'Kuga', 'kuga', 'PHEV', 'usata', 'auto', 'ibrido', 'suv', 'automatico', 'Nero', '#111114', true ),
 			self::car( 'ford-puma-bianca-km0', 'ford', 'Ford', 'Puma', 'puma', '', 'km0', 'auto', 'benzina', 'suv-compatto', 'manuale', 'Bianco', '#e5e7eb', false ),
+			self::car( 'ford-capri-km0', 'ford', 'Ford', 'Capri', 'capri', '', 'km0', 'auto', 'elettrico', 'suv', 'automatico', '', '', false, 43900, '' ),
 			self::car( 'ford-tourneo', 'ford', 'Ford', 'Tourneo', 'tourneo', '', 'nuova', 'commerciale', 'diesel', 'monovolume', 'manuale', 'Bianco', '#f3f4f6', false ),
 			self::car( 'ford-tourneo-custom', 'ford', 'Ford', 'Tourneo Custom', 'tourneo-custom', '', 'nuova', 'commerciale', 'diesel', 'furgone', 'manuale', 'Nero', '#111114', false ),
-			self::car( 'omoda-5', 'omoda', 'Omoda', '5', 'omoda-5', '', 'nuova', 'auto', 'benzina', 'suv-compatto', 'automatico', 'Nero', '#111114', true ),
-			self::car( 'omoda-7', 'omoda', 'Omoda', '7', 'omoda-7', '', 'nuova', 'auto', 'ibrido', 'suv', 'automatico', 'Nero', '#111114', true ),
-			self::car( 'jaecoo-7', 'jaecoo', 'Jaecoo', '7', 'jaecoo-7', '', 'nuova', 'auto', 'benzina', 'suv', 'automatico', 'Nero', '#111114', true ),
-			self::car( 'jaecoo-8', 'jaecoo', 'Jaecoo', '8', 'jaecoo-8', '', 'nuova', 'auto', 'ibrido', 'suv', 'automatico', 'Bianco', '#f3f4f6', true ),
+			self::car( 'ford-ranger', 'ford', 'Ford', 'Ranger', 'ranger', '', 'nuova', 'commerciale', 'diesel', 'pick-up', '', '', '', false, 0, '' ),
+			self::car( 'omoda-5', 'omoda', 'Omoda', '5', 'omoda-5', 'SHS FHEV', 'nuova', 'auto', 'ibrido', 'suv-compatto', 'automatico', 'Nero', '#111114', true ),
+			self::car( 'omoda-7', 'omoda', 'Omoda', '7', 'omoda-7', 'SHS PHEV', 'nuova', 'auto', 'ibrido', 'suv', 'automatico', 'Nero', '#111114', true ),
+			self::car( 'jaecoo-7', 'jaecoo', 'Jaecoo', '7', 'jaecoo-7', 'SHS PHEV', 'nuova', 'auto', 'ibrido', 'suv', 'automatico', 'Nero', '#111114', true ),
+			self::car( 'jaecoo-8', 'jaecoo', 'Jaecoo', '8', 'jaecoo-8', 'PHEV', 'nuova', 'auto', 'ibrido', 'suv', 'automatico', 'Bianco', '#f3f4f6', true ),
 		);
 	}
 
@@ -262,7 +279,7 @@ final class Catalog {
 	 *
 	 * @param string $ref            Slug canonico (coincide con la cartella foto).
 	 * @param string $marca_slug     Slug del termine marca.
-	 * @param string $marca_nome    Nome della marca (per il titolo/alt).
+	 * @param string $marca_nome     Nome della marca (per il titolo/alt).
 	 * @param string $modello_nome   Nome del modello (per il titolo/alt).
 	 * @param string $modello_slug   Slug del termine modello.
 	 * @param string $versione       Versione/allestimento (puo essere vuota).
@@ -270,10 +287,12 @@ final class Catalog {
 	 * @param string $categoria      Categoria (auto|commerciale).
 	 * @param string $alimentazione  Slug alimentazione.
 	 * @param string $carrozzeria    Slug carrozzeria.
-	 * @param string $cambio         Cambio (manuale|automatico).
-	 * @param string $colore_label   Etichetta colore (IT, normalizzata dal presenter).
-	 * @param string $colore_hex     Colore esterno in esadecimale (swatch UI).
+	 * @param string $cambio         Cambio (manuale|automatico|'' = non comunicato).
+	 * @param string $colore_label   Etichetta colore (IT, normalizzata dal presenter; '' = non comunicato).
+	 * @param string $colore_hex     Colore esterno in esadecimale (swatch UI; '' = non comunicato).
 	 * @param bool   $in_evidenza    Se mostrarla tra i veicoli in evidenza.
+	 * @param int    $listino        Prezzo di listino in euro (0 = prezzo su richiesta).
+	 * @param string $trazione       Trazione (anteriore|posteriore|integrale|'' = non comunicata).
 	 * @return array<string,mixed>
 	 */
 	private static function car(
@@ -290,7 +309,9 @@ final class Catalog {
 		string $cambio,
 		string $colore_label,
 		string $colore_hex,
-		bool $in_evidenza
+		bool $in_evidenza,
+		int $listino = 0,
+		string $trazione = 'anteriore'
 	): array {
 		$title = trim( $marca_nome . ' ' . $modello_nome . ' ' . $versione );
 
@@ -311,8 +332,8 @@ final class Catalog {
 			'anno'          => '',
 			'km'            => 0,
 			'cambio'        => $cambio,
-			'trazione'      => 'anteriore',
-			'listino'       => 0,
+			'trazione'      => $trazione,
+			'listino'       => $listino,
 			'sconto'        => 0,
 			'promo'         => null,
 			'scadenza'      => '',

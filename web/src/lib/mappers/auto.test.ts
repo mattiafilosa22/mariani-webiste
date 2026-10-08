@@ -105,6 +105,16 @@ describe("toCarCardVm", () => {
 
     expect(vm.specs).toEqual([labels.alimentazione, labels.cambio]);
   });
+
+  it("omits an empty spec label (data not provided, e.g. cambio null)", () => {
+    const vm = toCarCardVm(
+      { ...baseSummary, tipo: "nuova", cambio: null },
+      "it",
+      { ...labels, cambio: "" }
+    );
+
+    expect(vm.specs).toEqual([labels.alimentazione]);
+  });
 });
 
 describe("autoToSummary", () => {

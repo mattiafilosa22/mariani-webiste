@@ -23,6 +23,14 @@ function inRange(
   return true;
 }
 
+/** Facet su campo non comunicato (`null`): escluso solo se il filtro è attivo. */
+function matchesOptional<T extends string>(
+  selected: readonly T[],
+  value: T | null
+): boolean {
+  return selected.length === 0 || (value !== null && selected.includes(value));
+}
+
 /** Vero se il veicolo soddisfa tutti i vincoli attivi. */
 export function matchesFilters(
   auto: AutoSummary,
@@ -49,15 +57,9 @@ export function matchesFilters(
   ) {
     return false;
   }
-  if (filters.cambio.length > 0 && !filters.cambio.includes(auto.cambio)) {
-    return false;
-  }
-  if (filters.trazione.length > 0 && !filters.trazione.includes(auto.trazione)) {
-    return false;
-  }
-  if (filters.colore.length > 0 && !filters.colore.includes(auto.colore)) {
-    return false;
-  }
+  if (!matchesOptional(filters.cambio, auto.cambio)) return false;
+  if (!matchesOptional(filters.trazione, auto.trazione)) return false;
+  if (!matchesOptional(filters.colore, auto.colore)) return false;
   if (filters.tipo.length > 0 && !filters.tipo.includes(auto.tipo)) {
     return false;
   }

@@ -184,20 +184,23 @@ final class AutoFields {
 					'step' => 1,
 				),
 				array(
-					'id'      => Schema::meta( 'cambio' ),
-					'name'    => __( 'Cambio', 'mariani-core' ),
-					'type'    => 'select',
-					'options' => array(
+					'id'          => Schema::meta( 'cambio' ),
+					'name'        => __( 'Cambio', 'mariani-core' ),
+					'type'        => 'select',
+					// Opzione vuota: dato non comunicato, il sito omette la voce.
+					'placeholder' => __( 'Non specificato', 'mariani-core' ),
+					'options'     => array(
 						'manuale'    => __( 'Manuale', 'mariani-core' ),
 						'automatico' => __( 'Automatico', 'mariani-core' ),
 						'cvt'        => __( 'CVT', 'mariani-core' ),
 					),
 				),
 				array(
-					'id'      => Schema::meta( 'trazione' ),
-					'name'    => __( 'Trazione', 'mariani-core' ),
-					'type'    => 'select',
-					'options' => array(
+					'id'          => Schema::meta( 'trazione' ),
+					'name'        => __( 'Trazione', 'mariani-core' ),
+					'type'        => 'select',
+					'placeholder' => __( 'Non specificata', 'mariani-core' ),
+					'options'     => array(
 						'anteriore'  => __( 'Anteriore', 'mariani-core' ),
 						'posteriore' => __( 'Posteriore', 'mariani-core' ),
 						'integrale'  => __( 'Integrale', 'mariani-core' ),
