@@ -2,8 +2,9 @@ import type { Alimentazione, Auto, AutoImage, Cambio, Colore } from "@/domain";
 
 /**
  * Dataset demo usato quando WordPress non è disponibile (build senza CMS).
- * Rispecchia le 15 auto reali del concessionario: i dati numerici non ancora
- * confermati (km, anno, prezzi, potenza) sono a 0 e la UI li rende come "n.d."
+ * Rispecchia le 17 auto reali del concessionario: i dati numerici non ancora
+ * confermati (km, anno, prezzi, potenza) sono a 0, salvo i prezzi comunicati,
+ * e la UI li rende come "n.d."
  * o "Prezzo su richiesta". I dati rispettano gli schemi zod del dominio.
  */
 
@@ -30,13 +31,15 @@ type RealCar = {
   colore: Colore;
   badge: Auto["badge"];
   inEvidenza: boolean;
+  /** Prezzo comunicato dal concessionario; assente = prezzo su richiesta. */
+  prezzo?: number;
 };
 
-/** Dati confermati delle 15 auto reali (il resto è 0/placeholder). */
+/** Dati confermati delle 17 auto reali (il resto è 0/placeholder). */
 const realCars: RealCar[] = [
   { id: "1", slug: "ford-explorer", tipo: "nuova", categoria: "auto", marca: "Ford", modello: "Explorer", versione: "", alimentazione: "elettrico", cambio: "automatico", carrozzeria: "SUV", colore: "blu", badge: ["elettrico"], inEvidenza: true },
   { id: "2", slug: "ford-mustang-mach-e", tipo: "nuova", categoria: "auto", marca: "Ford", modello: "Mustang Mach-E", versione: "", alimentazione: "elettrico", cambio: "automatico", carrozzeria: "SUV", colore: "nero", badge: ["elettrico"], inEvidenza: true },
-  { id: "3", slug: "ford-puma-st-line-x", tipo: "nuova", categoria: "auto", marca: "Ford", modello: "Puma", versione: "ST-Line X", alimentazione: "benzina", cambio: "manuale", carrozzeria: "SUV compatto", colore: "grigio", badge: [], inEvidenza: true },
+  { id: "3", slug: "ford-puma-st-line-x", tipo: "nuova", categoria: "auto", marca: "Ford", modello: "Puma", versione: "ST-Line X MHEV", alimentazione: "ibrido", cambio: "manuale", carrozzeria: "SUV compatto", colore: "grigio", badge: ["ibrido"], inEvidenza: true },
   { id: "4", slug: "ford-puma-e", tipo: "nuova", categoria: "auto", marca: "Ford", modello: "Puma Gen-E", versione: "", alimentazione: "elettrico", cambio: "automatico", carrozzeria: "SUV compatto", colore: "nero", badge: ["elettrico"], inEvidenza: true },
   { id: "5", slug: "ford-focus-grigia-chiaro", tipo: "usata", categoria: "auto", marca: "Ford", modello: "Focus", versione: "", alimentazione: "benzina", cambio: "manuale", carrozzeria: "Berlina", colore: "grigio", badge: [], inEvidenza: false },
   { id: "6", slug: "ford-focus-grigia-scuro", tipo: "usata", categoria: "auto", marca: "Ford", modello: "Focus", versione: "", alimentazione: "benzina", cambio: "manuale", carrozzeria: "Berlina", colore: "grigio", badge: [], inEvidenza: false },
@@ -45,10 +48,13 @@ const realCars: RealCar[] = [
   { id: "9", slug: "ford-puma-bianca-km0", tipo: "km0", categoria: "auto", marca: "Ford", modello: "Puma", versione: "", alimentazione: "benzina", cambio: "manuale", carrozzeria: "SUV compatto", colore: "bianco", badge: ["km0"], inEvidenza: false },
   { id: "10", slug: "ford-tourneo", tipo: "nuova", categoria: "commerciale", marca: "Ford", modello: "Tourneo", versione: "", alimentazione: "diesel", cambio: "manuale", carrozzeria: "Monovolume", colore: "bianco", badge: [], inEvidenza: false },
   { id: "11", slug: "ford-tourneo-custom", tipo: "nuova", categoria: "commerciale", marca: "Ford", modello: "Tourneo Custom", versione: "", alimentazione: "diesel", cambio: "manuale", carrozzeria: "Furgone", colore: "nero", badge: [], inEvidenza: false },
-  { id: "12", slug: "omoda-5", tipo: "nuova", categoria: "auto", marca: "Omoda", modello: "5", versione: "", alimentazione: "benzina", cambio: "automatico", carrozzeria: "SUV compatto", colore: "nero", badge: [], inEvidenza: true },
-  { id: "13", slug: "omoda-7", tipo: "nuova", categoria: "auto", marca: "Omoda", modello: "7", versione: "", alimentazione: "ibrido", cambio: "automatico", carrozzeria: "SUV", colore: "nero", badge: ["ibrido"], inEvidenza: true },
-  { id: "14", slug: "jaecoo-7", tipo: "nuova", categoria: "auto", marca: "Jaecoo", modello: "7", versione: "", alimentazione: "benzina", cambio: "automatico", carrozzeria: "SUV", colore: "nero", badge: [], inEvidenza: true },
-  { id: "15", slug: "jaecoo-8", tipo: "nuova", categoria: "auto", marca: "Jaecoo", modello: "8", versione: "", alimentazione: "ibrido", cambio: "automatico", carrozzeria: "SUV", colore: "bianco", badge: ["ibrido"], inEvidenza: true },
+  { id: "12", slug: "omoda-5", tipo: "nuova", categoria: "auto", marca: "Omoda", modello: "5", versione: "SHS FHEV", alimentazione: "ibrido", cambio: "automatico", carrozzeria: "SUV compatto", colore: "nero", badge: ["ibrido"], inEvidenza: true },
+  { id: "13", slug: "omoda-7", tipo: "nuova", categoria: "auto", marca: "Omoda", modello: "7", versione: "SHS PHEV", alimentazione: "ibrido", cambio: "automatico", carrozzeria: "SUV", colore: "nero", badge: ["ibrido"], inEvidenza: true },
+  { id: "14", slug: "jaecoo-7", tipo: "nuova", categoria: "auto", marca: "Jaecoo", modello: "7", versione: "SHS PHEV", alimentazione: "ibrido", cambio: "automatico", carrozzeria: "SUV", colore: "nero", badge: ["ibrido"], inEvidenza: true },
+  { id: "15", slug: "jaecoo-8", tipo: "nuova", categoria: "auto", marca: "Jaecoo", modello: "8", versione: "PHEV", alimentazione: "ibrido", cambio: "automatico", carrozzeria: "SUV", colore: "bianco", badge: ["ibrido"], inEvidenza: true },
+  // cambio e colore non comunicati: stessi fallback del presenter (manuale, grigio)
+  { id: "16", slug: "ford-ranger", tipo: "nuova", categoria: "commerciale", marca: "Ford", modello: "Ranger", versione: "", alimentazione: "diesel", cambio: "manuale", carrozzeria: "Pick-up", colore: "grigio", badge: [], inEvidenza: false },
+  { id: "17", slug: "ford-capri-km0", tipo: "km0", categoria: "auto", marca: "Ford", modello: "Capri", versione: "", alimentazione: "elettrico", cambio: "automatico", carrozzeria: "SUV", colore: "grigio", badge: ["km0", "elettrico"], inEvidenza: false, prezzo: 43900 },
 ];
 
 /** Espande i dati confermati in DTO completi con i campi numerici a 0. */
@@ -64,8 +70,8 @@ function toMockAuto(car: RealCar): Auto {
     versione: car.versione,
     anno: 0,
     km: 0,
-    prezzoListino: 0,
-    prezzoFinale: 0,
+    prezzoListino: car.prezzo ?? 0,
+    prezzoFinale: car.prezzo ?? 0,
     alimentazione: car.alimentazione,
     cambio: car.cambio,
     trazione: "anteriore",
