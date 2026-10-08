@@ -1,0 +1,8 @@
+ref,titolo,tipo,categoria,marca,modello,versione,motorizzazione,carrozzeria,alimentazione,cambio,trazione,anno,km,colore,colore_hex,cilindrata,potenza_cv,co2,porte,prezzo_listino,neopatentati,garanzia,foto,in_evidenza,stato
+ford-kuga-active-phev-2024-usata,,usata,auto,Ford,Kuga,Active PHEV,2.5 Plug-in Hybrid 242 CV,SUV,ibrido,automatico,,2024,49963,Bianco Frozen White,#f3f4f6,2500,242,22,5,29900,,,,,pubblica
+ford-capri-premium-er-rwd-km0,,km0,auto,Ford,Capri,Premium Extended Range RWD,77 kWh 286 CV,SUV,elettrico,automatico,posteriore,2025,0,Bianco Frozen White,#f3f4f6,,286,0,5,43900,,,listino:capri-capri-er-286-cv-77-kwh,,pubblica
+omoda-5-shs-fhev,Omoda 5 SHS FHEV,nuova,auto,Omoda,Omoda 5,SHS FHEV,Super Hybrid System full hybrid,SUV compatto,ibrido,automatico,,,0,,,,,,,,,,seed:omoda-5,1,pubblica
+omoda-7-shs-phev,Omoda 7 SHS PHEV,nuova,auto,Omoda,Omoda 7,SHS PHEV,Super Hybrid System plug-in hybrid,SUV,ibrido,automatico,,,0,,,,,,,,,,seed:omoda-7,1,pubblica
+jaecoo-7-shs-phev,Jaecoo 7 SHS PHEV,nuova,auto,Jaecoo,Jaecoo 7,SHS PHEV,Super Hybrid System plug-in hybrid,SUV,ibrido,automatico,,,0,,,,,,,,,,seed:jaecoo-7,1,pubblica
+jaecoo-8-phev,Jaecoo 8 PHEV,nuova,auto,Jaecoo,Jaecoo 8,PHEV,plug-in hybrid,SUV,ibrido,automatico,,,0,,,,,,,,,,seed:jaecoo-8,1,pubblica
+ford-ranger-diesel,,nuova,commerciale,Ford,Ranger,,Diesel,Pick-up,diesel,,,,0,,,,,,,,,,,,pubblica
