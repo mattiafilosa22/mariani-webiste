@@ -84,7 +84,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     locale,
     title,
     fuel: tSpec(`fuel.${auto.alimentazione}`),
-    transmission: tSpec(`transmission.${auto.cambio}`),
+    transmission: auto.cambio ? tSpec(`transmission.${auto.cambio}`) : "",
   });
 
   return buildMetadata({

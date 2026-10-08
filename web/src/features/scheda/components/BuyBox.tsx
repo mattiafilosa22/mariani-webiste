@@ -81,10 +81,10 @@ export async function BuyBox({
   const quick: Array<{ label: string; value: string }> = [
     ...registrationQuick,
     { label: t("quick.alimentazione"), value: tSpec(`fuel.${auto.alimentazione}`) },
-    { label: t("quick.cambio"), value: tSpec(`transmission.${auto.cambio}`) },
+    { label: t("quick.cambio"), value: auto.cambio ? tSpec(`transmission.${auto.cambio}`) : "" },
     { label: t("quick.potenza"), value: formatPower(auto.potenzaCv, tUnit("cv"), nd) },
     { label: t("quick.disponibilita"), value: auto.carrozzeria },
-  ];
+  ].filter((row) => row.value.length > 0);
 
   return (
     <div className="buybox">

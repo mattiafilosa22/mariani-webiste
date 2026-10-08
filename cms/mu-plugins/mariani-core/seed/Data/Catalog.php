@@ -179,8 +179,10 @@ final class Catalog {
 	 *
 	 * I dati numerici (km, anno, prezzi, potenza) sono a 0/placeholder in attesa
 	 * di conferma, salvo i prezzi comunicati dal concessionario: il front-end li
-	 * rende come "n.d." o
-	 * "Prezzo su richiesta". Le foto reali sono importate da cms/seed/media/cars.
+	 * rende come "n.d." o "Prezzo su richiesta". Cambio, trazione e colore non
+	 * comunicati restano vuoti (Ranger, Capri): il presenter li espone come null
+	 * e il front-end omette la voce. Le foto reali sono importate da
+	 * cms/seed/media/cars.
 	 *
 	 * @return array<int,array<string,mixed>>
 	 */
@@ -195,10 +197,10 @@ final class Catalog {
 			self::car( 'ford-focus-rossa', 'ford', 'Ford', 'Focus', 'focus', '', 'usata', 'auto', 'benzina', 'berlina', 'manuale', 'Rosso', '#8f1d21', false ),
 			self::car( 'ford-kuga-phev', 'ford', 'Ford', 'Kuga', 'kuga', 'PHEV', 'usata', 'auto', 'ibrido', 'suv', 'automatico', 'Nero', '#111114', true ),
 			self::car( 'ford-puma-bianca-km0', 'ford', 'Ford', 'Puma', 'puma', '', 'km0', 'auto', 'benzina', 'suv-compatto', 'manuale', 'Bianco', '#e5e7eb', false ),
-			self::car( 'ford-capri-km0', 'ford', 'Ford', 'Capri', 'capri', '', 'km0', 'auto', 'elettrico', 'suv', 'automatico', '', '', false, 43900 ),
+			self::car( 'ford-capri-km0', 'ford', 'Ford', 'Capri', 'capri', '', 'km0', 'auto', 'elettrico', 'suv', 'automatico', '', '', false, 43900, '' ),
 			self::car( 'ford-tourneo', 'ford', 'Ford', 'Tourneo', 'tourneo', '', 'nuova', 'commerciale', 'diesel', 'monovolume', 'manuale', 'Bianco', '#f3f4f6', false ),
 			self::car( 'ford-tourneo-custom', 'ford', 'Ford', 'Tourneo Custom', 'tourneo-custom', '', 'nuova', 'commerciale', 'diesel', 'furgone', 'manuale', 'Nero', '#111114', false ),
-			self::car( 'ford-ranger', 'ford', 'Ford', 'Ranger', 'ranger', '', 'nuova', 'commerciale', 'diesel', 'pick-up', '', '', '', false ),
+			self::car( 'ford-ranger', 'ford', 'Ford', 'Ranger', 'ranger', '', 'nuova', 'commerciale', 'diesel', 'pick-up', '', '', '', false, 0, '' ),
 			self::car( 'omoda-5', 'omoda', 'Omoda', '5', 'omoda-5', 'SHS FHEV', 'nuova', 'auto', 'ibrido', 'suv-compatto', 'automatico', 'Nero', '#111114', true ),
 			self::car( 'omoda-7', 'omoda', 'Omoda', '7', 'omoda-7', 'SHS PHEV', 'nuova', 'auto', 'ibrido', 'suv', 'automatico', 'Nero', '#111114', true ),
 			self::car( 'jaecoo-7', 'jaecoo', 'Jaecoo', '7', 'jaecoo-7', 'SHS PHEV', 'nuova', 'auto', 'ibrido', 'suv', 'automatico', 'Nero', '#111114', true ),
@@ -277,7 +279,7 @@ final class Catalog {
 	 *
 	 * @param string $ref            Slug canonico (coincide con la cartella foto).
 	 * @param string $marca_slug     Slug del termine marca.
-	 * @param string $marca_nome    Nome della marca (per il titolo/alt).
+	 * @param string $marca_nome     Nome della marca (per il titolo/alt).
 	 * @param string $modello_nome   Nome del modello (per il titolo/alt).
 	 * @param string $modello_slug   Slug del termine modello.
 	 * @param string $versione       Versione/allestimento (puo essere vuota).
@@ -285,11 +287,12 @@ final class Catalog {
 	 * @param string $categoria      Categoria (auto|commerciale).
 	 * @param string $alimentazione  Slug alimentazione.
 	 * @param string $carrozzeria    Slug carrozzeria.
-	 * @param string $cambio         Cambio (manuale|automatico).
-	 * @param string $colore_label   Etichetta colore (IT, normalizzata dal presenter).
-	 * @param string $colore_hex     Colore esterno in esadecimale (swatch UI).
+	 * @param string $cambio         Cambio (manuale|automatico|'' = non comunicato).
+	 * @param string $colore_label   Etichetta colore (IT, normalizzata dal presenter; '' = non comunicato).
+	 * @param string $colore_hex     Colore esterno in esadecimale (swatch UI; '' = non comunicato).
 	 * @param bool   $in_evidenza    Se mostrarla tra i veicoli in evidenza.
 	 * @param int    $listino        Prezzo di listino in euro (0 = prezzo su richiesta).
+	 * @param string $trazione       Trazione (anteriore|posteriore|integrale|'' = non comunicata).
 	 * @return array<string,mixed>
 	 */
 	private static function car(
@@ -307,7 +310,8 @@ final class Catalog {
 		string $colore_label,
 		string $colore_hex,
 		bool $in_evidenza,
-		int $listino = 0
+		int $listino = 0,
+		string $trazione = 'anteriore'
 	): array {
 		$title = trim( $marca_nome . ' ' . $modello_nome . ' ' . $versione );
 
@@ -328,7 +332,7 @@ final class Catalog {
 			'anno'          => '',
 			'km'            => 0,
 			'cambio'        => $cambio,
-			'trazione'      => 'anteriore',
+			'trazione'      => $trazione,
 			'listino'       => $listino,
 			'sconto'        => 0,
 			'promo'         => null,

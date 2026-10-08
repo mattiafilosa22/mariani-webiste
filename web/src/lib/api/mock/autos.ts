@@ -1,11 +1,12 @@
-import type { Alimentazione, Auto, AutoImage, Cambio, Colore } from "@/domain";
+import type { Alimentazione, Auto, AutoImage, Cambio, Colore, Trazione } from "@/domain";
 
 /**
  * Dataset demo usato quando WordPress non è disponibile (build senza CMS).
  * Rispecchia le 17 auto reali del concessionario: i dati numerici non ancora
  * confermati (km, anno, prezzi, potenza) sono a 0, salvo i prezzi comunicati,
- * e la UI li rende come "n.d."
- * o "Prezzo su richiesta". I dati rispettano gli schemi zod del dominio.
+ * e la UI li rende come "n.d." o "Prezzo su richiesta". Cambio, trazione e
+ * colore non comunicati sono `null` e la UI omette la voce. I dati rispettano
+ * gli schemi zod del dominio.
  */
 
 function cover(alt: string): AutoImage {
@@ -26,9 +27,11 @@ type RealCar = {
   modello: string;
   versione: string;
   alimentazione: Alimentazione;
-  cambio: Cambio;
+  cambio: Cambio | null;
+  /** Assente = anteriore (come il seeder); `null` = non comunicata. */
+  trazione?: Trazione | null;
   carrozzeria: string;
-  colore: Colore;
+  colore: Colore | null;
   badge: Auto["badge"];
   inEvidenza: boolean;
   /** Prezzo comunicato dal concessionario; assente = prezzo su richiesta. */
@@ -52,9 +55,9 @@ const realCars: RealCar[] = [
   { id: "13", slug: "omoda-7", tipo: "nuova", categoria: "auto", marca: "Omoda", modello: "7", versione: "SHS PHEV", alimentazione: "ibrido", cambio: "automatico", carrozzeria: "SUV", colore: "nero", badge: ["ibrido"], inEvidenza: true },
   { id: "14", slug: "jaecoo-7", tipo: "nuova", categoria: "auto", marca: "Jaecoo", modello: "7", versione: "SHS PHEV", alimentazione: "ibrido", cambio: "automatico", carrozzeria: "SUV", colore: "nero", badge: ["ibrido"], inEvidenza: true },
   { id: "15", slug: "jaecoo-8", tipo: "nuova", categoria: "auto", marca: "Jaecoo", modello: "8", versione: "PHEV", alimentazione: "ibrido", cambio: "automatico", carrozzeria: "SUV", colore: "bianco", badge: ["ibrido"], inEvidenza: true },
-  // cambio e colore non comunicati: stessi fallback del presenter (manuale, grigio)
-  { id: "16", slug: "ford-ranger", tipo: "nuova", categoria: "commerciale", marca: "Ford", modello: "Ranger", versione: "", alimentazione: "diesel", cambio: "manuale", carrozzeria: "Pick-up", colore: "grigio", badge: [], inEvidenza: false },
-  { id: "17", slug: "ford-capri-km0", tipo: "km0", categoria: "auto", marca: "Ford", modello: "Capri", versione: "", alimentazione: "elettrico", cambio: "automatico", carrozzeria: "SUV", colore: "grigio", badge: ["km0", "elettrico"], inEvidenza: false, prezzo: 43900 },
+  // Dati non comunicati dal concessionario (null): cambio/trazione/colore del Ranger, trazione/colore della Capri.
+  { id: "16", slug: "ford-ranger", tipo: "nuova", categoria: "commerciale", marca: "Ford", modello: "Ranger", versione: "", alimentazione: "diesel", cambio: null, trazione: null, carrozzeria: "Pick-up", colore: null, badge: [], inEvidenza: false },
+  { id: "17", slug: "ford-capri-km0", tipo: "km0", categoria: "auto", marca: "Ford", modello: "Capri", versione: "", alimentazione: "elettrico", cambio: "automatico", trazione: null, carrozzeria: "SUV", colore: null, badge: ["km0", "elettrico"], inEvidenza: false, prezzo: 43900 },
 ];
 
 /** Espande i dati confermati in DTO completi con i campi numerici a 0. */
@@ -74,7 +77,7 @@ function toMockAuto(car: RealCar): Auto {
     prezzoFinale: car.prezzo ?? 0,
     alimentazione: car.alimentazione,
     cambio: car.cambio,
-    trazione: "anteriore",
+    trazione: car.trazione === undefined ? "anteriore" : car.trazione,
     carrozzeria: car.carrozzeria,
     potenzaCv: 0,
     colore: car.colore,

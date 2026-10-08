@@ -192,7 +192,7 @@ export function buildVehicleJsonLd(input: VehicleJsonLdInput): JsonObject {
     bodyType: auto.carrozzeria,
     color: colorLabel,
     fuelType: FUEL_TYPE[auto.alimentazione],
-    vehicleTransmission: TRANSMISSION[auto.cambio],
+    vehicleTransmission: auto.cambio ? TRANSMISSION[auto.cambio] : undefined,
     mileageFromOdometer: knownMileage,
     vehicleEngine: {
       "@type": "EngineSpecification",

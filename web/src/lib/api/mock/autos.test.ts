@@ -33,6 +33,17 @@ describe("mockAutos — stock nuovo disponibile", () => {
     expect(ranger.alimentazione).toBe("diesel");
   });
 
+  it("Ranger e Capri non inventano cambio, trazione o colore non comunicati", () => {
+    const ranger = bySlug("ford-ranger");
+    expect(ranger.cambio).toBeNull();
+    expect(ranger.trazione).toBeNull();
+    expect(ranger.colore).toBeNull();
+
+    const capri = bySlug("ford-capri-km0");
+    expect(capri.trazione).toBeNull();
+    expect(capri.colore).toBeNull();
+  });
+
   it.each(["omoda-5", "omoda-7", "jaecoo-7", "jaecoo-8", "ford-puma-st-line-x", "ford-explorer"])(
     "%s resta a prezzo su richiesta",
     (slug) => {

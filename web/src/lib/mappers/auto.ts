@@ -121,7 +121,8 @@ export function formatPower(cv: number, unit: string, nd: string): string {
 /**
  * Costruisce il ViewModel della card auto.
  * `alimentazioneLabel`/`kmLabel` sono passati già tradotti dal chiamante
- * (le label UI vivono in next-intl, non nel mapper).
+ * (le label UI vivono in next-intl, non nel mapper). Una label vuota (dato
+ * non comunicato, es. cambio `null`) viene omessa dalle spec.
  */
 export function toCarCardVm(
   summary: AutoSummary,
@@ -143,14 +144,15 @@ export function toCarCardVm(
     // mostrato da solo nel titolo della card.
     model: `${summary.marca} ${summary.modello}`.trim(),
     version: summary.versione,
-    specs: summary.tipo === "nuova"
+    specs: (summary.tipo === "nuova"
       ? [labels.alimentazione, labels.cambio]
       : [
           formatYear(summary.anno, labels.nd),
           formatKmLabel(summary.km, locale, labels.km, labels.nd),
           labels.alimentazione,
           labels.cambio,
-        ],
+        ]
+    ).filter((spec) => spec.length > 0),
     price: {
       now: formatPriceOrRequest(summary.prezzoFinale, locale, labels.priceOnRequest),
       old: hasDiscount ? formatPrice(summary.prezzoListino, locale) : null,

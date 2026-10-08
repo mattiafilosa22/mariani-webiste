@@ -391,41 +391,44 @@ final class AutoPresenter {
 
 	/**
 	 * Normalizza il cambio sull'enum del front-end (cvt trattato come automatico).
+	 * Null se non valorizzato: il front-end omette la voce invece di inventarla.
 	 *
 	 * @param string $value Valore grezzo.
 	 */
-	private function normalize_cambio( string $value ): string {
+	private function normalize_cambio( string $value ): ?string {
 		if ( 'automatico' === $value || 'cvt' === $value ) {
 			return 'automatico';
 		}
 
-		return 'manuale';
+		return 'manuale' === $value ? 'manuale' : null;
 	}
 
 	/**
 	 * Normalizza la trazione sull'enum del front-end (4x4 trattato come integrale).
+	 * Null se non valorizzata: il front-end omette la voce invece di inventarla.
 	 *
 	 * @param string $value Valore grezzo.
 	 */
-	private function normalize_trazione( string $value ): string {
-		if ( 'posteriore' === $value ) {
-			return 'posteriore';
+	private function normalize_trazione( string $value ): ?string {
+		if ( 'anteriore' === $value || 'posteriore' === $value ) {
+			return $value;
 		}
 
 		if ( 'integrale' === $value || '4x4' === $value ) {
 			return 'integrale';
 		}
 
-		return 'anteriore';
+		return null;
 	}
 
 	/**
 	 * Normalizza il colore libero (es. "Grigio Magnetic") sul token canonico.
-	 * Riconosce sia le etichette italiane sia quelle inglesi.
+	 * Riconosce sia le etichette italiane sia quelle inglesi; null se vuoto o
+	 * non riconosciuto (il testo libero resta comunque nelle specifiche).
 	 *
 	 * @param string $value Colore esterno (testo libero).
 	 */
-	private function normalize_colore( string $value ): string {
+	private function normalize_colore( string $value ): ?string {
 		$haystack = strtolower( $value );
 
 		$map = array(
@@ -446,6 +449,6 @@ final class AutoPresenter {
 			}
 		}
 
-		return 'grigio';
+		return null;
 	}
 }

@@ -55,7 +55,7 @@ export async function SchedaView({ auto, all, locale, settings }: SchedaViewProp
     name: vehicleTitle,
     url: pageUrl,
     images: auto.galleria.map((image) => absoluteUrl(image.src)),
-    colorLabel: tSpec(`color.${auto.colore}`),
+    colorLabel: auto.colore ? tSpec(`color.${auto.colore}`) : undefined,
     sellerName: settings.nomeAzienda,
   });
 

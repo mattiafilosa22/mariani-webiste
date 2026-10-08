@@ -45,11 +45,11 @@ Ogni elemento:
 | `sconto` | number (opzionale) | meta `sconto`, incluso solo se > 0 |
 | `prezzoFinale` | number | `promo` se valorizzata, altrimenti `listino − sconto` |
 | `alimentazione` | `benzina\|diesel\|ibrido\|elettrico\|gpl\|metano` | slug termine primario (tax `alimentazione`) |
-| `cambio` | `manuale\|automatico` | meta `cambio` (`cvt` → `automatico`) |
-| `trazione` | `anteriore\|posteriore\|integrale` | meta `trazione` (`4x4` → `integrale`) |
+| `cambio` | `manuale\|automatico\|null` | meta `cambio` (`cvt` → `automatico`; vuoto/non riconosciuto → `null`) |
+| `trazione` | `anteriore\|posteriore\|integrale\|null` | meta `trazione` (`4x4` → `integrale`; vuoto/non riconosciuto → `null`) |
 | `carrozzeria` | string | nome termine primario (tax `carrozzeria`) |
 | `potenzaCv` | int > 0 | meta `potenza_cv` |
-| `colore` | `bianco\|nero\|grigio\|argento\|blu\|rosso\|verde` | normalizzazione del testo libero `colore_esterno` (IT+EN) |
+| `colore` | `bianco\|nero\|grigio\|argento\|blu\|rosso\|verde\|null` | normalizzazione del testo libero `colore_esterno` (IT+EN; vuoto/non riconosciuto → `null`) |
 | `badge` | `(pronta\|promo\|ibrido\|elettrico\|km0\|neopatentati)[]` | derivati dai flag/dati (vedi sotto) |
 | `inEvidenza` | bool | meta `in_evidenza` |
 | `scadenzaOfferta` | string (opzionale) | meta `data_scadenza_offerta`, incluso se non vuoto |
